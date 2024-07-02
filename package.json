@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start:dev": "nodemon server.js",
-    "start:prod": "SET NODE_ENV=production && node server.js"
+    "start": "SET NODE_ENV=production && node server.js"
   },
   "author": "",
   "license": "ISC",
@@ -35,5 +35,10 @@
     "stripe": "^16.0.0",
     "uuid": "^10.0.0",
     "xss-clean": "^0.1.4"
-  }
+  },
+  
+    "engines": {
+      "node":"^20.14.0"
+    }
+  
 }
