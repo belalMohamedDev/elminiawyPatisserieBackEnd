@@ -1,7 +1,8 @@
 const admin = require("firebase-admin");
 
 // eslint-disable-next-line node/no-unpublished-require
-const serviceAccount = require("./serviceAccountKey.json");
+//const serviceAccount = require("./serviceAccountKey.json");
+const serviceAccount = process.env.FIREBASE_SERVICE_ACCOUNT_KEY;
 
 //connect with db
 admin.initializeApp({
