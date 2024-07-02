@@ -1,3 +1,6 @@
+const dotenv = require("dotenv");
+dotenv.config({ path: "config.env" });
+
 const express = require("express");
 const cors = require("cors");
 const rateLimit = require("express-rate-limit");
@@ -5,7 +8,6 @@ const mongoSanitize = require("express-mongo-sanitize");
 const xss = require("xss-clean");
 const compression = require("compression");
 const path = require("path");
-const dotenv = require("dotenv");
 const morgan = require("morgan");
 const dbConnection = require("./config/database");
 const cloudinaryConfig = require("./config/cloudinaryConfig");
@@ -13,7 +15,7 @@ const mountRoutes = require("./routes");
 const ApiError = require("./utils/apiError/apiError");
 const globalError = require("./middleware/errorMiddleware");
 
-dotenv.config({ path: "config.env" });
+
 
 //connect with db
 dbConnection();
