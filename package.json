@@ -1,0 +1,39 @@
+{
+  "name": "elminiawy-patisserie",
+  "version": "1.0.0",
+  "description": "Eastern and Western sweets shop",
+  "main": "index.js",
+  "scripts": {
+    "start:dev": "nodemon server.js",
+    "start:prod": "SET NODE_ENV=production && node server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^9.5.0",
+    "nodemon": "^3.1.4",
+    "prettier": "^3.3.2"
+  },
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "cloudinary": "^2.2.0",
+    "compression": "^1.7.4",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "express-async-handler": "^1.2.0",
+    "express-mongo-sanitize": "^2.2.0",
+    "express-rate-limit": "^7.3.1",
+    "express-validator": "^7.1.0",
+    "firebase-admin": "^12.2.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.4.4",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.5-lts.1",
+    "nodemailer": "^6.9.14",
+    "sharp": "^0.33.4",
+    "stripe": "^16.0.0",
+    "uuid": "^10.0.0",
+    "xss-clean": "^0.1.4"
+  }
+}
