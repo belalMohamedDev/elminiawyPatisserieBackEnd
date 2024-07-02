@@ -25,8 +25,6 @@ dbConnection();
 //connection with cloudinary
 cloudinaryConfig();
 
-
-console.log(process.env.PROJECT_ID)
 //connect with db
 admin.initializeApp({
   credential: admin.credential.cert({
