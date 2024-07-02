@@ -9,6 +9,8 @@ const xss = require("xss-clean");
 const compression = require("compression");
 const path = require("path");
 const morgan = require("morgan");
+const admin = require("firebase-admin");
+
 const dbConnection = require("./config/database");
 const cloudinaryConfig = require("./config/cloudinaryConfig");
 const mountRoutes = require("./routes");
@@ -22,6 +24,25 @@ dbConnection();
 
 //connection with cloudinary
 cloudinaryConfig();
+
+
+console.log(process.env.PROJECT_ID)
+//connect with db
+admin.initializeApp({
+  credential: admin.credential.cert({
+    type: process.env.type,
+    project_id: process.env.PROJECT_ID,
+    private_key_id: process.env.private_key_id,
+    private_key: process.env.PRIVATE_KEY, 
+    client_email: process.env.client_email,
+    client_id: process.env.client_id,
+    auth_uri: process.env.auth_uri,
+    token_uri: process.env.token_uri,
+    auth_provider_x509_cert_url: process.env.auth_provider_x509_cert_url,
+    client_x509_cert_url: process.env.client_x509_cert_url
+  })
+});
+
 
 //express app
 const app = express();
