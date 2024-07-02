@@ -4,8 +4,8 @@
   "description": "Eastern and Western sweets shop",
   "main": "index.js",
   "scripts": {
-    "start:dev": "nodemon server.js",
-    "start:prod": "SET NODE_ENV=production && node server.js"
+    "start:dev": "nodemon index.js",
+    "start": "node index.js"
   },
   
   "author": "",
