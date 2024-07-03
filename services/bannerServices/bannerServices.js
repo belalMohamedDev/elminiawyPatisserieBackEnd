@@ -10,8 +10,7 @@ exports.uploadBannerImage = uploadSingleImage("image");
 // rssize image before upload
 exports.resizeBannerImage = resizeImage("banner");
 
-// upload image in cloud
-exports.uploadImageInCloud = uploadToCloudinary();
+
 
 // @ dec delete photo from cloud using when update
 exports.deleteImageBeforeUpdate = factory.deletePhotoFromCloud(bannerModel);

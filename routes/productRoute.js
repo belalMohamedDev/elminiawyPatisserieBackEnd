@@ -7,7 +7,6 @@ const {
   getAllProduct,
   getSpecificProduct,
   resizeProductImage,
-  uploadImageInCloud,
   uploadProductImage,
   passingDataToReqBody,
 } = require("../services/storeScervice/productsServices/product/productServices");
@@ -81,7 +80,6 @@ router
   .post(
     uploadProductImage,
     resizeProductImage,
-    uploadImageInCloud,
     passingDataToReqBody,
     createProductValidator,
     createNewProduct
@@ -91,7 +89,6 @@ router
   .put(
     uploadProductImage,
     resizeProductImage,
-    uploadImageInCloud,
     passingDataToReqBody,
     updateProductValidator,
     updateProduct

@@ -1,15 +1,13 @@
 
 const asyncHandler = require("express-async-handler");
-const { v4: uuidv4 } = require("uuid");
 const sharp = require("sharp");
 const cloudinary = require("cloudinary").v2;
 const streamifier = require("streamifier");
 
-// image processing
+// image processing and uploading in cloudinary
 const resizeImage = (directorName) =>
   asyncHandler(async (req, res, next) => {
     if (req.file) {
-      const filename = `${directorName}-${uuidv4()}-${Date.now()}`;
       const directorPath = `uploads/${directorName}`;
       
       const buffer = await sharp(req.file.buffer)
@@ -21,9 +19,7 @@ const resizeImage = (directorName) =>
       const uploadStream = cloudinary.uploader.upload_stream(
         {
           folder: directorPath,
-          //public_id: filename,     
-          //use_filename: true,
-          unique_filename: true  
+       
         },
         (error, result) => {
           if (error) {

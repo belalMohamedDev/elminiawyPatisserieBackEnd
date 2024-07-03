@@ -10,8 +10,7 @@ const uploadSubCategoryImage = uploadSingleImage("image");
 // rssize image before upload
 const resizeSubCategoryImage = resizeImage("subCategory");
 
-// upload image in cloud
-const uploadImageInCloud = uploadToCloudinary()
+
 
 
 const setCategoryIdInBody=(req,res,next)=>{
@@ -64,7 +63,6 @@ module.exports = {
   getAllSubCategory,
   getOneSubCategory,
   updateSubCategory,
-  uploadImageInCloud,
   deleteSubCategory,
   uploadSubCategoryImage,
   resizeSubCategoryImage,

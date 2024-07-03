@@ -15,8 +15,7 @@ exports.uploadProductImage = uploadSingleImage("image");
 // resize image before upload
 exports.resizeProductImage = resizeImage("product");
 
-// upload image in cloud
-exports.uploadImageInCloud = uploadToCloudinary();
+
 
 //passing data to body in create
 exports.passingDataToReqBody = (req, res, next) => {

@@ -8,7 +8,6 @@ const {
   deleteSubCategory,
   uploadSubCategoryImage,
   resizeSubCategoryImage,
-  uploadImageInCloud,
   createFilterObject,
   setCategoryIdInBody,
   deleteImageBeforeUpdate
@@ -37,7 +36,6 @@ router
     uploadSubCategoryImage,
     resizeSubCategoryImage,
     setCategoryIdInBody,
-    uploadImageInCloud,
     createSubCatogryValidator,
     creatSubCategory
   )
@@ -50,7 +48,6 @@ router
   .put(
     uploadSubCategoryImage,
     resizeSubCategoryImage,
-    uploadImageInCloud,
     deleteImageBeforeUpdate,
     updateSubCatogryValidator,
     updateSubCategory

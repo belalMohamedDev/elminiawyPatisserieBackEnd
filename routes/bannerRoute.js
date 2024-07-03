@@ -5,7 +5,6 @@ const {
   deleteBanner,
   deleteImageBeforeUpdate,
   getAllbanner,
-  uploadImageInCloud,
   resizeBannerImage,
   uploadBannerImage,
 } = require("../services/bannerServices/bannerServices");
@@ -28,8 +27,7 @@ router
   .post(
     uploadBannerImage,
     resizeBannerImage,
-    uploadImageInCloud,
-   createBannerValidator,
+    createBannerValidator,
     createBanner
   );
 
@@ -38,8 +36,7 @@ router
   .put(
     uploadBannerImage,
     resizeBannerImage,
-    uploadImageInCloud,
-  // updateBannerValidator,
+    updateBannerValidator,
     deleteImageBeforeUpdate,
     UpdateBanner
   )

@@ -2,7 +2,6 @@ const asyncHandler = require("express-async-handler");
 const userModel = require("../../../modules/userModel");
 const {resizeImage} = require("../../../middleware/resizeImage");
 const { uploadSingleImage } = require("../../../middleware/imageUploadMiddleware");
-const { uploadToCloudinary } = require("../../../middleware/cloudinaryMiddleWare");
 
 const factory = require("../../handleFactor/handlerFactory");
 
@@ -13,8 +12,6 @@ const uploadUserImage = uploadSingleImage("image");
 const resizeUserImage = resizeImage("user");
 
 
-// upload image in cloud
-const uploadImageInCloud = uploadToCloudinary();
 
 
 // @ dec creat User
@@ -62,6 +59,5 @@ module.exports = {
   deleteUser,
   uploadUserImage,
   resizeUserImage,
-  uploadImageInCloud,
   addLoggedUserDataInBody
 };

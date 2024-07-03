@@ -7,7 +7,6 @@ const {
   deleteCategory,
   uploadCategoryImage,
   resizeCategoryImage,
-  uploadImageInCloud,
   deleteImageBeforeUpdate,
 } = require('../services/categoryServices/categoryService')
 const authServices = require('../services/authServices/protect')
@@ -47,7 +46,6 @@ router
   .put(
     uploadCategoryImage,
     resizeCategoryImage,
-    uploadImageInCloud,
     updateCatogryValidator,
     deleteImageBeforeUpdate,
     updateCategory,

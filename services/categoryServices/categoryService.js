@@ -12,8 +12,6 @@ const uploadCategoryImage = uploadSingleImage('image')
 // resize image before upload
 const resizeCategoryImage = resizeImage('categories')
 
-// upload image in cloud
-const uploadImageInCloud = uploadToCloudinary()
 
 // @ dec create category
 // @ route Post  /api/vi/category
@@ -53,5 +51,5 @@ module.exports = {
   deleteCategory,
   uploadCategoryImage,
   resizeCategoryImage,
-  uploadImageInCloud,deleteImageBeforeUpdate
+  deleteImageBeforeUpdate
 }
