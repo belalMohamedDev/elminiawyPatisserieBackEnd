@@ -48,8 +48,8 @@ router
   .put(
     uploadCategoryImage,
     resizeCategoryImage,
-    uploadImageInCloud,
     updateCatogryValidator,
+    uploadImageInCloud,
     deleteImageBeforeUpdate,
     updateCategory,
   )

@@ -16,7 +16,7 @@ const {
 } = require("../utils/validators/couponValidator");
 
 const router = express.Router();
-router.use(authServices.protect, authServices.allowedTo("admin","storeOwner"));
+router.use(authServices.protect, authServices.allowedTo("admin"));
 router.route("/").post(createCouponValidator, createCoupon).get(getAllCoupons);
 
 router

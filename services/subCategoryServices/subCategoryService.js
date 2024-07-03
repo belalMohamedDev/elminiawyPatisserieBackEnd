@@ -8,9 +8,10 @@ const { uploadToCloudinary } = require('../../middleware/cloudinaryMiddleWare')
 const uploadSubCategoryImage = uploadSingleImage("image");
 
 // rssize image before upload
-const resizeSubCategoryImage = resizeImage("subCategory");
+const resizeSubCategoryImage = resizeImage();
 
-
+// upload image in cloud
+const uploadImageInCloud = uploadToCloudinary("subCategory")
 
 
 const setCategoryIdInBody=(req,res,next)=>{
@@ -63,6 +64,7 @@ module.exports = {
   getAllSubCategory,
   getOneSubCategory,
   updateSubCategory,
+  uploadImageInCloud,
   deleteSubCategory,
   uploadSubCategoryImage,
   resizeSubCategoryImage,

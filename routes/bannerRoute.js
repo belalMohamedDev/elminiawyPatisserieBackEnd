@@ -5,6 +5,7 @@ const {
   deleteBanner,
   deleteImageBeforeUpdate,
   getAllbanner,
+  uploadImageInCloud,
   resizeBannerImage,
   uploadBannerImage,
 } = require("../services/bannerServices/bannerServices");
@@ -22,14 +23,13 @@ router.route("/").get(getAllbanner);
 
 router.use(authServices.protect, authServices.allowedTo("admin"));
 
-router
-  .route("/")
-  .post(
-    uploadBannerImage,
-    resizeBannerImage,
-    createBannerValidator,
-    createBanner
-  );
+router.route("/").post(
+  uploadBannerImage,
+  resizeBannerImage,
+  createBannerValidator,
+  uploadImageInCloud,
+  createBanner
+);
 
 router
   .route("/:id")
@@ -37,6 +37,8 @@ router
     uploadBannerImage,
     resizeBannerImage,
     updateBannerValidator,
+    uploadImageInCloud,
+
     deleteImageBeforeUpdate,
     UpdateBanner
   )

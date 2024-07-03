@@ -8,9 +8,10 @@ const { uploadToCloudinary } = require("../../middleware/cloudinaryMiddleWare");
 exports.uploadBannerImage = uploadSingleImage("image");
 
 // rssize image before upload
-exports.resizeBannerImage = resizeImage("banner");
+exports.resizeBannerImage = resizeImage();
 
-
+// upload image in cloud
+exports.uploadImageInCloud = uploadToCloudinary("banner");
 
 // @ dec delete photo from cloud using when update
 exports.deleteImageBeforeUpdate = factory.deletePhotoFromCloud(bannerModel);

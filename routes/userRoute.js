@@ -7,6 +7,7 @@ const {
   getLoggedUserData,
 
   deleteUser,
+  uploadImageInCloud,
   uploadUserImage,
   resizeUserImage,
 } = require("../services/user/userServices/UserService");
@@ -68,6 +69,7 @@ router
   .put(
     uploadUserImage,
     resizeUserImage,
+    uploadImageInCloud,
     getLoggedUserData,
     deleteImageBeforeUpdate,
     updateLoggedUserImage
@@ -91,6 +93,7 @@ router
     uploadUserImage,
     resizeUserImage,
     createUserValidator,
+    uploadImageInCloud,
     creatUser
   );
 
@@ -103,6 +106,7 @@ router
     uploadUserImage,
     resizeUserImage,
     updateUserValidator,
+    uploadImageInCloud,
     deleteImageBeforeUpdate,
     updateUser
   )

@@ -13,9 +13,10 @@ const factory = require("../../../handleFactor/handlerFactory");
 exports.uploadProductImage = uploadSingleImage("image");
 
 // resize image before upload
-exports.resizeProductImage = resizeImage("product");
+exports.resizeProductImage = resizeImage();
 
-
+// upload image in cloud
+exports.uploadImageInCloud = uploadToCloudinary("product");
 
 //passing data to body in create
 exports.passingDataToReqBody = (req, res, next) => {
