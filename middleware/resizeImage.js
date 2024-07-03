@@ -21,9 +21,9 @@ const resizeImage = (directorName) =>
       const uploadStream = cloudinary.uploader.upload_stream(
         {
           folder: directorPath,
-          public_id: filename,     
+          //public_id: filename,     
           //use_filename: true,
-          unique_filename: false  
+          //unique_filename: false  
         },
         (error, result) => {
           if (error) {
@@ -43,3 +43,7 @@ const resizeImage = (directorName) =>
   });
 
 module.exports = { resizeImage };
+
+
+
+
