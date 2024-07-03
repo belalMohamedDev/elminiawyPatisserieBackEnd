@@ -8,7 +8,7 @@ const path = require('path')
 const resizeImage = (directorName) => asyncHandler(async (req, res, next) => {
   // create path to image
   const filename = `${directorName}-${uuidv4()}-${Date.now()}.jpeg`
-  const directorPath = path.join(__dirname, 'uploads', directorName)
+  const directorPath = path.join('uploads', directorName)
   const filePath = path.join(directorPath, filename)
 
   // Ensure the directory exists
