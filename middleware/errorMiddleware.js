@@ -31,6 +31,7 @@ const sendErrorForProd = (err, res) =>
     statusCode: err.statusCode,
     status: err.status,
     message: err.message,
+    stack: err.stack,
   })
 
 const sendErrorForDev = (err, res) =>
