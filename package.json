@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start:dev": "nodemon index.js",
-    "start": "node index.js"
+    "start": "node index.js",
+    "prestart": "mkdir -p uploads"
+
   },
   
   "author": "",
