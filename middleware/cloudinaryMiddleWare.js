@@ -1,6 +1,5 @@
 const cloudinary = require("cloudinary").v2;
 const asyncHandler = require("express-async-handler");
-const cloudinary = require("cloudinary").v2;
 const streamifier = require("streamifier");
 
 // Function to delete an image from Cloudinary
