@@ -7,6 +7,7 @@ const {
   deleteCategory,
   uploadCategoryImage,
   resizeCategoryImage,
+  uploadImageInCloud,
   deleteImageBeforeUpdate,
 } = require('../services/categoryServices/categoryService')
 const authServices = require('../services/authServices/protect')
@@ -35,9 +36,10 @@ router.use(authServices.protect, authServices.allowedTo('admin'))
 router
   .route('/')
   .post(
-    createCatogryValidator,
     uploadCategoryImage,
     resizeCategoryImage,
+    createCatogryValidator,
+    uploadImageInCloud,
     creatCategory,
   )
 
@@ -46,6 +48,7 @@ router
   .put(
     uploadCategoryImage,
     resizeCategoryImage,
+    uploadImageInCloud,
     updateCatogryValidator,
     deleteImageBeforeUpdate,
     updateCategory,

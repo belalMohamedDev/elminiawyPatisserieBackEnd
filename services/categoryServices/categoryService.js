@@ -10,8 +10,10 @@ const factory = require('../handleFactor/handlerFactory')
 const uploadCategoryImage = uploadSingleImage('image')
 
 // resize image before upload
-const resizeCategoryImage = resizeImage('categories')
+const resizeCategoryImage = resizeImage()
 
+// upload image in cloud
+const uploadImageInCloud = uploadToCloudinary('categories')
 
 // @ dec create category
 // @ route Post  /api/vi/category
@@ -51,5 +53,5 @@ module.exports = {
   deleteCategory,
   uploadCategoryImage,
   resizeCategoryImage,
-  deleteImageBeforeUpdate
+  uploadImageInCloud,deleteImageBeforeUpdate
 }
