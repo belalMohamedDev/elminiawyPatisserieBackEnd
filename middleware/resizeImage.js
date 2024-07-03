@@ -23,7 +23,7 @@ const resizeImage = (directorName) =>
           folder: directorPath,
           //public_id: filename,     
           //use_filename: true,
-          //unique_filename: false  
+          unique_filename: true  
         },
         (error, result) => {
           if (error) {
