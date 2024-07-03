@@ -35,9 +35,9 @@ router.use(authServices.protect, authServices.allowedTo('admin'))
 router
   .route('/')
   .post(
+    createCatogryValidator,
     uploadCategoryImage,
     resizeCategoryImage,
-    createCatogryValidator,
     creatCategory,
   )
 
