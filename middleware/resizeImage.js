@@ -12,24 +12,32 @@ const resizeImage = (directorName) => asyncHandler(async (req, res, next) => {
   const filePath = path.join(directorPath, filename)
 
   // Ensure the directory exists
-  if (!fs.existsSync(directorPath)) {
-    fs.mkdirSync(directorPath, { recursive: true })
-  }
-
-  if (req.file) {
-    // processing the image before uploading
-    await sharp(req.file.buffer)
-      .resize(600, 600)
-      .toFormat('jpeg')
-      .jpeg({ quality: 90 })
-      .toFile(filePath)
-
-    // save image into our database
-    req.body.image = filename
-    req.body.directorUrl = directorPath
-    req.body.imageUrl = filePath
-  }
-  next()
+  fs.mkdir(directorPath, { recursive: true }, (err) => {
+    if (err) {
+      console.error('Error creating directory:', err)
+    } else {
+      // processing the image before uploading
+      if (req.file) {
+        sharp(req.file.buffer)
+          .resize(600, 600)
+          .toFormat('jpeg')
+          .jpeg({ quality: 90 })
+          .toFile(filePath, (err) => {
+            if (err) {
+              console.error('Error resizing and saving image:', err)
+            } else {
+              // save image into our database
+              req.body.image = filename
+              req.body.directorUrl = directorPath
+              req.body.imageUrl = filePath
+            }
+            next()
+          })
+      } else {
+        next()
+      }
+    }
+  })
 })
 
 module.exports = { resizeImage }
