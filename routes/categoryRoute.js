@@ -38,7 +38,6 @@ router
   .post(
     uploadCategoryImage,
     resizeCategoryImage,
-    uploadImageInCloud,
     createCatogryValidator,
     creatCategory,
   )

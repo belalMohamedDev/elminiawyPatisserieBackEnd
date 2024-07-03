@@ -30,3 +30,6 @@ const uploadListOfImage=(arryOfFields)=> multerOption().fields(arryOfFields);
 
 
   module.exports={uploadSingleImage,uploadListOfImage}
+
+
+

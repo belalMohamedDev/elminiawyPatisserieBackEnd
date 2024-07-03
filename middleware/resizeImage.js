@@ -1,43 +1,45 @@
-const asyncHandler = require('express-async-handler')
-const { v4: uuidv4 } = require('uuid')
-const sharp = require('sharp')
-const fs = require('fs')
-const path = require('path')
+
+const asyncHandler = require("express-async-handler");
+const { v4: uuidv4 } = require("uuid");
+const sharp = require("sharp");
+const cloudinary = require("cloudinary").v2;
+const streamifier = require("streamifier");
 
 // image processing
-const resizeImage = (directorName) => asyncHandler(async (req, res, next) => {
-  // create path to image
-  const filename = `${directorName}-${uuidv4()}-${Date.now()}.jpeg`
-  const directorPath = path.join('uploads', directorName)
-  const filePath = path.join(directorPath, filename)
+const resizeImage = (directorName) =>
+  asyncHandler(async (req, res, next) => {
+    if (req.file) {
+      const filename = `${directorName}-${uuidv4()}-${Date.now()}`;
+      const directorPath = `uploads/${directorName}`;
+      
+      const buffer = await sharp(req.file.buffer)
+        .resize(600, 600)
+        .toFormat("jpeg")
+        .jpeg({ quality: 90 })
+        .toBuffer();
 
-  // Ensure the directory exists
-  fs.mkdir(directorPath, { recursive: true }, (err) => {
-    if (err) {
-      console.error('Error creating directory:', err)
+      const uploadStream = cloudinary.uploader.upload_stream(
+        {
+          folder: directorPath,
+          public_id: filename,     
+          use_filename: true,
+          unique_filename: false  
+        },
+        (error, result) => {
+          if (error) {
+            return next(new Error(`Upload to Cloudinary failed: ${error.message}`));
+          } else {
+            req.body.image = result.secure_url;
+            req.body.publicId = result.public_id;
+            return next();
+          }
+        }
+      );
+
+      streamifier.createReadStream(buffer).pipe(uploadStream);
     } else {
-      // processing the image before uploading
-      if (req.file) {
-        sharp(req.file.buffer)
-          .resize(600, 600)
-          .toFormat('jpeg')
-          .jpeg({ quality: 90 })
-          .toFile(filePath, (err) => {
-            if (err) {
-              console.error('Error resizing and saving image:', err)
-            } else {
-              // save image into our database
-              req.body.image = filename
-              req.body.directorUrl = directorPath
-              req.body.imageUrl = filePath
-            }
-            next()
-          })
-      } else {
-        next()
-      }
+      return next();
     }
-  })
-})
+  });
 
-module.exports = { resizeImage }
+module.exports = { resizeImage };

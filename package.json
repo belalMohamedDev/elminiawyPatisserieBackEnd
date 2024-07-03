@@ -5,14 +5,11 @@
   "main": "index.js",
   "scripts": {
     "start:dev": "nodemon index.js",
-    "start": "node index.js",
-    "prestart": "mkdir -p uploads"
-
+    "start": "node index.js"
   },
-  
   "author": "",
   "engines": {
-    "node":"^20.14.0"
+    "node": "^20.14.0"
   },
   "license": "ISC",
   "devDependencies": {
@@ -38,9 +35,9 @@
     "multer": "^1.4.5-lts.1",
     "nodemailer": "^6.9.14",
     "sharp": "^0.33.4",
+    "streamifier": "^0.1.1",
     "stripe": "^16.0.0",
     "uuid": "^10.0.0",
     "xss-clean": "^0.1.4"
   }
-
 }
