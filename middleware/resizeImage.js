@@ -4,39 +4,32 @@ const sharp = require('sharp')
 const fs = require('fs')
 const path = require('path')
 
-//image processing
-const resizeImage = (directorName) =>
-  asyncHandler(async (req, res, next) => {
-    //create path to image
-    const filename = `${directorName}-${uuidv4()}-${Date.now()}.jpeg`
-    const directorPath = `uploads/${directorName}`
-    const filePath = `${directorPath}/${filename}`
+// image processing
+const resizeImage = (directorName) => asyncHandler(async (req, res, next) => {
+  // create path to image
+  const filename = `${directorName}-${uuidv4()}-${Date.now()}.jpeg`
+  const directorPath = path.join(__dirname, 'uploads', directorName)
+  const filePath = path.join(directorPath, filename)
 
-    // Ensure the directory exists
-    if (!fs.existsSync(path.join('uploads', directorName))) {
-      fs.mkdirSync(path.join('uploads', directorName), { recursive: true })
-    }
+  // Ensure the directory exists
+  if (!fs.existsSync(directorPath)) {
+    fs.mkdirSync(directorPath, { recursive: true })
+  }
 
-    if (req.file) {
-      //processing in image before uploade
+  if (req.file) {
+    // processing the image before uploading
+    await sharp(req.file.buffer)
+      .resize(600, 600)
+      .toFormat('jpeg')
+      .jpeg({ quality: 90 })
+      .toFile(filePath)
 
-      await sharp(req.file.buffer)
-        .resize(600, 600)
-        .toFormat('jpeg')
-        .jpeg({ quality: 90 })
-        .toFile(filePath)
+    // save image into our database
+    req.body.image = filename
+    req.body.directorUrl = directorPath
+    req.body.imageUrl = filePath
+  }
+  next()
+})
 
-      //save image into our database
-      req.body.image = filename
-      // req.body.image = filename;
-      req.body.directorUrl = directorPath
-      req.body.imageUrl = filePath
-    }
-    next()
-  })
-
-
-
-
-
-module.exports = {  resizeImage }
+module.exports = { resizeImage }
