@@ -1,6 +1,7 @@
 const asyncHandler = require("express-async-handler");
 const i18n = require("i18n");
 
+const redis = require("../../config/redisConnection");
 const ApiError = require("../../utils/apiError/apiError");
 const ApiFeatures = require("../../utils/apiFeatures/apiFeatures");
 
@@ -40,6 +41,13 @@ const getAllData = (model, modelName) =>
       filter = req.filterObject;
     }
 
+    // Check Redis cache first
+    const cacheKey = `${modelName}-${JSON.stringify(req.headers["lang"] || "en")}`;
+    const cachedData = await redis.get(cacheKey);
+    if (cachedData) {
+      return res.status(200).json(JSON.parse(cachedData));
+    }
+
     //build query
     const countDocuments = await model.countDocuments();
     const apiFeatures = new ApiFeatures(model.find(filter), req.query)
@@ -66,6 +74,19 @@ const getAllData = (model, modelName) =>
         message: i18n.__("ThereIsNoDataEntryForThis") + i18n.__(modelName),
       });
     }
+
+    // Cache the response for one day (86400 seconds)
+    await redis.set(
+      cacheKey,
+      JSON.stringify({
+        status: true,
+        message: i18n.__("SuccessToGetAllDataFor") + i18n.__(modelName),
+        paginationRuslt,
+        data: localizedDocument,
+      }),
+      "EX",
+      86400
+    ); // Cache for 1 day
 
     // send success response with data
     res.status(200).json({
@@ -237,7 +258,6 @@ const removeOneFromList = (model, modelName, itemAttribute) =>
       req.headers["lang"] || "en"
     );
 
-
     //send success respons
     res.status(200).json({
       status: true,
@@ -280,7 +300,6 @@ const addOneToList = (model, modelName, itemAttribute) =>
       req.headers["lang"] || "en"
     );
 
-
     //send success respons
     res.status(200).json({
       status: true,
@@ -316,7 +335,6 @@ const getAllDataFromList = (model, modelName, itemAttribute) =>
       req.headers["lang"] || "en"
     );
 
-
     //check when no data found in db
     if (!document[0]) {
       // send success response
@@ -329,7 +347,7 @@ const getAllDataFromList = (model, modelName, itemAttribute) =>
     // send success response with data
     res.status(200).json({
       status: true,
-      message:i18n.__("SuccessToGetAllDataFor") + i18n.__(modelName),
+      message: i18n.__("SuccessToGetAllDataFor") + i18n.__(modelName),
       paginationRuslt,
       data: localizedDocument,
     });
