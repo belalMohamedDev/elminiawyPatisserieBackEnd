@@ -10,14 +10,13 @@ const compression = require("compression");
 const path = require("path");
 const morgan = require("morgan");
 const admin = require("firebase-admin");
+const i18n = require("i18n");
 
 const dbConnection = require("./config/database");
 const cloudinaryConfig = require("./config/cloudinaryConfig");
 const mountRoutes = require("./routes");
 const ApiError = require("./utils/apiError/apiError");
 const globalError = require("./middleware/errorMiddleware");
-
-
 
 //connect with db
 dbConnection();
@@ -31,26 +30,49 @@ admin.initializeApp({
     type: process.env.type,
     project_id: process.env.PROJECT_ID,
     private_key_id: process.env.private_key_id,
-    private_key: process.env.PRIVATE_KEY, 
+    private_key: process.env.PRIVATE_KEY,
     client_email: process.env.client_email,
     client_id: process.env.client_id,
     auth_uri: process.env.auth_uri,
     token_uri: process.env.token_uri,
     auth_provider_x509_cert_url: process.env.auth_provider_x509_cert_url,
-    client_x509_cert_url: process.env.client_x509_cert_url
-  })
+    client_x509_cert_url: process.env.client_x509_cert_url,
+  }),
 });
-
 
 //express app
 const app = express();
 
+//i18n configure language
+i18n.configure({
+  locales: ["en", "ar"],
+  directory: path.join(__dirname, "locales"),
+  defaultLocale: "en",
+  queryParameter: "lang",
+  autoReload: true,
+  syncFiles: true,
+  objectNotation: true,
+});
+
+// Initialize i18n after configuration
+app.use(i18n.init);
+
+// Middleware to set user language
+app.use((req, res, next) => {
+  const userLanguage = req.headers["lang"] || "en";
+
+  i18n.setLocale(userLanguage);
+
+  next();
+});
+
 //Enable other domains to access your application
 app.use(cors());
+
 app.options("*", cors());
 
 // compress all responses
-app.use(compression())
+app.use(compression());
 
 //Middleware
 // for parsing application/json

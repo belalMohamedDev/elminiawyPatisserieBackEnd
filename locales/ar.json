@@ -1,0 +1,24 @@
+{
+	"categoryTitleEnglishRequired": "يجب إدخال العنوان باللغة الإنجليزية",
+	"categoryTitleArabicRequired": "يجب إدخال العنوان باللغة العربية",
+	"englishTitleLength": "يجب أن يتراوح طول العنوان الإنجليزي بين 3 و300 حرف",
+	"arabicTitleLength": "يجب أن يتراوح طول العنوان العربي بين 3 و300 حرف",
+	"InvalidCategoryIdFormat": "تنسيق معرف الفئة غير صالح",
+	"ThereIsNoDataEntryForThis": "لا يوجد إدخال بيانات لهذا",
+	"SuccessToGetAllDataFor": "تم النجاح في الحصول على كافة البيانات الخاصة ب",
+	"CategoryMustBeUnique": "الفئة يجب أن تكون فريدة",
+	"categories": "الفئات",
+	"Successful %s creation": "تم إنشاء %s بنجاح",
+      "failedToGetDataById":"IDفشل فى الحصول على بيانات هذاال" ,
+      "failedToUpdateDataById":"IDفشل فى التعديل على بيانات هذاال" ,
+      "failedToDeleteDataById":"IDفشل فى حذف على بيانات هذاال" ,
+      "SucessToGetDataFromThisId":"IDتم النجاح فى الحصول على بيانات هذاال",
+      "SucessToUpdateDataFromThisId":"IDتم التعديل بنجاح على بيانات هذاال",
+      "SucessToDeleteDataFromThisId":"IDتم الحذف بنجاح على بيانات هذاال",
+      "SucessToAddData":"تم اضافة الداتا بنجاح",
+      "SucessToRemoveData":"تم حذف الداتا بنجاح",
+      "User": "يوزر"
+
+
+
+}

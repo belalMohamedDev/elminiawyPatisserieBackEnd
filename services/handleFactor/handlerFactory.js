@@ -1,24 +1,31 @@
-const asyncHandler = require('express-async-handler')
-const ApiError = require('../../utils/apiError/apiError')
-const ApiFeatures = require('../../utils/apiFeatures/apiFeatures')
+const asyncHandler = require("express-async-handler");
+const i18n = require("i18n");
+
+const ApiError = require("../../utils/apiError/apiError");
+const ApiFeatures = require("../../utils/apiFeatures/apiFeatures");
 
 const {
   deleteImageFromCloudinary,
-} = require('../../middleware/cloudinaryMiddleWare')
+} = require("../../middleware/cloudinaryMiddleWare");
 
 //@dec this function used to  create in mongo db
 const creatOne = (model, modelName) =>
   asyncHandler(async (req, res) => {
     //this code to create
-    const document = await model.create(req.body)
+    const document = await model.create(req.body);
+
+    var localizedDocument = model.schema.methods.toJSONLocalizedOnly(
+      document,
+      req.headers["lang"] || "en"
+    );
 
     //send success response
     res.status(201).json({
       status: true,
-      message: `Successful ${modelName} creation`,
-      data: document,
-    })
-  })
+      message: i18n.__("Successful %s creation", i18n.__(modelName)),
+      data: localizedDocument,
+    });
+  });
 
 /////////////////////////////////////////////////////////////
 ////////////////////////////////
@@ -28,41 +35,46 @@ const creatOne = (model, modelName) =>
 const getAllData = (model, modelName) =>
   asyncHandler(async (req, res) => {
     //this code get all data
-    let filter = {}
+    let filter = {};
     if (req.filterObject) {
-      filter = req.filterObject
+      filter = req.filterObject;
     }
 
     //build query
-    const countDocuments = await model.countDocuments()
+    const countDocuments = await model.countDocuments();
     const apiFeatures = new ApiFeatures(model.find(filter), req.query)
       .pagination(countDocuments)
       .filter()
       .search()
       .limitfields()
-      .sort()
+      .sort();
 
     // Execute query
-    const { mongooseQuery, paginationRuslt } = apiFeatures
-    const document = await mongooseQuery
+    const { mongooseQuery, paginationRuslt } = apiFeatures;
+    const document = await mongooseQuery;
+
+    var localizedDocument = model.schema.methods.toJSONLocalizedOnly(
+      document,
+      req.headers["lang"] || "en"
+    );
 
     //check when no data found in db
     if (!document[0]) {
       // send success response
       return res.status(200).json({
         status: true,
-        message: `There is no data entry for this ${modelName} `,
-      })
+        message: i18n.__("ThereIsNoDataEntryForThis") + i18n.__(modelName),
+      });
     }
 
     // send success response with data
     res.status(200).json({
       status: true,
-      message: `Sucess To get all ${modelName} data`,
+      message: i18n.__("SuccessToGetAllDataFor") + i18n.__(modelName),
       paginationRuslt,
-      data: document,
-    })
-  })
+      data: localizedDocument,
+    });
+  });
 
 /////////////////////////////////////////////////////////////
 ////////////////////////////////
@@ -71,23 +83,30 @@ const getAllData = (model, modelName) =>
 //@dec this function used to  get one data from mongo db
 const getOne = (model, modelName) =>
   asyncHandler(async (req, res, next) => {
-    const { id } = req.params
+    const { id } = req.params;
     //this code get one data from db using id
-    const document = await model.findById(id)
+    const document = await model.findById(id);
+
     //check found data or no
     if (!document) {
       //send faild response
       return next(
-        new ApiError(`Faild To get ${modelName} data from this id ${id}`, 404),
-      )
+        new ApiError(i18n.__("failedToGetDataById", i18n.__(modelName)), 404)
+      );
     }
+
+    var localizedDocument = model.schema.methods.toJSONLocalizedOnly(
+      document,
+      req.headers["lang"] || "en"
+    );
+
     //send success respons
     res.status(200).json({
       status: true,
-      message: `Sucess To get ${modelName} data from this id`,
-      data: document,
-    })
-  })
+      message: i18n.__("SucessToGetDataFromThisId"),
+      data: localizedDocument,
+    });
+  });
 
 /////////////////////////////////////////////////////////////
 ////////////////////////////////
@@ -95,50 +114,56 @@ const getOne = (model, modelName) =>
 
 const deletePhotoFromCloud = (model) =>
   asyncHandler(async (req, res, next) => {
-    const { id } = req.params
-    const document = await model.findById({ _id: id })
+    const { id } = req.params;
+    const document = await model.findById({ _id: id });
 
     //check found data or no
     if (!document) {
       //send faild response
+
       return next(
-        new ApiError(`Faild To get User data from this id ${id}`, 404),
-      )
+        new ApiError(i18n.__("failedToGetDataById", i18n.__("User")), 404)
+      );
     }
 
     //delete old image
     if (req.body.image) {
-      deleteImageFromCloudinary(document.publicId)
-    } 
-    next()
-  })
+      deleteImageFromCloudinary(document.publicId);
+    }
+    next();
+  });
 
 //@dec this function used to  update  data from mongo db
 const updateOne = (model, modelName) =>
   asyncHandler(async (req, res, next) => {
-    const { id } = req.params
+    const { id } = req.params;
 
     //this code update data from db using id
     const document = await model.findOneAndUpdate({ _id: id }, req.body, {
       new: true,
       runValidators: true,
-    })
+    });
 
     //check found data or no
     if (!document) {
       //send faild response
       return next(
-        new ApiError(`Faild To get ${modelName} data from this id ${id}`, 404),
-      )
+        new ApiError(i18n.__("failedToUpdateDataById", i18n.__(modelName)), 404)
+      );
     }
+
+    var localizedDocument = model.schema.methods.toJSONLocalizedOnly(
+      document,
+      req.headers["lang"] || "en"
+    );
 
     //send success respons
     res.status(200).json({
       status: true,
-      message: `Sucess To Update ${modelName} data from this id`,
-      data: document,
-    })
-  })
+      message: i18n.__("SucessToUpdateDataFromThisId"),
+      data: localizedDocument,
+    });
+  });
 
 /////////////////////////////////////////////////////////////
 ////////////////////////////////
@@ -147,28 +172,25 @@ const updateOne = (model, modelName) =>
 //@dec this function used to  delete one  data from mongo db
 const deleteOne = (model, modelName) =>
   asyncHandler(async (req, res, next) => {
-    const { id } = req.params
-    const directorPath = `uploads/${modelName}`
+    const { id } = req.params;
+    const directorPath = `uploads/${modelName}`;
 
     //this code delete data from db using id
-    const document = await model.findByIdAndDelete({ _id: id })
+    const document = await model.findByIdAndDelete({ _id: id });
 
     //check found data or no
     if (!document) {
       //send faild response
       return next(
-        new ApiError(
-          `Faild To Delete ${modelName} data from this id ${id}`,
-          404,
-        ),
-      )
+        new ApiError(i18n.__("failedToDeleteDataById", i18n.__(modelName)), 404)
+      );
     }
 
-    req.body.directorUrl = directorPath
+    req.body.directorUrl = directorPath;
 
     if (document.image) {
       //delete old image
-      deleteImageFromCloudinary(document.publicId)
+      deleteImageFromCloudinary(document.publicId);
     }
 
     await document.deleteOne();
@@ -176,58 +198,62 @@ const deleteOne = (model, modelName) =>
     //send success respons
     res.status(200).json({
       status: true,
-      message: `Sucess To Delete ${modelName} data from this id`,
-    })
-  })
+      message: i18n.__("SucessToDeleteDataFromThisId"),
+    });
+  });
 
-  /////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////
 ////////////////////////////////
 /////////////////////////////////////////////////////////////////
 
 //@dec this function used to  remove data from list into database
-const removeOneFromList = (model, modelName,itemAttribute) =>
+const removeOneFromList = (model, modelName, itemAttribute) =>
   asyncHandler(async (req, res, next) => {
-    const { id } = req.params
+    const { id } = req.params;
 
     //this code update data from db using id
     const document = await model.findOneAndUpdate(
       { _id: id },
       {
         $pull: {
-          [itemAttribute]: { _id: req.body.id},
-        
+          [itemAttribute]: { _id: req.body.id },
         },
       },
       {
         new: true,
       }
-    )
+    );
 
     //check found data or no
     if (!document) {
       //send faild response
       return next(
-        new ApiError(`Faild To get ${modelName} data from this id ${id}`, 404),
-      )
+        new ApiError(i18n.__("failedToGetDataById", i18n.__(modelName)), 404)
+      );
     }
+
+    var localizedDocument = model.schema.methods.toJSONLocalizedOnly(
+      document,
+      req.headers["lang"] || "en"
+    );
+
 
     //send success respons
     res.status(200).json({
       status: true,
-      message: `Sucess To add ${modelName} data `,
-      data: document,
-    })
-  })
-
+      message: i18n.__("SucessToRemoveData"),
+      data: localizedDocument,
+    });
+  });
 
 /////////////////////////////////////////////////////////////
 ////////////////////////////////
 /////////////////////////////////////////////////////////////////
 
 //@dec this function used to  add new  data to list into database
-const addOneToList = (model, modelName,itemAttribute) =>
+const addOneToList = (model, modelName, itemAttribute) =>
   asyncHandler(async (req, res, next) => {
-    const { id } = req.params
+    const { id } = req.params;
     //this code update data from db using id
     const document = await model.findOneAndUpdate(
       { _id: id },
@@ -239,61 +265,75 @@ const addOneToList = (model, modelName,itemAttribute) =>
       {
         new: true,
       }
-    )
+    );
 
     //check found data or no
     if (!document) {
       //send faild response
       return next(
-        new ApiError(`Faild To get ${modelName} data from this id ${id}`, 404),
-      )
+        new ApiError(i18n.__("failedToGetDataById", i18n.__(modelName)), 404)
+      );
     }
+
+    var localizedDocument = model.schema.methods.toJSONLocalizedOnly(
+      document,
+      req.headers["lang"] || "en"
+    );
+
 
     //send success respons
     res.status(200).json({
       status: true,
-      message: `Sucess To add ${modelName} data `,
-      data: document,
-    })
-  })
+      message: i18n.__("SucessToAddData"),
+      data: localizedDocument,
+    });
+  });
 
-
-  //@dec this function used to  get all data from mongo db
-const getAllDataFromList = (model, modelName,itemAttribute) =>
+//@dec this function used to  get all data from mongo db
+const getAllDataFromList = (model, modelName, itemAttribute) =>
   asyncHandler(async (req, res) => {
     //this code get all data
-    const { id } = req.params
-   
+    const { id } = req.params;
+
     //build query
-    const countDocuments = await model.countDocuments()
-    const apiFeatures = new ApiFeatures(model.find( {_id: id}, itemAttribute), req.query)
+    const countDocuments = await model.countDocuments();
+    const apiFeatures = new ApiFeatures(
+      model.find({ _id: id }, itemAttribute),
+      req.query
+    )
       .pagination(countDocuments)
       .filter()
       .search()
       .limitfields()
-      .sort()
+      .sort();
 
     // Execute query
-    const { mongooseQuery, paginationRuslt } = apiFeatures
-    const document = await mongooseQuery
+    const { mongooseQuery, paginationRuslt } = apiFeatures;
+    const document = await mongooseQuery;
+
+    var localizedDocument = model.schema.methods.toJSONLocalizedOnly(
+      document,
+      req.headers["lang"] || "en"
+    );
+
 
     //check when no data found in db
     if (!document[0]) {
       // send success response
       return res.status(200).json({
         status: true,
-        message: `There is no data entry for this ${modelName} `,
-      })
+        message: i18n.__("ThereIsNoDataEntryForThis") + i18n.__(modelName),
+      });
     }
 
     // send success response with data
     res.status(200).json({
       status: true,
-      message: `Sucess To get all ${modelName} data`,
+      message:i18n.__("SuccessToGetAllDataFor") + i18n.__(modelName),
       paginationRuslt,
-      data: document,
-    })
-  })
+      data: localizedDocument,
+    });
+  });
 
 module.exports = {
   creatOne,
@@ -304,5 +344,5 @@ module.exports = {
   deletePhotoFromCloud,
   addOneToList,
   removeOneFromList,
-  getAllDataFromList
-}
+  getAllDataFromList,
+};

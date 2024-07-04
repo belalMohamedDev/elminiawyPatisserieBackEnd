@@ -1,0 +1,22 @@
+{
+	"categoryTitleEnglishRequired": "English Category title is required",
+	"categoryTitleArabicRequired": "Arabic Category titles are required",
+	"englishTitleLength": "English title should be between 3 and 300 characters",
+	"arabicTitleLength": "Arabic title should be between 3 and 300 characters",
+	"InvalidCategoryIdFormat": "Invalid Catogry id format",
+	"ThereIsNoDataEntryForThis": "There is no data entry for this",
+	"SuccessToGetAllDataFor": "Success to get all data for ",
+	"SucessToGetDataFromThisId": "Sucess To get data from this id",
+	"SucessToUpdateDataFromThisId": "Sucess To Update data from this id",
+	"SucessToDeleteDataFromThisId": "Sucess To Delete data from this id",
+	"successfulCreation": "Successful %s creation",
+	"categories": "categories",
+	"CategoryMustBeUnique": "Category must be unique",
+	"Successful %s creation": "Successful %s creation",
+	"failedToGetDataById": "Failed to get %s data from this id",
+	"failedToUpdateDataById": "Failed to update %s data from this id",
+	"failedToDeleteDataById": "Failed to Delete %s data from this id",
+  "SucessToAddData":"Sucess To add data",
+  "SucessToRemoveData":"Sucess To Remove data",
+	"User": "User"
+}

@@ -1,21 +1,27 @@
-const mongoose = require('mongoose')
+const mongoose = require("mongoose");
+var mongooseI18n = require("mongoose-i18n-localize");
 
 const categorySchema = new mongoose.Schema(
   {
     title: {
       type: String,
       trim: true,
-      unique: [true, 'Category must be uniqe'],
-      required: [true, 'Category is required'],
-      minlength: [3, 'Too short category title'],
-      maxlength: [300, 'Too long category title'],
+      i18n: true,
+      unique: [true, "Category must be uniqe"],
+      required: [true, "Category is required"],
+      minlength: [3, "Too short category title"],
+      maxlength: [300, "Too long category title"],
     },
     image: String,
     publicId: String,
   },
-  { timestamps: true },
-)
+  { timestamps: true }
+);
 
-const categoryModel = mongoose.model('Category', categorySchema)
+categorySchema.plugin(mongooseI18n, {
+  locales: ["en", "ar"],
+});
 
-module.exports = categoryModel
+const categoryModel = mongoose.model("Category", categorySchema);
+
+module.exports = categoryModel;
