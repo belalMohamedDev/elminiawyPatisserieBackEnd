@@ -13,11 +13,13 @@ const admin = require("firebase-admin");
 const i18n = require("i18n");
 
 const dbConnection = require("./config/database");
-const redisClient = require("./config/redisConnection");
 const cloudinaryConfig = require("./config/cloudinaryConfig");
 const mountRoutes = require("./routes");
 const ApiError = require("./utils/apiError/apiError");
 const globalError = require("./middleware/errorMiddleware");
+
+const redisClient = require("./config/redisConnection");
+
 
 //connect with db
 dbConnection();
