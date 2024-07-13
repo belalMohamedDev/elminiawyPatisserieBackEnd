@@ -9,15 +9,41 @@
 	"CategoryMustBeUnique": "الفئة يجب أن تكون فريدة",
 	"categories": "الفئات",
 	"Successful %s creation": "تم إنشاء %s بنجاح",
-      "failedToGetDataById":"IDفشل فى الحصول على بيانات هذاال" ,
-      "failedToUpdateDataById":"IDفشل فى التعديل على بيانات هذاال" ,
-      "failedToDeleteDataById":"IDفشل فى حذف على بيانات هذاال" ,
-      "SucessToGetDataFromThisId":"IDتم النجاح فى الحصول على بيانات هذاال",
-      "SucessToUpdateDataFromThisId":"IDتم التعديل بنجاح على بيانات هذاال",
-      "SucessToDeleteDataFromThisId":"IDتم الحذف بنجاح على بيانات هذاال",
-      "SucessToAddData":"تم اضافة الداتا بنجاح",
-      "SucessToRemoveData":"تم حذف الداتا بنجاح",
-      "User": "يوزر"
+    "failedToGetDataById":"IDفشل فى الحصول على بيانات هذاال" ,
+    "failedToUpdateDataById":"IDفشل فى التعديل على بيانات هذاال" ,
+    "failedToDeleteDataById":"IDفشل فى حذف على بيانات هذاال" ,
+    "SucessToGetDataFromThisId":"IDتم النجاح فى الحصول على بيانات هذاال",
+    "SucessToUpdateDataFromThisId":"IDتم التعديل بنجاح على بيانات هذاال",
+    "SucessToDeleteDataFromThisId":"IDتم الحذف بنجاح على بيانات هذاال",
+    "SucessToAddData":"تم اضافة الداتا بنجاح",
+    "SucessToRemoveData":"تم حذف الداتا بنجاح",
+    "User": "يوزر",
+	"invalidToken": "رمز غير صالح، يرجى تسجيل الدخول مرة أخرى.",
+	"incorrectEmailOrPassword": "البريد الإلكتروني أو كلمة المرور غير صحيحة",
+	"successfulLoginIntoTheApp": "تسجيل دخول ناجح إلى التطبيق",
+	"tokenExpired": "انتهت صلاحية الرمز، يرجى تسجيل الدخول مرة أخرى.",
+	"noUserHasThisEmail": "لا يوجد مستخدم لديه هذا البريد الإلكتروني",
+	"ErrorSendingEmail": "حدث خطأ أثناء إرسال البريد الإلكتروني",
+	"sendRestCodeEmail": "إرسال رمز الاسترداد إلى البريد الإلكتروني",
+	"InvalidOrExpired": "رمز الاسترداد غير صالح أو منتهي الصلاحية",
+	"verifiedSuccessfully": "تم التحقق من الحساب بنجاح",
+	"restCodeVerified": "لم يتم التحقق من رمز",
+	"successfullyUpdatingPassword ": "تم تحديث كلمة المرور للحساب بنجاح",
+	"refreshTokeRequired": "مطلوب رمز التحديث'",
+	"invalidRefreshToken": "رمز التحديث غير صالح",
+	"loggedOutSuccessfully ": "تم تسجيل الخروج بنجاح",
+	"successCreateAccessToken": "النجاح في إنشاء رمز الوصول",
+
+	
+	"notLoggedIn": "لم تقم بتسجيل الدخول، يرجى تسجيل الدخول للوصول إلى هذا المسار",
+	"tokenLongerExists": "لم يعد المستخدم الذي ينتمي إلى هذا الرمز موجودًا",
+	"accountInactive": "هذا الحساب غير نشط، يرجى الانتقال إلى الحساب المنشط باستخدام تسجيل الدخول",
+	"userRecentlyChangedPassword": "قام المستخدم مؤخرًا بتغيير كلمة المرور الخاصة به، يرجى تسجيل الدخول مرة أخرى",
+	"notAllowedAccessRoute": "لا يُسمح لك بالوصول إلى هذا المسار",
+	"userSuccessfullySignedUp": "تم تسجيل المستخدم بنجاح"
+
+
+
 
 
 

@@ -1,5 +1,7 @@
 const asyncHandler = require('express-async-handler')
 const jwt = require('jsonwebtoken')
+const i18n = require("i18n");
+
 const ApiError = require('../../utils/apiError/apiError')
 const userModel = require('../../modules/userModel')
 const creatToken = require('../../utils/generate token/createToken')
@@ -10,7 +12,7 @@ const creatToken = require('../../utils/generate token/createToken')
 exports.newAccessToken = asyncHandler(async (req, res, next) => {
   const { refreshToken } = req.body
   if (!refreshToken) {
-    return next(new ApiError('Refresh Token is required', 400))
+    return next(new ApiError(i18n.__("refreshTokeRequired"), 400));
   }
 
   const decoded = jwt.verify(
@@ -21,7 +23,7 @@ exports.newAccessToken = asyncHandler(async (req, res, next) => {
   const user = await userModel.findById(decoded.userId)
 
   if (!user || user.refreshToken !== refreshToken) {
-    return next(new ApiError('Invalid Refresh Token', 400))
+    return next(new ApiError(i18n.__("invalidRefreshToken"), 400));
   }
 
   const accessToken = creatToken(
@@ -32,7 +34,7 @@ exports.newAccessToken = asyncHandler(async (req, res, next) => {
 
   res.status(201).json({
     status: true,
-    message: `success to create access token`,
+    message: i18n.__("successCreateAccessToken"),
     accessToken: accessToken,
-  })
+  });
 })

@@ -1,5 +1,7 @@
 const asyncHandler = require("express-async-handler");
 const bcrypt = require("bcrypt");
+const i18n = require("i18n");
+
 const ApiError = require("../../utils/apiError/apiError");
 const userModel = require("../../modules/userModel");
 const creatToken = require("../../utils/generate token/createToken");
@@ -18,7 +20,7 @@ exports.login = asyncHandler(async (req, res, next) => {
     !document ||
     !(await bcrypt.compare(req.body.password, document.password))
   ) {
-    return next(new ApiError("Incorrect email or password.", 400));
+    return next(new ApiError(i18n.__("incorrectEmailOrPassword"), 400));
   }
 
   //generate token
@@ -39,7 +41,7 @@ exports.login = asyncHandler(async (req, res, next) => {
   //send success response to client side
   res.status(201).json({
     status: true,
-    message: `Successful login into the app for the ${document.role}`,
+    message: i18n.__("successfulLoginIntoTheApp"),
     accessToken: accessToken,
     data: sanitizeUser(document),
   });

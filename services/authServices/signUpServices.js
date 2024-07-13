@@ -1,4 +1,5 @@
 const asyncHandler = require("express-async-handler");
+const i18n = require("i18n");
 
 const userModel = require("../../modules/userModel");
 
@@ -36,7 +37,7 @@ exports.signUp = asyncHandler(async (req, res, next) => {
   //send success response
   res.status(201).json({
     status: true,
-    message: `User successfully signed up`,
+    message: i18n.__("userSuccessfullySignedUp"),
     accessToken: accessToken,
     data: sanitizeUser(document),
   });

@@ -1,29 +1,30 @@
-const asyncHandler = require('express-async-handler')
+const asyncHandler = require("express-async-handler");
+const i18n = require("i18n");
 
-const ApiError = require('../../utils/apiError/apiError')
-const userModel = require('../../modules/userModel')
+const ApiError = require("../../utils/apiError/apiError");
+const userModel = require("../../modules/userModel");
 
 // @ dec log out
 // @ route Post  /api/vi/auth/logout
 // @ access Public
 exports.logOut = asyncHandler(async (req, res, next) => {
-  const { refreshToken } = req.body
+  const { refreshToken } = req.body;
   if (!refreshToken) {
-    return next(new ApiError('Refresh Token is required', 400))
+    return next(new ApiError(i18n.__("refreshTokeRequired"), 400));
   }
 
   const user = await userModel.findOneAndUpdate(
-    { refreshToken },
+    // { refreshToken },
+    { _id: req.userModel._id },
     { refreshToken: null },
-    { new: true },
-  )
+    { new: true }
+  );
   if (!user) {
-    return next(new ApiError('Invalid Refresh Token', 400))
+    return next(new ApiError(i18n.__("invalidRefreshToken"), 400));
   }
-
 
   res.status(201).json({
     status: true,
-    message: `Logged out successfully`,
-  })
-})
+    message: i18n.__("loggedOutSuccessfully"),
+  });
+});

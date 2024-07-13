@@ -1,5 +1,7 @@
 const asyncHandler = require('express-async-handler')
 const jwt = require('jsonwebtoken')
+const i18n = require("i18n");
+
 const ApiError = require('../../utils/apiError/apiError')
 const userModel = require('../../modules/userModel')
 
@@ -18,12 +20,7 @@ exports.protect = asyncHandler(async (req, res, next) => {
 
 
   if (!accessToken) {
-    return next(
-      new ApiError(
-        'You are not logged in, please log in to access this route',
-        422,
-      ),
-    )
+    return next(new ApiError(i18n.__("notLoggedIn"), 422));
   }
 
 
@@ -36,19 +33,12 @@ exports.protect = asyncHandler(async (req, res, next) => {
   //check  if user exists
   const currentUser = await userModel.findById(decoded.userId)
   if (!currentUser) {
-    return next(
-      new ApiError('The user belonging to this token no longer exists', 422),
-    )
+    return next(new ApiError(i18n.__("tokenLongerExists"), 422));
   }
 
   //check user active or no
   if (currentUser.active === false) {
-    return next(
-      new ApiError(
-        'This account is inactive, please go to the activated account with login',
-        422,
-      ),
-    )
+    return next(new ApiError(i18n.__("accountInactive"), 422));
   }
   // check if user change his password after token created
   if (currentUser.passwordChangedAt) {
@@ -59,12 +49,7 @@ exports.protect = asyncHandler(async (req, res, next) => {
 
     // password changed after token created (error)
     if (passwordChangedTimeStamp > decoded.iat) {
-      return next(
-        new ApiError(
-          'The user recently changed his password, please log in again....',
-          422,
-        ),
-      )
+      return next(new ApiError(i18n.__("userRecentlyChangedPassword"), 422));
     }
   }
 
@@ -85,7 +70,7 @@ exports.allowedTo = (...roles) =>
     //access register user
     //check roles equal role with user
     if (!roles.includes(req.userModel.role)) {
-      return next(new ApiError('you are not allowed to access this route', 403))
+      return next(new ApiError(i18n.__("notAllowedAccessRoute"), 403));
     }
 
     next()

@@ -1,5 +1,6 @@
 const asyncHandler = require("express-async-handler");
 const crypto = require("crypto");
+const i18n = require("i18n");
 const ApiError = require("../../utils/apiError/apiError");
 const userModel = require("../../modules/userModel");
 const sendEmail = require("../../utils/sendEmail/sendEmail");
@@ -20,7 +21,7 @@ const forgetPassword = asyncHandler(async (req, res, next) => {
   const document = await userModel.findOne({ email: req.body.email });
 
   if (!document) {
-    return next(new ApiError(`No user has this email ${req.body.email}`, 404));
+    return next(new ApiError(i18n.__("noUserHasThisEmail"), 404));
   }
 
   // if user exist ,generate hash random 6 digits and save it in db
@@ -79,13 +80,13 @@ const forgetPassword = asyncHandler(async (req, res, next) => {
     document.passwordRestVerified = undefined;
 
     await document.save();
-    return next(new ApiError("There was an error sending the email", 409));
+    return next(new ApiError(i18n.__("ErrorSendingEmail"), 409));
   }
 
   //send success response to client side
   res.status(201).json({
     status: true,
-    message: `send rest code to email`,
+    message: i18n.__("sendRestCodeEmail"),
   });
 });
 
@@ -110,7 +111,7 @@ const verifyCode = asyncHandler(async (req, res, next) => {
   });
 
   if (!document) {
-    return next(new ApiError(`the rest code is invalid or expired`, 404));
+    return next(new ApiError(i18n.__("InvalidOrExpired"), 404));
   }
 
   // reset code valid
@@ -120,7 +121,9 @@ const verifyCode = asyncHandler(async (req, res, next) => {
   //send success response to client side
   res.status(201).json({
     status: true,
-    message: `The account has been verified successfully`,
+    message: i18n.__(
+      "verifiedSuccessfully"
+    ),
   });
 });
 
@@ -138,12 +141,12 @@ const resetPassword = asyncHandler(async (req, res, next) => {
   });
 
   if (!document) {
-    return next(new ApiError(`No user has this email ${req.body.email}`, 404));
+    return next(new ApiError(i18n.__("noUserHasThisEmail"), 404));
   }
 
   //check if rest code verified
   if (!document.passwordRestVerified) {
-    return next(new ApiError(`Rest code not verified`, 422));
+    return next(new ApiError(i18n.__("restCodeVerified"), 422));
   }
 
   // update password
@@ -173,7 +176,7 @@ const resetPassword = asyncHandler(async (req, res, next) => {
   //send success response to client side
   res.status(201).json({
     status: true,
-    message: `Successfully updating the password to the account`,
+    message: i18n.__("successfullyUpdatingPassword"),
     accessToken: accessToken,
     data: sanitizeUser(document),
   });
