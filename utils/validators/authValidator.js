@@ -41,7 +41,7 @@ exports.signUpValidator = [
     )
 
     .custom(
-      asyncHandler(async (val) => {
+      asyncHandler(async (val, { req }) => {
         const emailUser = await UserModel.findOne({ email: val });
         if (emailUser) {
           throw new Error(
