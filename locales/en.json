@@ -43,7 +43,22 @@
 	"accountInactive": "This account is inactive, please go to the activated account with login",
 	"userRecentlyChangedPassword": "The user recently changed his password, please log in again....",
 	"notAllowedAccessRoute": "you are not allowed to access this route",
-	"userSuccessfullySignedUp": "User successfully signed up"
+	"userSuccessfullySignedUp": "User successfully signed up",
+
+	
+	"userNameRequired": "User name required",
+	"tooShortUserName": "Too short User name",
+	"userEmailRequired": "User Email required",
+	"invalidEmailAddressFormat": "Invalid email address format",
+	"emailAlreadyUse": "E-mail already in use",
+	"passwordRequired": "Password required",
+	"PasswordLeastCharactersLong": "Password must be at least 6 characters long",
+	"invalidPhoneNumber": "Invalid phone number, only accepted for Egypt and Saudi Arabia",
+	"ThisroleNotFound": "This role is not found",
+	"invalidBranchAddressFormat": "Invalid branch Address format",
+	"passwordConfirmationIncorrect": "password or password confirmation incorrect",
+	"passwordConfirmationRequired": "password confirmation required"
+
 
 
 }
