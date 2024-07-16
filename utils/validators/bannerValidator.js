@@ -5,17 +5,6 @@ const productModel = require("../../modules/productModel");
 const validatorMiddleware = require("../../middleware/validatorMiddleware");
 
 exports.createBannerValidator = [
-  check("image")
-    .notEmpty()
-    .withMessage("Banner image is required")
-    .isString()
-    .withMessage("Banner image must be a string"),
-
-  check("publicId")
-    .notEmpty()
-    .withMessage("Banner publicId is required")
-    .isString()
-    .withMessage("Banner publicId must be a string"),
 
   check("title")
     .notEmpty()

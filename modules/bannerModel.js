@@ -33,18 +33,19 @@ const BannerSchema = new mongoose.Schema(
     category: {
       type: mongoose.Schema.ObjectId,
       ref: "Category",
+      default: null,
     },
     product: [
       {
         type: mongoose.Schema.ObjectId,
         ref: "Product",
+        default: null,
       },
     ],
     discount: {
       type: Number,
-      required: [true, "Banner discount required"],
+     
     },
-  
   },
   { timestamps: true }
 );
