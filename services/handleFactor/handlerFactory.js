@@ -64,11 +64,12 @@ const getAllData = (model, modelName) =>
     const { mongooseQuery, paginationRuslt } = apiFeatures;
     const document = await mongooseQuery;
 
-    var localizedDocument = model.schema.methods.toJSONLocalizedOnly(
-      document,
-      req.headers["lang"] || "en"
-    );
-
+    if (model.schema.methods.toJSONLocalizedOnly != undefined) {
+      var localizedDocument = model.schema.methods.toJSONLocalizedOnly(
+        document,
+        req.headers["lang"] || "en"
+      );
+    }
     //check when no data found in db
     if (!document[0]) {
       // send success response
@@ -85,7 +86,7 @@ const getAllData = (model, modelName) =>
         status: true,
         message: i18n.__("SuccessToGetAllDataFor") + i18n.__(modelName),
         paginationRuslt,
-        data: localizedDocument,
+        data: localizedDocument ? localizedDocument : document,
       }),
       "EX",
       86400
@@ -96,7 +97,7 @@ const getAllData = (model, modelName) =>
       status: true,
       message: i18n.__("SuccessToGetAllDataFor") + i18n.__(modelName),
       paginationRuslt,
-      data: localizedDocument,
+      data: localizedDocument ? localizedDocument : document,
     });
   });
 
@@ -119,16 +120,18 @@ const getOne = (model, modelName) =>
       );
     }
 
-    var localizedDocument = model.schema.methods.toJSONLocalizedOnly(
-      document,
-      req.headers["lang"] || "en"
-    );
+    if (model.schema.methods.toJSONLocalizedOnly != undefined) {
+      var localizedDocument = model.schema.methods.toJSONLocalizedOnly(
+        document,
+        req.headers["lang"] || "en"
+      );
+    }
 
     //send success respons
     res.status(200).json({
       status: true,
       message: i18n.__("SucessToGetDataFromThisId"),
-      data: localizedDocument,
+      data: localizedDocument ? localizedDocument : document,
     });
   });
 
@@ -176,16 +179,18 @@ const updateOne = (model, modelName) =>
       );
     }
 
-    var localizedDocument = model.schema.methods.toJSONLocalizedOnly(
-      document,
-      req.headers["lang"] || "en"
-    );
+   if (model.schema.methods.toJSONLocalizedOnly != undefined) {
+     var localizedDocument = model.schema.methods.toJSONLocalizedOnly(
+       document,
+       req.headers["lang"] || "en"
+     );
+   }
 
     //send success respons
     res.status(200).json({
       status: true,
       message: i18n.__("SucessToUpdateDataFromThisId"),
-      data: localizedDocument,
+      data: localizedDocument ? localizedDocument : document,
     });
   });
 
@@ -256,16 +261,18 @@ const removeOneFromList = (model, modelName, itemAttribute) =>
       );
     }
 
-    var localizedDocument = model.schema.methods.toJSONLocalizedOnly(
-      document,
-      req.headers["lang"] || "en"
-    );
+     if (model.schema.methods.toJSONLocalizedOnly != undefined) {
+       var localizedDocument = model.schema.methods.toJSONLocalizedOnly(
+         document,
+         req.headers["lang"] || "en"
+       );
+     }
 
     //send success respons
     res.status(200).json({
       status: true,
       message: i18n.__("SucessToRemoveData"),
-      data: localizedDocument,
+      data: localizedDocument ? localizedDocument : document,
     });
   });
 
@@ -298,16 +305,18 @@ const addOneToList = (model, modelName, itemAttribute) =>
       );
     }
 
-    var localizedDocument = model.schema.methods.toJSONLocalizedOnly(
-      document,
-      req.headers["lang"] || "en"
-    );
+     if (model.schema.methods.toJSONLocalizedOnly != undefined) {
+       var localizedDocument = model.schema.methods.toJSONLocalizedOnly(
+         document,
+         req.headers["lang"] || "en"
+       );
+     }
 
     //send success respons
     res.status(200).json({
       status: true,
       message: i18n.__("SucessToAddData"),
-      data: localizedDocument,
+      data: localizedDocument ? localizedDocument : document,
     });
   });
 
@@ -316,6 +325,14 @@ const getAllDataFromList = (model, modelName, itemAttribute) =>
   asyncHandler(async (req, res) => {
     //this code get all data
     const { id } = req.params;
+
+    // Check Redis cache first
+    const cacheKey = `${modelName}-${JSON.stringify(req.headers["lang"] || "en")}`;
+
+    const cachedData = await redis.get(cacheKey);
+    if (cachedData) {
+      return res.status(200).json(JSON.parse(cachedData));
+    }
 
     //build query
     const countDocuments = await model.countDocuments();
@@ -333,10 +350,12 @@ const getAllDataFromList = (model, modelName, itemAttribute) =>
     const { mongooseQuery, paginationRuslt } = apiFeatures;
     const document = await mongooseQuery;
 
-    var localizedDocument = model.schema.methods.toJSONLocalizedOnly(
-      document,
-      req.headers["lang"] || "en"
-    );
+    if (model.schema.methods.toJSONLocalizedOnly != undefined) {
+      var localizedDocument = model.schema.methods.toJSONLocalizedOnly(
+        document,
+        req.headers["lang"] || "en"
+      );
+    }
 
     //check when no data found in db
     if (!document[0]) {
@@ -347,12 +366,25 @@ const getAllDataFromList = (model, modelName, itemAttribute) =>
       });
     }
 
+    // Cache the response for one day (86400 seconds)
+    await redis.set(
+      cacheKey,
+      JSON.stringify({
+        status: true,
+        message: i18n.__("SuccessToGetAllDataFor") + i18n.__(modelName),
+        paginationRuslt,
+        data: localizedDocument ? localizedDocument : document,
+      }),
+      "EX",
+      86400
+    ); // Cache for 1 day
+
     // send success response with data
     res.status(200).json({
       status: true,
       message: i18n.__("SuccessToGetAllDataFor") + i18n.__(modelName),
       paginationRuslt,
-      data: localizedDocument,
+      data: localizedDocument ? localizedDocument : document,
     });
   });
 
