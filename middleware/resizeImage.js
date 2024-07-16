@@ -7,9 +7,8 @@ const resizeImage = () =>
   asyncHandler(async (req, res, next) => {
     if (req.file) {
       const buffer = await sharp(req.file.buffer)
-        .resize(600, 600)
         .toFormat("jpeg")
-        .jpeg({ quality: 90 })
+        .jpeg({ quality: 100 })
         .toBuffer();
 
       req.body.buffer = buffer;
