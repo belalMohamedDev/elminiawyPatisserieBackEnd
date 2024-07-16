@@ -16,15 +16,13 @@
 	"failedToGetDataById": "Failed to get %s data from this id",
 	"failedToUpdateDataById": "Failed to update %s data from this id",
 	"failedToDeleteDataById": "Failed to Delete %s data from this id",
-  "SucessToAddData":"Sucess To add data",
-  "SucessToRemoveData":"Sucess To Remove data",
+	"SucessToAddData": "Sucess To add data",
+	"SucessToRemoveData": "Sucess To Remove data",
 	"User": "User",
 	"invalidToken": "Invalid token, please log in again.",
 	"incorrectEmailOrPassword": "Incorrect email or password",
 	"successfulLoginIntoTheApp": "Successful login into the app",
 	"tokenExpired": "Token expired, please log in again.",
-
-
 	"noUserHasThisEmail": "No user has this email",
 	"ErrorSendingEmail": "There was an error sending the email",
 	"sendRestCodeEmail": "send rest code to email",
@@ -36,16 +34,12 @@
 	"invalidRefreshToken": "Invalid Refresh Token",
 	"loggedOutSuccessfully": "Logged out successfully",
 	"successCreateAccessToken": "success to create access token",
-
-
 	"notLoggedIn": "You are not logged in, please log in to access this route",
 	"tokenLongerExists": "The user belonging to this token no longer exists",
 	"accountInactive": "This account is inactive, please go to the activated account with login",
 	"userRecentlyChangedPassword": "The user recently changed his password, please log in again....",
 	"notAllowedAccessRoute": "you are not allowed to access this route",
 	"userSuccessfullySignedUp": "User successfully signed up",
-
-	
 	"userNameRequired": "User name required",
 	"tooShortUserName": "Too short User name",
 	"userEmailRequired": "User Email required",
@@ -57,8 +51,6 @@
 	"ThisroleNotFound": "This role is not found",
 	"invalidBranchAddressFormat": "Invalid branch Address format",
 	"passwordConfirmationIncorrect": "password or password confirmation incorrect",
-	"passwordConfirmationRequired": "password confirmation required"
-
-
-
+	"passwordConfirmationRequired": "password confirmation required",
+	"banner": "banner"
 }

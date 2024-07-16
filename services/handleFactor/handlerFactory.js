@@ -15,16 +15,18 @@ const creatOne = (model, modelName) =>
     //this code to create
     const document = await model.create(req.body);
 
-    var localizedDocument = model.schema.methods.toJSONLocalizedOnly(
-      document,
-      req.headers["lang"] || "en"
-    );
+    if (model.schema.methods.toJSONLocalizedOnly != undefined) {
+      var localizedDocument = model.schema.methods.toJSONLocalizedOnly(
+        document,
+        req.headers["lang"] || "en"
+      );
+    }
 
     //send success response
     res.status(201).json({
       status: true,
       message: i18n.__("Successful %s creation", i18n.__(modelName)),
-      data: localizedDocument,
+      data: localizedDocument ? localizedDocument : document,
     });
   });
 
@@ -43,6 +45,7 @@ const getAllData = (model, modelName) =>
 
     // Check Redis cache first
     const cacheKey = `${modelName}-${JSON.stringify(req.headers["lang"] || "en")}`;
+
     const cachedData = await redis.get(cacheKey);
     if (cachedData) {
       return res.status(200).json(JSON.parse(cachedData));
