@@ -101,8 +101,7 @@ const getAllData = (model, modelName) =>
         paginationRuslt,
         data: localizedDocument ? localizedDocument : document,
       }),
-      "EX",
-      60
+      { EX: 60 }
     ); 
 
     // send success response with data
