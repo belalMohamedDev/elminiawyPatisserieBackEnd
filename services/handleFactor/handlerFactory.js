@@ -15,6 +15,12 @@ const creatOne = (model, modelName) =>
     //this code to create
     const document = await model.create(req.body);
 
+    //refresh redius data base
+    const cacheKey = `${modelName}-${JSON.stringify(req.headers["lang"] || "en")}`;
+    await redisClient.del(cacheKey);
+    
+
+    //return data language
     if (model.schema.methods.toJSONLocalizedOnly != undefined) {
       var localizedDocument = model.schema.methods.toJSONLocalizedOnly(
         document,
@@ -179,12 +185,12 @@ const updateOne = (model, modelName) =>
       );
     }
 
-   if (model.schema.methods.toJSONLocalizedOnly != undefined) {
-     var localizedDocument = model.schema.methods.toJSONLocalizedOnly(
-       document,
-       req.headers["lang"] || "en"
-     );
-   }
+    if (model.schema.methods.toJSONLocalizedOnly != undefined) {
+      var localizedDocument = model.schema.methods.toJSONLocalizedOnly(
+        document,
+        req.headers["lang"] || "en"
+      );
+    }
 
     //send success respons
     res.status(200).json({
@@ -261,12 +267,12 @@ const removeOneFromList = (model, modelName, itemAttribute) =>
       );
     }
 
-     if (model.schema.methods.toJSONLocalizedOnly != undefined) {
-       var localizedDocument = model.schema.methods.toJSONLocalizedOnly(
-         document,
-         req.headers["lang"] || "en"
-       );
-     }
+    if (model.schema.methods.toJSONLocalizedOnly != undefined) {
+      var localizedDocument = model.schema.methods.toJSONLocalizedOnly(
+        document,
+        req.headers["lang"] || "en"
+      );
+    }
 
     //send success respons
     res.status(200).json({
@@ -305,12 +311,12 @@ const addOneToList = (model, modelName, itemAttribute) =>
       );
     }
 
-     if (model.schema.methods.toJSONLocalizedOnly != undefined) {
-       var localizedDocument = model.schema.methods.toJSONLocalizedOnly(
-         document,
-         req.headers["lang"] || "en"
-       );
-     }
+    if (model.schema.methods.toJSONLocalizedOnly != undefined) {
+      var localizedDocument = model.schema.methods.toJSONLocalizedOnly(
+        document,
+        req.headers["lang"] || "en"
+      );
+    }
 
     //send success respons
     res.status(200).json({
