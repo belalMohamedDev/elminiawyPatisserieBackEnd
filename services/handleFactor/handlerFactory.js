@@ -9,16 +9,24 @@ const {
   deleteImageFromCloudinary,
 } = require("../../middleware/cloudinaryMiddleWare");
 
+//clear cash from redis
+const clearCacheKeys = async (modelName) => {
+  const cachePattern = `${modelName}-*`;
+  const keys = await redisClient.keys(cachePattern);
+  if (keys.length > 0) {
+    await redisClient.del(keys);
+    console.log(`Cache for keys matching ${cachePattern} deleted.`);
+  }
+};
+
 //@dec this function used to  create in mongo db
 const creatOne = (model, modelName) =>
   asyncHandler(async (req, res) => {
     //this code to create
     const document = await model.create(req.body);
 
-    //refresh redius data base
-    const cacheKey = `${modelName}-${JSON.stringify(req.headers["lang"] || "en")}`;
-    await redisClient.del(cacheKey);
-    
+    //refresh redius data cash
+    await clearCacheKeys(modelName);
 
     //return data language
     if (model.schema.methods.toJSONLocalizedOnly != undefined) {
