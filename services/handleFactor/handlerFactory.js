@@ -12,10 +12,9 @@ const {
 //clear cash from redis
 const clearCacheKeys = async (modelName) => {
   const cachePattern = `${modelName}-*`;
-  const keys = await redisClient.keys(cachePattern);
+  const keys = await redis.keys(cachePattern);
   if (keys.length > 0) {
-    await redisClient.del(keys);
-    console.log(`Cache for keys matching ${cachePattern} deleted.`);
+    await redis.del(keys);
   }
 };
 
@@ -103,8 +102,8 @@ const getAllData = (model, modelName) =>
         data: localizedDocument ? localizedDocument : document,
       }),
       "EX",
-      86400
-    ); // Cache for 1 day
+      60
+    ); 
 
     // send success response with data
     res.status(200).json({
