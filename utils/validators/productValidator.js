@@ -5,41 +5,117 @@ const categoryModel = require("../../modules/categoryModel");
 const subCategoryModel = require("../../modules/subCategoryModel");
 
 exports.getProductValidator = [
-    check("id").isMongoId().withMessage("Invalid product ID"),
-    validatorMiddleware,
-  ];
+  check("id")
+    .isMongoId()
+    .withMessage((value, { req }) =>
+      i18n.__({
+        phrase: "InvalidProductIdFormat",
+        locale: req.headers["lang"] || "en",
+      })
+    ),
+  validatorMiddleware,
+];
 
 exports.createProductValidator = [
-  check("title").notEmpty().withMessage("Title is required"),
-  check("description").notEmpty().withMessage("Description is required"),
+  check("title.en")
+    .notEmpty()
+    .withMessage((value, { req }) =>
+      i18n.__({
+        phrase: "productTitleEnglishRequired",
+        locale: req.headers["lang"] || "en",
+      })
+    ),
+
+  check("title.ar")
+    .notEmpty()
+    .withMessage((value, { req }) =>
+      i18n.__({
+        phrase: "productTitleArabicRequired",
+        locale: req.headers["lang"] || "en",
+      })
+    ),
+
+  check("description.en")
+    .notEmpty()
+    .withMessage((value, { req }) =>
+      i18n.__({
+        phrase: "ProductDescriptionEnglishRequired",
+        locale: req.headers["lang"] || "en",
+      })
+    ),
+
+  check("description.ar")
+    .notEmpty()
+    .withMessage((value, { req }) =>
+      i18n.__({
+        phrase: "ProductDescriptionArabicRequired",
+        locale: req.headers["lang"] || "en",
+      })
+    ),
+
   check("price")
     .isFloat({ min: 0 })
-    .withMessage("Price must be a positive number"),
+    .withMessage((value, { req }) =>
+      i18n.__({
+        phrase: "pricePositiveNumber",
+        locale: req.headers["lang"] || "en",
+      })
+    ),
 
   check("category")
     .notEmpty()
-    .withMessage("Catogry id required")
+    .withMessage((value, { req }) =>
+      i18n.__({
+        phrase: "catogryIdRequired",
+        locale: req.headers["lang"] || "en",
+      })
+    )
     .isMongoId()
-    .withMessage("Invalid Catogry id format")
+    .withMessage((value, { req }) =>
+      i18n.__({
+        phrase: "InvalidCategoryIdFormat",
+        locale: req.headers["lang"] || "en",
+      })
+    )
     .custom(
-      asyncHandler(async (val) => {
+      asyncHandler(async (val, { req }) => {
         const document = await categoryModel.findOne({ _id: val });
         if (!document) {
-          throw new Error("this category id not found");
+          throw new Error(
+            i18n.__({
+              phrase: "categoryIdNotFound",
+              locale: req.headers["lang"] || "en",
+            })
+          );
         }
       })
     ),
 
   check("subCategory")
     .notEmpty()
-    .withMessage("subCategory id required")
+    .withMessage((value, { req }) =>
+      i18n.__({
+        phrase: "subCategoryIdRequired",
+        locale: req.headers["lang"] || "en",
+      })
+    )
     .isMongoId()
-    .withMessage("Invalid subCategory id format")
+    .withMessage((value, { req }) =>
+      i18n.__({
+        phrase: "InvalidSubCategoryIdFormat",
+        locale: req.headers["lang"] || "en",
+      })
+    )
     .custom(
-      asyncHandler(async (val) => {
+      asyncHandler(async (val, { req }) => {
         const document = await subCategoryModel.findOne({ _id: val });
         if (!document) {
-          throw new Error("this subCategory id not found");
+          throw new Error(
+            i18n.__({
+              phrase: "subCategoryIdNotFound",
+              locale: req.headers["lang"] || "en",
+            })
+          );
         }
       })
     ),
@@ -48,7 +124,12 @@ exports.createProductValidator = [
   check("options.*.additionalPrice")
     .optional()
     .isFloat({ min: 0 })
-    .withMessage("Additional price must be a positive number"),
+    .withMessage((value, { req }) =>
+      i18n.__({
+        phrase: "additionalPositiveNumber",
+        locale: req.headers["lang"] || "en",
+      })
+    ),
 
   check("customizationOptions.*.name").optional(),
   check("customizationOptions.*.choices.*.name").optional(),
@@ -56,44 +137,77 @@ exports.createProductValidator = [
   check("customizationOptions.*.choices.*.additionalPrice")
     .optional()
     .isFloat({ min: 0 })
-    .withMessage("Additional price must be a positive number"),
+    .withMessage((value, { req }) =>
+      i18n.__({
+        phrase: "additionalPositiveNumber",
+        locale: req.headers["lang"] || "en",
+      })
+    ),
 
   validatorMiddleware,
 ];
 
 exports.updateProductValidator = [
-  check("id").isMongoId().withMessage("Invalid product ID"),
-  check("title").optional(),
-  check("description").optional(),
+  check("title.en").optional(),
+
+  check("title.ar").optional(),
+
+  check("description.en").optional(),
+
+  check("description.ar").optional(),
+
   check("price")
     .optional()
     .isFloat({ min: 0 })
-    .withMessage("Price must be a positive number"),
+    .withMessage((value, { req }) =>
+      i18n.__({
+        phrase: "pricePositiveNumber",
+        locale: req.headers["lang"] || "en",
+      })
+    ),
 
   check("category")
-    .notEmpty()
-    .withMessage("Catogry id required")
+    .optional()
     .isMongoId()
-    .withMessage("Invalid Catogry id format")
+    .withMessage((value, { req }) =>
+      i18n.__({
+        phrase: "InvalidCategoryIdFormat",
+        locale: req.headers["lang"] || "en",
+      })
+    )
     .custom(
-      asyncHandler(async (val) => {
+      asyncHandler(async (val, { req }) => {
         const document = await categoryModel.findOne({ _id: val });
         if (!document) {
-          throw new Error("this category id not found");
+          throw new Error(
+            i18n.__({
+              phrase: "categoryIdNotFound",
+              locale: req.headers["lang"] || "en",
+            })
+          );
         }
       })
     ),
 
   check("subCategory")
-    .notEmpty()
-    .withMessage("subCategory id required")
+    .optional()
     .isMongoId()
-    .withMessage("Invalid subCategory id format")
+    .withMessage((value, { req }) =>
+      i18n.__({
+        phrase: "InvalidSubCategoryIdFormat",
+        locale: req.headers["lang"] || "en",
+      })
+    )
     .custom(
-      asyncHandler(async (val) => {
+      asyncHandler(async (val, { req }) => {
         const document = await subCategoryModel.findOne({ _id: val });
         if (!document) {
-          throw new Error("this subCategory id not found");
+          throw new Error(
+            i18n.__({
+              phrase: "subCategoryIdNotFound",
+              locale: req.headers["lang"] || "en",
+            })
+          );
         }
       })
     ),
@@ -102,18 +216,39 @@ exports.updateProductValidator = [
   check("options.*.additionalPrice")
     .optional()
     .isFloat({ min: 0 })
-    .withMessage("Additional price must be a positive number"),
+    .withMessage((value, { req }) =>
+      i18n.__({
+        phrase: "additionalPositiveNumber",
+        locale: req.headers["lang"] || "en",
+      })
+    ),
+
   check("customizationOptions.*.name").optional(),
   check("customizationOptions.*.choices.*.name").optional(),
+
   check("customizationOptions.*.choices.*.additionalPrice")
     .optional()
     .isFloat({ min: 0 })
-    .withMessage("Additional price must be a positive number"),
+    .withMessage((value, { req }) =>
+      i18n.__({
+        phrase: "additionalPositiveNumber",
+        locale: req.headers["lang"] || "en",
+      })
+    ),
+
   validatorMiddleware,
 ];
 
 
+
 exports.deleteProductValidator = [
-    check("id").isMongoId().withMessage("Invalid product ID"),
-    validatorMiddleware,
-  ];
+  check("id")
+    .isMongoId()
+    .withMessage((value, { req }) =>
+      i18n.__({
+        phrase: "InvalidProductIdFormat",
+        locale: req.headers["lang"] || "en",
+      })
+    ),
+  validatorMiddleware,
+];

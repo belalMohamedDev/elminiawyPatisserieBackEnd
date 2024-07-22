@@ -69,7 +69,7 @@ exports.createSubCatogryValidator = [
     .notEmpty()
     .withMessage((value, { req }) =>
       i18n.__({
-        phrase: "categoryTitleEnglishRequired",
+        phrase: "catogryIdRequired",
         locale: req.headers["lang"] || "en",
       })
     )

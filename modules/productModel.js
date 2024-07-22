@@ -2,9 +2,9 @@ const mongoose = require("mongoose");
 var mongooseI18n = require("mongoose-i18n-localize");
 
 const productSchema = mongoose.Schema({
-  title: { type: String, required: true },
+  title: { type: String, required: true, i18n: true },
 
-  description: { type: String, required: true },
+  description: { type: String, required: true, i18n: true },
   price: { type: Number, required: true },
 
   category: {

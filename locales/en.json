@@ -57,5 +57,22 @@
 	"passwordConfirmationRequired": "password confirmation required",
 	"banner": "banner",
 	"categoryIdNotFound": "this category id not found",
-	"subCategory": "subCategory"
+	"subCategory": "subCategory",
+
+
+    "InvalidProductIdFormat": "Invalid Product id format",
+    "productTitleEnglishRequired": "English Product title is required",
+	"productTitleArabicRequired": "Arabic Product title are required",
+	"ProductDescriptionEnglishRequired": "English Product description is required",
+	"ProductDescriptionArabicRequired": "Arabic Product description are required",
+	"pricePositiveNumber":"Price must be a positive number",
+	"subCategoryIdNotFound": "this subCategory id not found",
+	"additionalPositiveNumber":"Additional price must be a positive number",
+
+
+
+	"catogryIdRequired":"Catogry id required",
+	"subCategoryIdRequired":"subCategory id required"
+
+
 }
