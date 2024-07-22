@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+var mongooseI18n = require("mongoose-i18n-localize");
 
 const productSchema = mongoose.Schema({
   title: { type: String, required: true },
@@ -54,8 +55,10 @@ const productSchema = mongoose.Schema({
       ],
     },
   ],
+});
 
-
+productSchema.plugin(mongooseI18n, {
+  locales: ["en", "ar"],
 });
 
 const productModel = mongoose.model("Product", productSchema);

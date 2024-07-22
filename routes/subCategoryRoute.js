@@ -6,12 +6,7 @@ const {
   getOneSubCategory,
   updateSubCategory,
   deleteSubCategory,
-  uploadSubCategoryImage,
-  resizeSubCategoryImage,
-  uploadImageInCloud,
   createFilterObject,
-  setCategoryIdInBody,
-  deleteImageBeforeUpdate
 } = require("../services/subCategoryServices/subCategoryService");
 
 const {
@@ -21,40 +16,21 @@ const {
   updateSubCatogryValidator,
 } = require("../utils/validators/subCategoryValidator");
 
+const router = express.Router({ mergeParams: true });
 
+router.route("/:categoryId").get(createFilterObject, getAllSubCategory);
 
-const router = express.Router({mergeParams:true});
-
-router.route("/").get(createFilterObject,getAllSubCategory);
+router.route("/").get(getAllSubCategory);
 
 router.route("/:id").get(getSubCategoryValidator, getOneSubCategory);
 
 router.use(authServices.protect, authServices.allowedTo("admin"));
 
-router
-  .route("/")
-  .post(
-    uploadSubCategoryImage,
-    resizeSubCategoryImage,
-    setCategoryIdInBody,
-    uploadImageInCloud,
-    createSubCatogryValidator,
-    creatSubCategory
-  )
-  ;
-
-
+router.route("/").post(createSubCatogryValidator, creatSubCategory);
 
 router
   .route("/:id")
-  .put(
-    uploadSubCategoryImage,
-    resizeSubCategoryImage,
-    updateSubCatogryValidator,
-    uploadImageInCloud,
-    deleteImageBeforeUpdate,
-    updateSubCategory
-  )
+  .put(updateSubCatogryValidator, updateSubCategory)
 
   .delete(deletesubCatogryValidator, deleteSubCategory);
 

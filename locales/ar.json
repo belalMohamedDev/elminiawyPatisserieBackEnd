@@ -4,10 +4,14 @@
 	"englishTitleLength": "يجب أن يتراوح طول العنوان الإنجليزي بين 3 و300 حرف",
 	"arabicTitleLength": "يجب أن يتراوح طول العنوان العربي بين 3 و300 حرف",
 	"InvalidCategoryIdFormat": "تنسيق معرف الفئة غير صالح",
+	"InvalidSubCategoryIdFormat": "تنسيق معرف الفئة الفرعية غير صالح",
+	"subCatogryTitleEnglishRequired": "يجب أن تكون عناوين الفئات الفرعية باللغة الانجليزية",
+	"subCatogryTitleArabicRequired": "يجب أن تكون عناوين الفئات الفرعية باللغة العربية",
 	"ThereIsNoDataEntryForThis": "لا يوجد إدخال بيانات لهذا",
 	"SuccessToGetAllDataFor": "تم النجاح في الحصول على كافة البيانات الخاصة ب",
 	"CategoryMustBeUnique": "الفئة يجب أن تكون فريدة",
 	"categories": "الفئات",
+	"subCategory": "تصنيف فرعي",
 	"Successful %s creation": "تم إنشاء %s بنجاح",
 	"failedToGetDataById": "IDفشل فى الحصول على بيانات هذاال",
 	"failedToUpdateDataById": "IDفشل فى التعديل على بيانات هذاال",
@@ -51,5 +55,7 @@
 	"invalidBranchAddressFormat": "تنسيق عنوان الفرع غير صالح",
 	"passwordConfirmationIncorrect": "كلمة المرور أو تأكيد كلمة المرور غير صحيح",
 	"passwordConfirmationRequired": "تأكيد كلمة المرور مطلوب",
-	"banner": "banner"
+	"banner": "لافتة",
+	"categoryIdNotFound": "لم يتم العثور على معرف الفئة هذا"
+
 }

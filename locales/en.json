@@ -1,9 +1,12 @@
 {
+	"subCatogryTitleEnglishRequired": "English subCategory title is required",
 	"categoryTitleEnglishRequired": "English Category title is required",
 	"categoryTitleArabicRequired": "Arabic Category titles are required",
+	"subCatogryTitleArabicRequired": "Arabic subCategory titles are required",
 	"englishTitleLength": "English title should be between 3 and 300 characters",
 	"arabicTitleLength": "Arabic title should be between 3 and 300 characters",
 	"InvalidCategoryIdFormat": "Invalid Catogry id format",
+	"InvalidSubCategoryIdFormat": "Invalid subCatogry id format",
 	"ThereIsNoDataEntryForThis": "There is no data entry for this",
 	"SuccessToGetAllDataFor": "Success to get all data for ",
 	"SucessToGetDataFromThisId": "Sucess To get data from this id",
@@ -52,5 +55,7 @@
 	"invalidBranchAddressFormat": "Invalid branch Address format",
 	"passwordConfirmationIncorrect": "password or password confirmation incorrect",
 	"passwordConfirmationRequired": "password confirmation required",
-	"banner": "banner"
+	"banner": "banner",
+	"categoryIdNotFound": "this category id not found",
+	"subCategory": "subCategory"
 }
