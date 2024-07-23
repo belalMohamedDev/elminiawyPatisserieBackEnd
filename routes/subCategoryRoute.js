@@ -6,7 +6,7 @@ const {
   getOneSubCategory,
   updateSubCategory,
   deleteSubCategory,
-  createFilterObject,
+  createFilterObject,getAllSubCategoryFromCategory
 } = require("../services/subCategoryServices/subCategoryService");
 
 const {
@@ -16,11 +16,13 @@ const {
   updateSubCatogryValidator,
 } = require("../utils/validators/subCategoryValidator");
 
-const router = express.Router({ mergeParams: true });
-
-router.route("/:categoryId").get(createFilterObject, getAllSubCategory);
+const router = express.Router();
 
 router.route("/").get(getAllSubCategory);
+
+router
+  .route("/:categoryId/category")
+  .get(createFilterObject, getAllSubCategoryFromCategory);
 
 router.route("/:id").get(getSubCategoryValidator, getOneSubCategory);
 

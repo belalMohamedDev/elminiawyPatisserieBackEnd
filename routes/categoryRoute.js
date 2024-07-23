@@ -9,6 +9,7 @@ const {
   resizeCategoryImage,
   uploadImageInCloud,
   deleteImageBeforeUpdate,
+
 } = require('../services/categoryServices/categoryService')
 const authServices = require('../services/authServices/protect')
 
@@ -19,13 +20,9 @@ const {
   deleteCatogryValidator,
 } = require('../utils/validators/categoryValidator')
 
-const subCategoryRoute = require('./subCategoryRoute')
 
 const router = express.Router()
 
-
-
-router.use('/:categoryId/subCategories', subCategoryRoute)
 
 router.route('/').get(getAllCategory)
 

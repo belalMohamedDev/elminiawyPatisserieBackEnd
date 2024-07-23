@@ -22,9 +22,6 @@ const productSchema = mongoose.Schema({
   image: { type: String },
   publicId: { type: String },
 
-  availability: { type: Boolean, default: true },
-
-  unitOfSale: { type: String },
 
   ratingsAverage: {
     type: Number,

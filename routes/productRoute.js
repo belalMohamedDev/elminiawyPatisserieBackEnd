@@ -47,7 +47,7 @@ const router = express.Router();
 router.use("/:productId/reviews", reviewRoute);
 
 router.route("/").get(getAllProduct);
-router.route("/:categoryId").get(getAllProductsBelongsTosubCategory);
+router.route("/:categoryId/category").get(getAllProductsBelongsTosubCategory);
 router.route("/:id").get(getProductValidator,getSpecificProduct);
 
 router.use(authServices.protect);

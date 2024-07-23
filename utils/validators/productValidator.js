@@ -117,6 +117,15 @@ exports.createProductValidator = [
             })
           );
         }
+
+        if (document.category != req.body.category) {
+          throw new Error(
+            i18n.__({
+              phrase: "categoryIdNotMatching",
+              locale: req.headers["lang"] || "en",
+            })
+          );
+        }
       })
     ),
 
@@ -148,6 +157,14 @@ exports.createProductValidator = [
 ];
 
 exports.updateProductValidator = [
+  check("id")
+    .isMongoId()
+    .withMessage((value, { req }) =>
+      i18n.__({
+        phrase: "InvalidProductIdFormat",
+        locale: req.headers["lang"] || "en",
+      })
+    ),
   check("title.en").optional(),
 
   check("title.ar").optional(),
@@ -238,8 +255,6 @@ exports.updateProductValidator = [
 
   validatorMiddleware,
 ];
-
-
 
 exports.deleteProductValidator = [
   check("id")

@@ -11,6 +11,15 @@ const creatSubCategory = factory.creatOne(subCategoryModel, "subCategory");
 // @ access public
 const getAllSubCategory = factory.getAllData(subCategoryModel, "subCategory");
 
+
+// @ dec get all subCategory to categoryData
+// @ route Get  /api/vi/catgoryId/subCategory
+// @ access public
+const getAllSubCategoryFromCategory = factory.getAllData(
+  subCategoryModel,
+  "getAllSubCategoryFromCategory"
+);
+
 // @ dec get specific subCategory
 // @ route Get  /api/vi/subCategory/id
 // @ access public
@@ -40,4 +49,5 @@ module.exports = {
   updateSubCategory,
   deleteSubCategory,
   createFilterObject,
+  getAllSubCategoryFromCategory,
 };

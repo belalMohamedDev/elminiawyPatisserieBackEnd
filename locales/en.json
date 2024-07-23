@@ -7,7 +7,7 @@
 	"arabicTitleLength": "Arabic title should be between 3 and 300 characters",
 	"InvalidCategoryIdFormat": "Invalid Catogry id format",
 	"InvalidSubCategoryIdFormat": "Invalid subCatogry id format",
-	"ThereIsNoDataEntryForThis": "There is no data entry for this",
+	"ThereIsNoDataEntryForThis": "There is no data entry for this ",
 	"SuccessToGetAllDataFor": "Success to get all data for ",
 	"SucessToGetDataFromThisId": "Sucess To get data from this id",
 	"SucessToUpdateDataFromThisId": "Sucess To Update data from this id",
@@ -58,21 +58,18 @@
 	"banner": "banner",
 	"categoryIdNotFound": "this category id not found",
 	"subCategory": "subCategory",
-
-
-    "InvalidProductIdFormat": "Invalid Product id format",
-    "productTitleEnglishRequired": "English Product title is required",
+	"InvalidProductIdFormat": "Invalid Product id format",
+	"productTitleEnglishRequired": "English Product title is required",
 	"productTitleArabicRequired": "Arabic Product title are required",
 	"ProductDescriptionEnglishRequired": "English Product description is required",
 	"ProductDescriptionArabicRequired": "Arabic Product description are required",
-	"pricePositiveNumber":"Price must be a positive number",
+	"pricePositiveNumber": "Price must be a positive number",
 	"subCategoryIdNotFound": "this subCategory id not found",
-	"additionalPositiveNumber":"Additional price must be a positive number",
-
-
-
-	"catogryIdRequired":"Catogry id required",
-	"subCategoryIdRequired":"subCategory id required"
-
-
+	"additionalPositiveNumber": "Additional price must be a positive number",
+	"catogryIdRequired": "Catogry id required",
+	"subCategoryIdRequired": "subCategory id required",
+	"getAllSubCategoryFromCategory": "subCategory From Category",
+	"product": "product",
+	"categoryIdNotMatching": "category Id Not Matching",
+	"StoreGetAllProductsSubCategory":"Store get All Products Belongs To subCategory"
 }

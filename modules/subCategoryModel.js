@@ -24,11 +24,7 @@ const subCategorySchema = new mongoose.Schema(
 
 
 
-// work in get all data ,get specific data ,update data, delete
-subCategorySchema.pre(/^find/, function (next) {
-  this.populate({ path: 'category', select: 'title image -_id' })
-  next()
-})
+
 
 
 subCategorySchema.plugin(mongooseI18n, {

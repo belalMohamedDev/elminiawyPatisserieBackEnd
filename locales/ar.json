@@ -57,15 +57,18 @@
 	"passwordConfirmationRequired": "تأكيد كلمة المرور مطلوب",
 	"banner": "لافتة",
 	"categoryIdNotFound": "لم يتم العثور على معرف الفئة هذا",
-
 	"InvalidProductIdFormat": "تنسيق معرف المنتج غير صالح",
-    "productTitleEnglishRequired": "عنوان المنتج باللغة الإنجليزية مطلوب",
-    "productTitleArabicRequired": "عنوان المنتج باللغة العربية مطلوب",
-    "ProductDescriptionEnglishRequired": "وصف المنتج باللغة الإنجليزية مطلوب",
-    "ProductDescriptionArabicRequired": "وصف المنتج باللغة العربية مطلوب",
-    "pricePositiveNumber": "يجب أن يكون السعر رقمًا موجبًا",
-    "subCategoryIdNotFound": "لم يتم العثور على معرف الفئة الفرعية هذا",
-    "additionalPositiveNumber": "يجب أن يكون السعر الإضافي رقمًا موجبًا",
-    "catogryIdRequired":"معرف الفئة مطلوب",
-    "subCategoryIdRequired":"معرف الفئة الفرعية مطلوب"
+	"productTitleEnglishRequired": "عنوان المنتج باللغة الإنجليزية مطلوب",
+	"productTitleArabicRequired": "عنوان المنتج باللغة العربية مطلوب",
+	"ProductDescriptionEnglishRequired": "وصف المنتج باللغة الإنجليزية مطلوب",
+	"ProductDescriptionArabicRequired": "وصف المنتج باللغة العربية مطلوب",
+	"pricePositiveNumber": "يجب أن يكون السعر رقمًا موجبًا",
+	"subCategoryIdNotFound": "لم يتم العثور على معرف الفئة الفرعية هذا",
+	"additionalPositiveNumber": "يجب أن يكون السعر الإضافي رقمًا موجبًا",
+	"catogryIdRequired": "معرف الفئة مطلوب",
+	"subCategoryIdRequired": "معرف الفئة الفرعية مطلوب",
+	"getAllSubCategoryFromCategory": "الفئة الفرعية من الفئة",
+	"product": "المنتج",
+	"categoryIdNotMatching": "معرف الفئة غير مطابق",
+	"StoreGetAllProductsSubCategory":"متجر الحصول على جميع المنتجات التي تنتمي إلى الفئة الفرعية"
 }
