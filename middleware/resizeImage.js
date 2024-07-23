@@ -8,7 +8,7 @@ const resizeImage = () =>
     if (req.file) {
       const buffer = await sharp(req.file.buffer)
         .toFormat("png")
-        .jpeg({ quality: 100 })
+        .png({ quality: 100 })
         .toBuffer();
 
       req.body.buffer = buffer;
