@@ -7,6 +7,16 @@ const productSchema = mongoose.Schema({
   description: { type: String, required: true, i18n: true },
   price: { type: Number, required: true },
 
+  in_favorites: {
+    type: Boolean,
+    default: false,
+  },
+
+  in_cart: {
+    type: Boolean,
+    default: false,
+  },
+
   category: {
     type: mongoose.Schema.ObjectId,
     ref: "Category",
@@ -22,11 +32,11 @@ const productSchema = mongoose.Schema({
   image: { type: String },
   publicId: { type: String },
 
-
   ratingsAverage: {
     type: Number,
     min: [1, "rating must be above or equal 1.0"],
     max: [5, "rating must be below or equal 5.0"],
+    default: 0,
   },
 
   ratingsQuantity: {

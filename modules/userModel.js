@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
+var mongooseI18n = require("mongoose-i18n-localize");
 
 const userSchema = new mongoose.Schema(
   {
@@ -53,12 +54,14 @@ const userSchema = new mongoose.Schema(
       type: mongoose.Schema.ObjectId,
       ref: "StoreAddress",
     },
-
     wishList: [
       {
-        product: { type: mongoose.Schema.Types.ObjectId, ref: "Product" },
+        type: mongoose.Schema.ObjectId,
+        ref: "Product",
       },
     ],
+
+
   },
   { timestamps: true }
 );
@@ -70,6 +73,11 @@ userSchema.pre("save", async function (next) {
   this.password = await bcrypt.hash(this.password, 12);
   next();
 });
+
+userSchema.plugin(mongooseI18n, {
+  locales: ["en", "ar"],
+});
+
 
 const userModel = mongoose.model("User", userSchema);
 
