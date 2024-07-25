@@ -40,15 +40,28 @@ class ApiFeatures {
     if (this.queryString.keyword) {
       const queryKeyword = {};
       if (modelName === 'product') {
+
         queryKeyword.$or = [
           {
-            title: {
+            'title.en': {
               $regex: this.queryString.keyword,
               $options: 'i',
             },
           },
           {
-            description: {
+            'title.ar': {
+              $regex: this.queryString.keyword,
+              $options: 'i',
+            },
+          },
+          {
+            'description.en': {
+              $regex: this.queryString.keyword,
+              $options: 'i',
+            },
+          },
+          {
+            'description.ar': {
               $regex: this.queryString.keyword,
               $options: 'i',
             },

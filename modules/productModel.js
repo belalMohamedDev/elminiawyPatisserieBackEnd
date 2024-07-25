@@ -7,16 +7,6 @@ const productSchema = mongoose.Schema({
   description: { type: String, required: true, i18n: true },
   price: { type: Number, required: true },
 
-  in_favorites: {
-    type: Boolean,
-    default: false,
-  },
-
-  in_cart: {
-    type: Boolean,
-    default: false,
-  },
-
   category: {
     type: mongoose.Schema.ObjectId,
     ref: "Category",

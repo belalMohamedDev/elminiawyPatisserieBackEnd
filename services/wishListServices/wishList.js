@@ -114,27 +114,3 @@ exports.getAllProductFromWishList = asyncHandler(async (req, res) => {
   });
 });
 
-// exports.getAllProductFromWishList = asyncHandler(async (req, res) => {
-//   const userWishList = await userModel
-//     .find({ _id: req.userModel.id }, "wishList")
-//     .populate("wishList");
-
-//   const products = await productModel.find();
-
-//   const productsWithWishlistStatus = products.map((product) => {
-//     const isInWishlist = userWishList.some(
-//       (wishListItem) => wishListItem._id.toString() === product._id.toString()
-//     );
-//     return {
-//       ...product.toObject(),
-//       in_wishlist: isInWishlist,
-//     };
-//   });
-
-//   // send success response with data
-//   res.status(200).json({
-//     status: true,
-//     message: i18n.__("SuccessToGetAllDataFor"),
-//     data: productsWithWishlistStatus,
-//   });
-// });

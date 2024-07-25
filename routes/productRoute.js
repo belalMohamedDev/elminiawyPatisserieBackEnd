@@ -31,6 +31,10 @@ const {
 } = require("../services/storeScervice/productsServices/customizationOptions/productCustomizationOptionsServices");
 
 const {
+getAllNewProduct
+} = require("../services/storeScervice/productsServices/product/getNewProduct");
+
+const {
   createProductValidator,
   deleteProductValidator,
   getProductValidator,
@@ -47,6 +51,7 @@ const router = express.Router();
 router.use("/:productId/reviews", reviewRoute);
 
 router.route("/").get(getAllProduct);
+router.route("/newProduct").get(authServices.protectOrNoProtected,getAllNewProduct);
 router.route("/:categoryId/category").get(getAllProductsBelongsTosubCategory);
 router.route("/:id").get(getProductValidator,getSpecificProduct);
 
