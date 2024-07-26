@@ -5,7 +5,6 @@ const ApiFeatures = require("../../../../utils/apiFeatures/apiFeatures");
 
 const productModel = require("../../../../modules/productModel");
 
-
 // Helper function to get user wishlist
 const getUserWishlist = async (userModel) => {
   if (userModel) {
@@ -26,27 +25,29 @@ const cacheData = async (cacheKey, data) => {
 
 // Helper function to get product data
 const getProductData = async (query) => {
-  const countDocuments = await productModel.countDocuments();
-  const apiFeatures = new ApiFeatures(productModel.find(), query)
-    .pagination(countDocuments)
-    .search('product')
-    .sort();
-  const { mongooseQuery, paginationRuslt } = apiFeatures;
+  const apiFeatures = new ApiFeatures(productModel.find(), query).sort();
+
+  const { mongooseQuery } = apiFeatures;
   const products = await mongooseQuery;
-  return { products, paginationRuslt };
+
+  return { products };
 };
 
 // Helper function to localize products
 const localizeProducts = (products, lang) => {
-  return productModel.schema.methods.toJSONLocalizedOnly(products, lang || "en");
+  return productModel.schema.methods.toJSONLocalizedOnly(
+    products,
+    lang || "en"
+  );
 };
 
 // Helper function to add wishlist status
 const addWishlistStatus = (products, wishlist) => {
   return products.map((product) => {
     const isInWishlist = wishlist
-      ? wishlist.some((wishListItem) =>
-          wishListItem._id.toString() === product._id.toString()
+      ? wishlist.some(
+          (wishListItem) =>
+            wishListItem._id.toString() === product._id.toString()
         )
       : false;
     return {
@@ -59,7 +60,7 @@ const addWishlistStatus = (products, wishlist) => {
 // Main handler function
 exports.getAllNewProduct = asyncHandler(async (req, res) => {
   const lang = req.headers["lang"] || "en";
-  const cacheKey = `${req.userModel ? true : false}-${JSON.stringify(lang)}-${req.query.limit}-${req.query.keyword}`;
+  const cacheKey = `${req.userModel ? true : false}-${JSON.stringify(lang)}-${req.query.limit}-${req.query.keyword}-`;
 
   // Parallel operations: get user wishlist, check Redis cache, and get product data
   const [userWishList, cachedData] = await Promise.all([
@@ -67,30 +68,38 @@ exports.getAllNewProduct = asyncHandler(async (req, res) => {
     getCachedData(cacheKey),
   ]);
 
+  let localizedProducts;
+
   if (cachedData) {
-    return res.status(200).json(JSON.parse(cachedData));
+    // Get product data and localize it
+    localizedProducts = JSON.parse(cachedData);
+    //return res.status(200).json(JSON.parse(cachedData));
+  } else {
+    const { products } = await getProductData(req.query);
+
+    localizedProducts = localizeProducts(products, lang);
+
+    // Cache the localized products data
+    await cacheData(cacheKey, localizedProducts);
   }
 
-  // Get product data and localize it
-  const { products, paginationRuslt } = await getProductData(req.query);
-  const localizedProducts = localizeProducts(products, lang);
+
 
   // Add wishlist status
-  const productsWithWishlistStatus = addWishlistStatus(localizedProducts, userWishList ? userWishList.wishList : []);
+  const productsWithWishlistStatus = addWishlistStatus(
+    localizedProducts,
+    userWishList ? userWishList.wishList : []
+  );
+
+
 
   // Create response data
   const responseData = {
     status: true,
-    paginationRuslt,
-    message: i18n.__("SuccessToGetAllDataFor") + i18n.__('product'),
+    message: i18n.__("SuccessToGetAllDataFor") + i18n.__("product"),
     data: productsWithWishlistStatus,
   };
-
-  // Cache the response
-  await cacheData(cacheKey, responseData);
 
   // Send response
   res.status(200).json(responseData);
 });
-
-
