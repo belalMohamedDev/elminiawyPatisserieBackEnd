@@ -71,12 +71,11 @@
 	"product": "المنتج",
 	"categoryIdNotMatching": "معرف الفئة غير مطابق",
 	"StoreGetAllProductsSubCategory": "متجر الحصول على جميع المنتجات التي تنتمي إلى الفئة الفرعية",
-    "successGetAllWishlistProducts": "نجاح في الحصول على جميع منتجات قائمة الرغبات",
+	"successGetAllWishlistProducts": "نجاح في الحصول على جميع منتجات قائمة الرغبات",
 	"noProductsInWishlist": "لا يوجد منتجات في قائمة الرغبات",
-	"failedToRemoveProductFromWishlist":"فشل في إزالة المنتج من قائمة الرغبات",
-    "productRemovedSuccessfullyWishlist":"تمت إزالة المنتج بنجاح من قائمة الرغبات الخاصة بك",
+	"failedToRemoveProductFromWishlist": "فشل في إزالة المنتج من قائمة الرغبات",
+	"productRemovedSuccessfullyWishlist": "تمت إزالة المنتج بنجاح من قائمة الرغبات الخاصة بك",
 	"failedAddProductwishlist": "فشل في إضافة المنتج إلى قائمة الرغبات",
-	"productAddedSuccessfullyWishlist":"تمت إضافة المنتج بنجاح إلى قائمة الرغبات الخاصة بك"
-
-
+	"productAddedSuccessfullyWishlist": "تمت إضافة المنتج بنجاح إلى قائمة الرغبات الخاصة بك",
+	"loggedOutSuccessfully": "loggedOutSuccessfully"
 }
