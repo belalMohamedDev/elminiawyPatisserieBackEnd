@@ -2,6 +2,16 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 var mongooseI18n = require("mongoose-i18n-localize");
 
+const sessionSchema = new mongoose.Schema(
+  {
+    refreshToken: { type: String },
+    deviceInfo: { type: String },
+    createdAt: { type: Date, default: Date.now },
+    lastUsedAt: { type: Date, default: Date.now },
+  },
+  { _id: false }
+);
+
 const userSchema = new mongoose.Schema(
   {
     name: {
@@ -48,7 +58,7 @@ const userSchema = new mongoose.Schema(
 
     verifyAccount: Boolean,
 
-    refreshToken: String,
+    sessions: [sessionSchema],
 
     branchAddress: {
       type: mongoose.Schema.ObjectId,
@@ -60,8 +70,6 @@ const userSchema = new mongoose.Schema(
         ref: "Product",
       },
     ],
-
-
   },
   { timestamps: true }
 );
@@ -77,7 +85,6 @@ userSchema.pre("save", async function (next) {
 userSchema.plugin(mongooseI18n, {
   locales: ["en", "ar"],
 });
-
 
 const userModel = mongoose.model("User", userSchema);
 

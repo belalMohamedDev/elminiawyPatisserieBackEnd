@@ -11,6 +11,7 @@ const path = require("path");
 const morgan = require("morgan");
 const admin = require("firebase-admin");
 const i18n = require("i18n");
+const useragent = require("express-useragent");
 
 const dbConnection = require("./config/database");
 const redisClient = require("./config/redisConnection");
@@ -77,6 +78,8 @@ app.options("*", cors());
 // compress all responses
 app.use(compression());
 
+//get device info
+app.use(useragent.express());
 //Middleware
 // for parsing application/json
 app.use(express.json({ limit: "20kb" }));

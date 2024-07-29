@@ -6,7 +6,8 @@ const userModel = require("../../modules/userModel");
 const sendEmail = require("../../utils/sendEmail/sendEmail");
 const creatToken = require("../../utils/generate token/createToken");
 const { sanitizeUser } = require("../../utils/apiFeatures/sanitizeData");
-
+const { getDeviceInfo } = require("../../utils/getDeviceInfo/getDeviceInfo");
+const { addSessionToDB } = require("./addSessionToDB");
 
 /////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////
@@ -121,9 +122,7 @@ const verifyCode = asyncHandler(async (req, res, next) => {
   //send success response to client side
   res.status(201).json({
     status: true,
-    message: i18n.__(
-      "verifiedSuccessfully"
-    ),
+    message: i18n.__("verifiedSuccessfully"),
   });
 });
 
@@ -135,6 +134,8 @@ const verifyCode = asyncHandler(async (req, res, next) => {
 // @ route Post  /api/vi/auth/resetPassword
 // @ access Public
 const resetPassword = asyncHandler(async (req, res, next) => {
+  const deviceInfo = JSON.stringify(getDeviceInfo(req));
+
   //get user based on  email
   const document = await userModel.findOne({
     email: req.body.email,
@@ -169,9 +170,13 @@ const resetPassword = asyncHandler(async (req, res, next) => {
     process.env.JWT_EXPIER_REFRESH_TIME_TOKEN
   );
 
-  document.refreshToken = refreshToken;
-
-  await document.save();
+  (document.sessions = {
+    refreshToken,
+    deviceInfo,
+    createdAt: new Date(),
+    lastUsedAt: new Date(),
+  }),
+    await document.save();
 
   //send success response to client side
   res.status(201).json({

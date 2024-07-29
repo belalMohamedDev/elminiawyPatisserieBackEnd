@@ -27,6 +27,7 @@
     "express-async-handler": "^1.2.0",
     "express-mongo-sanitize": "^2.2.0",
     "express-rate-limit": "^7.3.1",
+    "express-useragent": "^1.0.15",
     "express-validator": "^7.1.0",
     "firebase-admin": "^12.2.0",
     "i18n": "^0.15.1",

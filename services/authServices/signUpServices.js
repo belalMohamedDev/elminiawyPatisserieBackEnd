@@ -6,11 +6,15 @@ const userModel = require("../../modules/userModel");
 const creatToken = require("../../utils/generate token/createToken");
 
 const { sanitizeUser } = require("../../utils/apiFeatures/sanitizeData");
+const { getDeviceInfo } = require("../../utils/getDeviceInfo/getDeviceInfo");
+const { addSessionToDB } = require("./addSessionToDB");
 
 // @ dec sign Up
 // @ route Post  /api/vi/auth/signUp
 // @ access Public
 exports.signUp = asyncHandler(async (req, res, next) => {
+  const deviceInfo = JSON.stringify(getDeviceInfo(req));
+
   // create user
   const document = await userModel.create({
     name: req.body.name,
@@ -21,24 +25,32 @@ exports.signUp = asyncHandler(async (req, res, next) => {
   });
 
   //generate token
-  const accessToken = creatToken(
-    document._id,
-    process.env.JWT_ACCESS_TOKEN_SECRET_KEY,
-    process.env.JWT_EXPIER_ACCESS_TIME_TOKEN
-  );
+
   const refreshToken = creatToken(
     document._id,
     process.env.JWT_REFRESH_TOKEN_SECRET_KEY,
     process.env.JWT_EXPIER_REFRESH_TIME_TOKEN
   );
 
-  document.refreshToken = refreshToken;
-  await document.save();
+  const accessToken = creatToken(
+    document._id,
+    process.env.JWT_ACCESS_TOKEN_SECRET_KEY,
+    process.env.JWT_EXPIER_ACCESS_TIME_TOKEN
+  );
+
+  (document.sessions = {
+    refreshToken,
+    deviceInfo,
+    createdAt: new Date(),
+    lastUsedAt: new Date(),
+  }),
+    document.save();
+
   //send success response
   res.status(201).json({
     status: true,
     message: i18n.__("userSuccessfullySignedUp"),
     accessToken: accessToken,
-    data: sanitizeUser(document),
+    data: sanitizeUser(document, refreshToken),
   });
 });
