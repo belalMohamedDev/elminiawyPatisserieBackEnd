@@ -16,24 +16,30 @@ exports.logOut = asyncHandler(async (req, res, next) => {
     return next(new ApiError(i18n.__("refreshTokenRequired"), 400));
   }
 
-  let decoded;
-  try {
-    decoded = jwt.verify(
-      refreshToken,
-      process.env.JWT_REFRESH_TOKEN_SECRET_KEY
-    );
-  } catch (err) {
-    return next(new ApiError(i18n.__("invalidRefreshToken"), 400));
-  }
+  const decoded = jwt.verify(
+    refreshToken,
+    process.env.JWT_REFRESH_TOKEN_SECRET_KEY
+  );
 
   const user = await userModel.findOne({ _id: decoded.userId });
 
-  if (!user || user.refreshToken !== refreshToken) {
+  if (!user) {
     return next(new ApiError(i18n.__("invalidRefreshToken"), 400));
   }
 
-  user.refreshToken = null;
+  // Verify and remove session
+  const sessionIndex = user.sessions.findIndex(
+    (session) => session.refreshToken === refreshToken
+  );
+
+  if (sessionIndex === -1) {
+    return next(new ApiError(i18n.__("invalidRefreshToken"), 400));
+  }
+
+  user.sessions.splice(sessionIndex, 1);
   await user.save();
+
+
 
   res.status(200).json({
     status: true,
