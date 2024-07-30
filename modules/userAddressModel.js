@@ -10,7 +10,7 @@ const UserAddressSchema = mongoose.Schema(
       default: "Apartment",
     },
 
-    BuildingName: {
+    buildingName: {
       type: String,
       trim: true,
       required: [true, "Address Building Name required"],
