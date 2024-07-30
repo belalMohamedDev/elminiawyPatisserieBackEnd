@@ -39,6 +39,9 @@ exports.login = asyncHandler(async (req, res, next) => {
 
   await addSessionToDB(document._id, refreshToken, deviceInfo);
 
+  // Remove old sessions if needed
+  await removeOldSessions(document);
+
   //send success response to client side
   res.status(201).json({
     status: true,
@@ -47,3 +50,13 @@ exports.login = asyncHandler(async (req, res, next) => {
     data: sanitizeUser(document, refreshToken),
   });
 });
+
+const removeOldSessions = async (user) => {
+  const maxSessions = 5;
+
+  if (user.sessions.length > maxSessions) {
+    user.sessions.sort((a, b) => a.createdAt - b.createdAt);
+    user.sessions = user.sessions.slice(-maxSessions);
+    await user.save();
+  }
+};

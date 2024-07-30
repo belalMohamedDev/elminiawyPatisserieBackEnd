@@ -7,7 +7,6 @@ const sendEmail = require("../../utils/sendEmail/sendEmail");
 const creatToken = require("../../utils/generate token/createToken");
 const { sanitizeUser } = require("../../utils/apiFeatures/sanitizeData");
 const { getDeviceInfo } = require("../../utils/getDeviceInfo/getDeviceInfo");
-const { addSessionToDB } = require("./addSessionToDB");
 
 /////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////

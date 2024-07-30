@@ -7,7 +7,6 @@ const creatToken = require("../../utils/generate token/createToken");
 
 const { sanitizeUser } = require("../../utils/apiFeatures/sanitizeData");
 const { getDeviceInfo } = require("../../utils/getDeviceInfo/getDeviceInfo");
-const { addSessionToDB } = require("./addSessionToDB");
 
 // @ dec sign Up
 // @ route Post  /api/vi/auth/signUp
