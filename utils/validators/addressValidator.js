@@ -1,70 +1,147 @@
 const { check } = require("express-validator");
+const i18n = require("i18n");
+
 const validatorMiddleware = require("../../middleware/validatorMiddleware");
 
-
-
 exports.createAddressValidator = [
-  check("BuildingName")
+  check("buildingName")
     .notEmpty()
-    .withMessage("Building Name is required")
+    .withMessage((value, { req }) =>
+      i18n.__({
+        phrase: "buildingNameRequired",
+        locale: req.headers["lang"] || "en",
+      })
+    )
     .isLength({ min: 3 })
-    .withMessage("too short Building Name")
+    .withMessage((value, { req }) =>
+      i18n.__({
+        phrase: "tooShortBuildingName",
+        locale: req.headers["lang"] || "en",
+      })
+    )
     .isLength({ max: 50 })
-    .withMessage("too long Building Name"),
+    .withMessage((value, { req }) =>
+      i18n.__({
+        phrase: "tooLongBuildingName",
+        locale: req.headers["lang"] || "en",
+      })
+    ),
 
-    check("region")
+  check("region")
     .notEmpty()
-    .withMessage("region name is required")
+    .withMessage((value, { req }) =>
+      i18n.__({
+        phrase: "regionNameRequired",
+        locale: req.headers["lang"] || "en",
+      })
+    )
     .isLength({ min: 3 })
-    .withMessage("too short region name")
+    .withMessage((value, { req }) =>
+      i18n.__({
+        phrase: "tooShortRegionName",
+        locale: req.headers["lang"] || "en",
+      })
+    )
     .isLength({ max: 50 })
-    .withMessage("too long region Name"),
+    .withMessage((value, { req }) =>
+      i18n.__({
+        phrase: "tooLongRegionName",
+        locale: req.headers["lang"] || "en",
+      })
+    ),
 
-
-    check("phone")
+  check("phone")
     .notEmpty()
-    .withMessage("phone number is required")
+    .withMessage((value, { req }) =>
+      i18n.__({
+        phrase: "phoneNumberRequired",
+        locale: req.headers["lang"] || "en",
+      })
+    )
     .isMobilePhone(["ar-EG"])
-    .withMessage("Invalid phone number only accepted Egypt phone numbers"),
+    .withMessage((value, { req }) =>
+      i18n.__({
+        phrase: "InvalidPhoneNumber",
+        locale: req.headers["lang"] || "en",
+      })
+    ),
 
-
-    check("alias")
+  check("alias")
     .isIn(["Apartment", "House", "Office"])
-    .withMessage("alias data not match data"),
-
+    .withMessage((value, { req }) =>
+      i18n.__({
+        phrase: "aliasMatchData",
+        locale: req.headers["lang"] || "en",
+      })
+    ),
 
   validatorMiddleware,
 ];
 
 exports.updateAddressValidator = [
-  check("id").isMongoId().withMessage("Invalid address id format"),
+  check("id")
+    .isMongoId()
+    .withMessage((value, { req }) =>
+      i18n.__({
+        phrase: "invalidAddressIdFormat",
+        locale: req.headers["lang"] || "en",
+      })
+    ),
   
-  
-    check("BuildingName")
+  check("buildingName")
     .optional()
     .isLength({ min: 3 })
-    .withMessage("too short Building Name")
+    .withMessage((value, { req }) =>
+      i18n.__({
+        phrase: "tooShortBuildingName",
+        locale: req.headers["lang"] || "en",
+      })
+    )
     .isLength({ max: 50 })
-    .withMessage("too long Building Name"),
+    .withMessage((value, { req }) =>
+      i18n.__({
+        phrase: "tooLongBuildingName",
+        locale: req.headers["lang"] || "en",
+      })
+    ),
 
-    check("region")
+  check("region")
+    .notEmpty()
     .optional()
     .isLength({ min: 3 })
-    .withMessage("too short region name")
+    .withMessage((value, { req }) =>
+      i18n.__({
+        phrase: "tooShortRegionName",
+        locale: req.headers["lang"] || "en",
+      })
+    )
     .isLength({ max: 50 })
-    .withMessage("too long region Name"),
+    .withMessage((value, { req }) =>
+      i18n.__({
+        phrase: "tooLongRegionName",
+        locale: req.headers["lang"] || "en",
+      })
+    ),
 
-
-    check("phone")
+  check("phone")
     .optional()
     .isMobilePhone(["ar-EG"])
-    .withMessage("Invalid phone number only accepted Egypt phone numbers"),
-
+    .withMessage((value, { req }) =>
+      i18n.__({
+        phrase: "InvalidPhoneNumber",
+        locale: req.headers["lang"] || "en",
+      })
+    ),
 
   validatorMiddleware,
 ];
 
 exports.deleteAddressValidator = [
-  check("id").isMongoId().withMessage("Invalid address id format"),
+  check("id").isMongoId().withMessage((value, { req }) =>
+    i18n.__({
+      phrase: "invalidAddressIdFormat",
+      locale: req.headers["lang"] || "en",
+    })
+  ),
   validatorMiddleware,
 ];

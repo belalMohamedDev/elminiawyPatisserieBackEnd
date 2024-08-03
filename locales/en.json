@@ -74,8 +74,19 @@
 	"StoreGetAllProductsSubCategory": "Store get All Products Belongs To subCategory",
 	"successGetAllWishlistProducts": "Success to get all wishlist products",
 	"noProductsInWishlist": "No products in wishlist",
-	"failedToRemoveProductFromWishlist":"Failed to remove product from wishlist",
-	"productRemovedSuccessfullyWishlist":"product removed successfully from your wishlist",
+	"failedToRemoveProductFromWishlist": "Failed to remove product from wishlist",
+	"productRemovedSuccessfullyWishlist": "product removed successfully from your wishlist",
 	"failedAddProductwishlist": "Failed to add product to wishlist",
-	"productAddedSuccessfullyWishlist":"Product added successfully to your wishlist"
+	"productAddedSuccessfullyWishlist": "Product added successfully to your wishlist",
+	"buildingNameRequired": "Building Name is required",
+	"tooShortBuildingName": "too short Building Name",
+	"regionNameRequired": "region name is required",
+	"tooShortRegionName": "too short region name",
+	"tooLongRegionName": "too long region Name",
+	"phoneNumberRequired": "phone number is required",
+	"InvalidPhoneNumber": "Invalid phone number only accepted Egypt phone numbers",
+	"tooLongBuildingName": "too long Building Name",
+	"aliasMatchData": "alias data not match data",
+	"invalidAddressIdFormat": "Invalid address id format",
+	"address": "address"
 }

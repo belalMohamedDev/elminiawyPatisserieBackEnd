@@ -77,5 +77,16 @@
 	"productRemovedSuccessfullyWishlist": "تمت إزالة المنتج بنجاح من قائمة الرغبات الخاصة بك",
 	"failedAddProductwishlist": "فشل في إضافة المنتج إلى قائمة الرغبات",
 	"productAddedSuccessfullyWishlist": "تمت إضافة المنتج بنجاح إلى قائمة الرغبات الخاصة بك",
-	"loggedOutSuccessfully": "loggedOutSuccessfully"
+	"loggedOutSuccessfully": "تم تسجيل الخروج بنجاح",
+	"buildingNameRequired": "اسم المبنى مطلوب",
+	"tooShortBuildingName": "اسم مبنى قصير جدًا",
+	"regionNameRequired": "اسم المنطقة مطلوب",
+	"tooShortRegionName": "اسم منطقة قصير جدًا",
+	"tooLongRegionName": "اسم منطقة طويل جدًا",
+	"phoneNumberRequired": "رقم الهاتف مطلوب",
+	"InvalidPhoneNumber": "رقم هاتف غير صالح يتم قبول أرقام الهاتف في مصر فقط",
+	"tooLongBuildingName": "اسم مبنى طويل جدًا",
+	"aliasMatchData": "بيانات الاسم المستعار لا تتطابق مع البيانات",
+	"invalidAddressIdFormat": "تنسيق معرف عنوان غير صالح",
+	"address": "address"
 }
