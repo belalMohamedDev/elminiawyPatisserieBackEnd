@@ -83,14 +83,6 @@ const getAllData = (model, modelName) =>
         req.headers["lang"] || "en"
       );
     }
-    //check when no data found in db
-    if (!document[0]) {
-      // send success response
-      return res.status(200).json({
-        status: true,
-        message: i18n.__("ThereIsNoDataEntryForThis") + i18n.__(modelName),
-      });
-    }
 
     // Cache the response for one day (86400 seconds)
     await redis.set(
@@ -102,7 +94,7 @@ const getAllData = (model, modelName) =>
         data: localizedDocument ? localizedDocument : document,
       }),
       { EX: 60 }
-    ); 
+    );
 
     // send success response with data
     res.status(200).json({
