@@ -4,14 +4,33 @@ const i18n = require("i18n");
 const redis = require("../../../../config/redisConnection");
 
 const productModel = require("../../../../modules/productModel");
+const userModel = require("../../../../modules/userModel");
 const SubCategory = require("../../../../modules/subCategoryModel");
 
-
-
-
 ///////////////////////////////////////////////
+const getUserWishlist = async (userModel) => {
+  if (userModel) {
+    return await userModel.populate("wishList");
+  }
+  return null;
+};
 
-async function getProductsBySubCategory(subCategoryIds,langHeaders) {
+const addWishlistStatus = (products, wishlist) => {
+  return products.map((product) => {
+    const isInWishlist = wishlist
+      ? wishlist.some(
+          (wishListItem) =>
+            wishListItem._id.toString() === product._id.toString()
+        )
+      : false;
+    return {
+      ...product,
+      in_wishlist: isInWishlist,
+    };
+  });
+};
+
+async function getProductsBySubCategory(subCategoryIds, langHeaders) {
   const products = await productModel
     .find({
       subCategory: { $in: subCategoryIds },
@@ -55,19 +74,22 @@ exports.getAllProductsBelongsTosubCategory = asyncHandler(
       return res.status(200).json(JSON.parse(cachedData));
     }
 
-    // First, get all subcategories for the category
-    const subCategories = await getSubCategoriesByCategory(
-      categoryId,
-      langHeaders
-    );
+    // Get user wishlist and subcategories in parallel
+    const [userWishList, subCategories] = await Promise.all([
+      getUserWishlist(req.userModel),
+      getSubCategoriesByCategory(categoryId, langHeaders)
+    ]);
 
     // Collect all subcategory IDs
     const subCategoryIds = subCategories.map((subCategory) => subCategory._id);
 
-    // Then, get all products for these subcategories
-    const products = await getProductsBySubCategory(
-      subCategoryIds,
-      langHeaders
+    // Get all products for these subcategories
+    const products = await getProductsBySubCategory(subCategoryIds, langHeaders);
+
+    // Add wishlist status
+    const productsWithWishlistStatus = addWishlistStatus(
+      products,
+      userWishList ? userWishList.wishList : []
     );
 
     // Map products to their respective subcategories
@@ -75,29 +97,22 @@ exports.getAllProductsBelongsTosubCategory = asyncHandler(
       return {
         id: subCategory._id,
         title: subCategory.title,
-        products: products.filter((product) =>
+        products: productsWithWishlistStatus.filter((product) =>
           product.subCategory.equals(subCategory._id)
         ),
       };
     });
 
     // Cache the response for one day (86400 seconds)
-    await redis.set(
-      cacheKey,
-      JSON.stringify({
-        status: true,
-        message: i18n.__("StoreGetAllProductsSubCategory"),
-        AllProducts: products,
-        data: productsBySubCategory,
-      }),
-      { EX: 60 }
-    );
-
-    res.status(200).json({
+    const response = {
       status: true,
       message: i18n.__("StoreGetAllProductsSubCategory"),
-      AllProducts: products,
+      AllProducts: productsWithWishlistStatus,
       data: productsBySubCategory,
-    });
+    };
+
+    await redis.set(cacheKey, JSON.stringify(response), { EX: 86400 });
+
+    res.status(200).json(response);
   }
 );
