@@ -4,23 +4,6 @@ const mongoose = require("mongoose");
 const cartItemSchema = mongoose.Schema({
   product: { type: mongoose.Schema.ObjectId, ref: "Product", required: true },
   quantity: { type: Number, default: 1 },
-  options: [
-    {
-      optionName: { type: String, required: true },
-      additionalPrice: { type: Number, default: 0 },
-    },
-  ],
-  customizations: [
-    {
-      name: { type: String },
-      choice: {
-        name: { type: String },
-        additionalPrice: { type: Number },
-      },
-    },
-  ],
-
-
   price: { type: Number, required: true },
   totalItemPrice: { type: Number },
 });
@@ -28,7 +11,6 @@ const cartItemSchema = mongoose.Schema({
 const CartSchema = mongoose.Schema(
   {
     user: { type: mongoose.Schema.ObjectId, ref: "User", required: true },
-    notes: { type: String },
     cartItems: [cartItemSchema],
     totalCartPrice: Number,
     totalPriceAfterDiscount: Number,
@@ -38,16 +20,7 @@ const CartSchema = mongoose.Schema(
 
 // Pre-save hook to calculate the total price for each cart item
 cartItemSchema.pre("save", function (next) {
-  let baseTotal =
-    (this.price +
-      this.options.reduce((acc, option) => acc + option.additionalPrice, 0) +
-      this.customizations.reduce(
-        (acc, customization) => acc + customization.choice.additionalPrice,
-        0
-      )) *
-    this.quantity;
-
-  this.totalItemPrice = baseTotal;
+  this.totalItemPrice = this.price * this.quantity;
   next();
 });
 

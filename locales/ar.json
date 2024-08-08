@@ -88,5 +88,7 @@
 	"tooLongBuildingName": "اسم مبنى طويل جدًا",
 	"aliasMatchData": "بيانات الاسم المستعار لا تتطابق مع البيانات",
 	"invalidAddressIdFormat": "تنسيق معرف عنوان غير صالح",
-	"address": "address"
+	"address": "العنوان",
+	"faildToGetProductData": "فشل في الحصول على بيانات المنتج من هذا المعرف",
+	"protuctAddedCartSuccessfully": "تمت إضافة المنتج إلى سلة التسوق بنجاح"
 }

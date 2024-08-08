@@ -88,5 +88,7 @@
 	"tooLongBuildingName": "too long Building Name",
 	"aliasMatchData": "alias data not match data",
 	"invalidAddressIdFormat": "Invalid address id format",
-	"address": "address"
+	"address": "address",
+	"faildToGetProductData": "Faild To get product data from this id",
+	"protuctAddedCartSuccessfully": "protuct added to cart successfully"
 }
