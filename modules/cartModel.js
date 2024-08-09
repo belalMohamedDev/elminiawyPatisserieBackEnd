@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const i18n = require("i18n");
 
 // Define the CartItem schema
 const cartItemSchema = mongoose.Schema({
@@ -41,9 +42,12 @@ CartSchema.pre(/^find/, function (next) {
     path: "cartItems.product",
     select: "title image ",
   });
-
+  
+  
   next();
 });
+
+
 const CartModel = mongoose.model("Cart", CartSchema);
 
 module.exports = CartModel;
