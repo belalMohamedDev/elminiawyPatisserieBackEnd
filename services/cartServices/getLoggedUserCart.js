@@ -1,6 +1,9 @@
-const asyncHandler = require('express-async-handler')
-const CartModel = require('../../modules/cartModel')
-const ApiError = require('../../utils/apiError/apiError')
+const asyncHandler = require("express-async-handler");
+const i18n = require("i18n");
+
+const ProductModel = require("../../modules/productModel");
+const CartModel = require("../../modules/cartModel");
+const ApiError = require("../../utils/apiError/apiError");
 
 // @ dec get logged user cart
 // @ route Get  /api/vi/cart
@@ -8,26 +11,25 @@ const ApiError = require('../../utils/apiError/apiError')
 
 // // Helper function to check if two arrays of objects are equal
 exports.getLoggedUserCart = asyncHandler(async (req, res, next) => {
-  
-
-
-const cart = await CartModel.findOne({ user: req.userModel._id });
+  const cart = await CartModel.findOne({ user: req.userModel._id });
 
   //check found data or no
   if (!cart) {
     //send faild response
-    return next(
-      new ApiError(`there is no cart for this user id : ${req.userModel._id}`, 404),
-    )
+    return next(new ApiError(i18n.__("thereIsNoCartForThisUser"), 404));
   }
 
-  
+    
+  // Helper function to localize product data
+  var localizedDocument = ProductModel.schema.methods.toJSONLocalizedOnly(
+    cart,
+    req.headers["lang"] || "en"
+  );
+
   res.status(200).json({
     status: true,
-    message: "successfully get logged user data",
+    message: i18n.__("successfullyGetLoggedUserData"),
     numOfCartItems: cart.cartItems.length,
-    data: cart,
-  });});
-
-
-
+    data: localizedDocument,
+  });
+});

@@ -90,5 +90,7 @@
 	"invalidAddressIdFormat": "Invalid address id format",
 	"address": "address",
 	"faildToGetProductData": "Faild To get product data from this id",
-	"protuctAddedCartSuccessfully": "protuct added to cart successfully"
+	"protuctAddedCartSuccessfully": "protuct added to cart successfully",
+	"thereIsNoCartForThisUser": "there is no cart for this user",
+	"successfullyGetLoggedUserData": "successfully get logged user data"
 }
