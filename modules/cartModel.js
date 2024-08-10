@@ -40,7 +40,7 @@ CartSchema.pre(/^find/, function (next) {
     select: "name email phone",
   }).populate({
     path: "cartItems.product",
-    select: "title image ",
+    select: "title image ratingsAverage",
   });
   
   
