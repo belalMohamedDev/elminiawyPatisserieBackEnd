@@ -92,5 +92,6 @@
 	"faildToGetProductData": "فشل في الحصول على بيانات المنتج من هذا المعرف",
 	"protuctAddedCartSuccessfully": "تمت إضافة المنتج إلى سلة التسوق بنجاح",
 	"thereIsNoCartForThisUser": "لا توجد عربة لهذا المستخدم",
-	"successfullyGetLoggedUserData": "تم الحصول على بيانات المستخدم المسجلة بنجاح"
+	"successfullyGetLoggedUserData": "تم الحصول على بيانات المستخدم المسجلة بنجاح",
+	"settingsUpdatedSuccessfully": "تم تحديث الإعدادات بنجاح"
 }

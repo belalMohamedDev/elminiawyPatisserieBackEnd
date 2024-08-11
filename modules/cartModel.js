@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const i18n = require("i18n");
+const SettingsModel = require("./settingCartModel");
 
 // Define the CartItem schema
 const cartItemSchema = mongoose.Schema({
@@ -14,7 +14,10 @@ const CartSchema = mongoose.Schema(
     user: { type: mongoose.Schema.ObjectId, ref: "User", required: true },
     cartItems: [cartItemSchema],
     totalCartPrice: Number,
-    totalPriceAfterDiscount: Number,
+    totalPriceAfterDiscount: { type: Number, default: 0.0 },
+    taxPrice: Number,
+    shippingPrice: Number,
+    totalOrderPrice: Number,
   },
   { timestamps: true }
 );
@@ -25,12 +28,23 @@ cartItemSchema.pre("save", function (next) {
   next();
 });
 
-// Pre-save hook to calculate the totalCartPrice and totalPriceAfterDiscount for the cart
-CartSchema.pre("save", function (next) {
+CartSchema.pre("save", async function (next) {
   this.totalCartPrice = this.cartItems.reduce(
     (acc, item) => acc + item.totalItemPrice,
     0
   );
+
+  const settings = await SettingsModel.findOne();
+
+  this.taxPrice = (settings.taxRate || 0) * this.totalCartPrice;
+
+  this.shippingPrice = settings.shippingPrice || 0;
+
+
+  this.totalOrderPrice =
+    this.totalCartPrice + this.taxPrice + this.shippingPrice;
+
+
   next();
 });
 
@@ -42,11 +56,9 @@ CartSchema.pre(/^find/, function (next) {
     path: "cartItems.product",
     select: "title image ratingsAverage",
   });
-  
-  
+
   next();
 });
-
 
 const CartModel = mongoose.model("Cart", CartSchema);
 
