@@ -93,5 +93,10 @@
 	"protuctAddedCartSuccessfully": "protuct added to cart successfully",
 	"thereIsNoCartForThisUser": "there is no cart for this user",
 	"successfullyGetLoggedUserData": "successfully get logged user data",
-	"settingsUpdatedSuccessfully" :"Settings updated successfully" 
+	"settingsUpdatedSuccessfully" :"Settings updated successfully" ,
+
+	"cartNotFound":"Cart not found",
+	"itemNotFoundInTheCart":"Item not found in the cart",
+	"theCartIsNowEmpty.":"Successfully deleted logged user item from cart. The cart is now empty.",
+	"SuccessfullyDeletedLoggedUserItemFromCart":"Successfully deleted logged user item from cart"
 }

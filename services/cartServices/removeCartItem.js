@@ -1,6 +1,8 @@
 const asyncHandler = require("express-async-handler");
 const CartModel = require("../../modules/cartModel");
 const ApiError = require("../../utils/apiError/apiError");
+const i18n = require("i18n");
+const ProductModel = require("../../modules/productModel");
 
 //  @dec    remove specific  Cart item
 //  @route  Delete  /api/v1/cart/:itemId
@@ -12,7 +14,7 @@ exports.removeSpecificCartItem = asyncHandler(async (req, res, next) => {
 
   // If the cart doesn't exist, return an error
   if (!cart) {
-    return next(new ApiError("Cart not found", 404));
+    return next(new ApiError(i18n.__("cartNotFound"), 404));
   }
 
   // Check if the item exists in the cart
@@ -23,7 +25,7 @@ exports.removeSpecificCartItem = asyncHandler(async (req, res, next) => {
   if (itemIndex === -1) {
     return next(
       new ApiError(
-        `Item not found in the cart for this id: ${req.params.itemId}`,
+        i18n.__("itemNotFoundInTheCart"),
         404
       )
     );
@@ -35,14 +37,21 @@ exports.removeSpecificCartItem = asyncHandler(async (req, res, next) => {
   // Save the updated cart
   await cart.save();
 
+    // Helper function to localize product data
+    var localizedDocument = ProductModel.schema.methods.toJSONLocalizedOnly(
+      cart,
+      req.headers["lang"] || "en"
+    );
+  
+
   // Return the response with the updated cart information
   res.status(200).json({
     status: true,
     message:
       cart.cartItems.length === 0
-        ? "Successfully deleted logged user item from cart. The cart is now empty."
-        : "Successfully deleted logged user item from cart",
+        ?   i18n.__("theCartIsNowEmpty")
+        :   i18n.__("SuccessfullyDeletedLoggedUserItemFromCart"),
     numOfCartItems: cart.cartItems.length === 0 ? 0 : cart.cartItems.length,
-    data: cart,
+    data: localizedDocument,
   });
 });
