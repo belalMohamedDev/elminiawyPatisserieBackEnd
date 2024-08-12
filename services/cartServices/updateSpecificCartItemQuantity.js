@@ -26,10 +26,9 @@ exports.updateSpecificCartItemQuantity = asyncHandler(
     );
 
     if (itemIndex > -1) {
-      if (cart.cartItems[itemIndex].quantity > 0) {
-        cart.cartItems[itemIndex].quantity += quantity;
-      } else {
-        // Remove the item from the cart
+      cart.cartItems[itemIndex].quantity += quantity;
+
+      if (cart.cartItems[itemIndex].quantity <= 0) {
         cart.cartItems[itemIndex].quantity = 1;
       }
     } else {
