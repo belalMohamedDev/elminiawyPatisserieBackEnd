@@ -98,5 +98,7 @@
 	"cartNotFound":"Cart not found",
 	"itemNotFoundInTheCart":"Item not found in the cart",
 	"theCartIsNowEmpty.":"Successfully deleted logged user item from cart. The cart is now empty.",
-	"SuccessfullyDeletedLoggedUserItemFromCart":"Successfully deleted logged user item from cart"
+	"SuccessfullyDeletedLoggedUserItemFromCart":"Successfully deleted logged user item from cart",
+	"quantityShouldBeAtLeast":"Quantity should be at least 1.",
+	"successfullyUpdatedQuantityOfItemInCart": "Successfully updated quantity of item in cart"
 }
