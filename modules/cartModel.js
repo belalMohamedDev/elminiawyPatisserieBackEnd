@@ -40,11 +40,11 @@ CartSchema.pre("save", async function (next) {
 
   this.shippingPrice = settings.shippingPrice || 0;
 
-
   this.totalOrderPrice =
-    this.totalCartPrice + this.taxPrice + this.shippingPrice;
-
-
+    this.totalPriceAfterDiscount != 0
+      ? this.totalPriceAfterDiscount + this.taxPrice + this.shippingPrice
+      : this.totalCartPrice + this.taxPrice + this.shippingPrice;
+      
   next();
 });
 

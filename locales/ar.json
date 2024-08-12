@@ -94,11 +94,11 @@
 	"thereIsNoCartForThisUser": "لا توجد عربة لهذا المستخدم",
 	"successfullyGetLoggedUserData": "تم الحصول على بيانات المستخدم المسجلة بنجاح",
 	"settingsUpdatedSuccessfully": "تم تحديث الإعدادات بنجاح",
-
-	"cartNotFound":"لم يتم العثور على عربة التسوق",
-    "itemNotFoundInTheCart":"لم يتم العثور على العنصر في عربة التسوق",
-    "theCartIsNowEmpty.":"تم بنجاح حذف عنصر المستخدم المسجل من عربة التسوق. عربة التسوق فارغة الآن.",
-    "SuccessfullyDeletedLoggedUserItemFromCart":"تم بنجاح حذف عنصر المستخدم المسجل من عربة التسوق",
-	"quantityShouldBeAtLeast":"يجب أن تكون الكمية 1 على الأقل",
-    "successfullyUpdatedQuantityOfItemInCart": "تم تحديث كمية العنصر في عربة التسوق بنجاح"
+	"cartNotFound": "لم يتم العثور على عربة التسوق",
+	"itemNotFoundInTheCart": "لم يتم العثور على العنصر في عربة التسوق",
+	"theCartIsNowEmpty.": "تم بنجاح حذف عنصر المستخدم المسجل من عربة التسوق. عربة التسوق فارغة الآن.",
+	"SuccessfullyDeletedLoggedUserItemFromCart": "تم بنجاح حذف عنصر المستخدم المسجل من عربة التسوق",
+	"quantityShouldBeAtLeast": "يجب أن تكون الكمية 1 على الأقل",
+	"successfullyUpdatedQuantityOfItemInCart": "تم تحديث كمية العنصر في عربة التسوق بنجاح",
+	"coupons": "coupons"
 }
