@@ -100,5 +100,9 @@
 	"SuccessfullyDeletedLoggedUserItemFromCart": "Successfully deleted logged user item from cart",
 	"quantityShouldBeAtLeast": "Quantity should be at least 1.",
 	"successfullyUpdatedQuantityOfItemInCart": "Successfully updated quantity of item in cart",
-	"coupons": "coupons"
+	"coupons": "coupons",
+
+	"couponNameIsRequired":"Coupon name is required",
+	"couponIsInvalidOrHasExpired":"Coupon is invalid or has expired",
+	"couponAppliedSuccessfully":"Coupon applied successfully"
 }

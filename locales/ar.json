@@ -100,5 +100,8 @@
 	"SuccessfullyDeletedLoggedUserItemFromCart": "تم بنجاح حذف عنصر المستخدم المسجل من عربة التسوق",
 	"quantityShouldBeAtLeast": "يجب أن تكون الكمية 1 على الأقل",
 	"successfullyUpdatedQuantityOfItemInCart": "تم تحديث كمية العنصر في عربة التسوق بنجاح",
-	"coupons": "coupons"
+	"coupons": "كوبون",
+	"couponNameIsRequired":"اسم الكوبون مطلوب",
+    "couponIsInvalidOrHasExpired":"القسيمة غير صالحة أو انتهت صلاحيتها",
+    "couponAppliedSuccessfully":"تم تطبيق الكوبون بنجاح"
 }

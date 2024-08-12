@@ -2,6 +2,8 @@ const asyncHandler = require("express-async-handler");
 const CouponModel = require("../../modules/couponModel");
 const CartModel = require("../../modules/cartModel");
 const ApiError = require("../../utils/apiError/apiError");
+const i18n = require("i18n");
+const ProductModel = require("../../modules/productModel");
 
 //  @desc    Apply coupon on logged user cart
 //  @route   PUT /api/v1/cart/applyCoupon
@@ -9,7 +11,7 @@ const ApiError = require("../../utils/apiError/apiError");
 exports.applyCouponOnLoggedUserCart = asyncHandler(async (req, res, next) => {
   // Validate coupon input
   if (!req.body.coupon) {
-    return next(new ApiError("Coupon name is required", 400));
+    return next(new ApiError(i18n.__("couponNameIsRequired"), 400));
   }
 
   // 1) Get coupon based on coupon name
@@ -19,25 +21,18 @@ exports.applyCouponOnLoggedUserCart = asyncHandler(async (req, res, next) => {
   });
 
   if (!coupon) {
-    return next(new ApiError("Coupon is invalid or has expired", 400));
+    return next(new ApiError(i18n.__("couponIsInvalidOrHasExpired"), 400));
   }
 
   // 2) Get logged user cart to get total price
   const cart = await CartModel.findOne({ user: req.userModel._id });
 
   if (!cart) {
-    return next(
-      new ApiError(`No cart found for user id: ${req.userModel._id}`, 404)
-    );
+    return next(new ApiError(i18n.__("cartNotFound"), 404));
   }
 
   if (cart.cartItems.length === 0) {
-    return next(
-      new ApiError(
-        `No items in the cart for user id: ${req.userModel._id}`,
-        404
-      )
-    );
+    return next(new ApiError(i18n.__("itemNotFoundInTheCart"), 404));
   }
 
   const totalPrice = cart.totalCartPrice;
@@ -52,11 +47,17 @@ exports.applyCouponOnLoggedUserCart = asyncHandler(async (req, res, next) => {
   // 4) Save updated cart
   await cart.save();
 
+  // Helper function to localize product data
+  var localizedDocument = ProductModel.schema.methods.toJSONLocalizedOnly(
+    cart,
+    req.headers["lang"] || "en"
+  );
+
   // 5) Respond with updated cart data
   res.status(200).json({
     status: true,
-    message: "Coupon applied successfully",
+    message: i18n.__("couponAppliedSuccessfully"),
     numOfCartItems: cart.cartItems.length,
-    data: cart,
+    data: localizedDocument,
   });
 });
