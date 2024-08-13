@@ -14,6 +14,7 @@ const CartSchema = mongoose.Schema(
     user: { type: mongoose.Schema.ObjectId, ref: "User", required: true },
     cartItems: [cartItemSchema],
     totalCartPrice: Number,
+    couponDiscount: { type: Number, default: 0.0 },
     totalPriceAfterDiscount: { type: Number, default: 0.0 },
     taxPrice: Number,
     shippingPrice: Number,
@@ -40,11 +41,14 @@ CartSchema.pre("save", async function (next) {
 
   this.shippingPrice = settings.shippingPrice || 0;
 
+  const discount = (this.couponDiscount * this.totalCartPrice) / 100;
+  this.totalPriceAfterDiscount = parseFloat((this.totalCartPrice - discount).toFixed(2));
+
   this.totalOrderPrice =
     this.totalPriceAfterDiscount != 0
       ? this.totalPriceAfterDiscount + this.taxPrice + this.shippingPrice
       : this.totalCartPrice + this.taxPrice + this.shippingPrice;
-      
+
   next();
 });
 

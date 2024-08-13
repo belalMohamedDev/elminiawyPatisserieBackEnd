@@ -35,14 +35,7 @@ exports.applyCouponOnLoggedUserCart = asyncHandler(async (req, res, next) => {
     return next(new ApiError(i18n.__("itemNotFoundInTheCart"), 404));
   }
 
-  const totalPrice = cart.totalCartPrice;
-
-  // 3) Calculate price after discount
-  const discount = (coupon.discount * totalPrice) / 100;
-  const totalPriceAfterDiscount = parseFloat(
-    (totalPrice - discount).toFixed(2)
-  );
-  cart.totalPriceAfterDiscount = totalPriceAfterDiscount;
+  cart.couponDiscount = coupon.discount;
 
   // 4) Save updated cart
   await cart.save();
