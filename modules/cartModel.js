@@ -37,12 +37,17 @@ CartSchema.pre("save", async function (next) {
 
   const settings = await SettingsModel.findOne();
 
-  this.taxPrice = (settings.taxRate || 0) * this.totalCartPrice;
+  this.taxPrice =
+    this.totalCartPrice == 0
+      ? settings.taxRate
+      : (settings.taxRate || 0) * this.totalCartPrice;
 
   this.shippingPrice = settings.shippingPrice || 0;
 
   const discount = (this.couponDiscount * this.totalCartPrice) / 100;
-  this.totalPriceAfterDiscount = parseFloat((this.totalCartPrice - discount).toFixed(2));
+  this.totalPriceAfterDiscount = parseFloat(
+    (this.totalCartPrice - discount).toFixed(2)
+  );
 
   this.totalOrderPrice =
     this.totalPriceAfterDiscount != 0
