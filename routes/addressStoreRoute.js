@@ -11,16 +11,15 @@ const {
 const {
   createStoreAddressValidator,
   updateBranchAddressValidator,
-  deleteBranchAddressValidator
+  deleteBranchAddressValidator,
 } = require("../utils/validators/storeAddressValidator");
 
 const router = express.Router();
 
-router.use(authServices.protect);
-
 router.route("/").get(getAllstoreAddresss);
 
-router.use(authServices.allowedTo("admin"));
+
+router.use(authServices.protect,authServices.allowedTo("admin"));
 
 router
   .route("/")
@@ -29,8 +28,6 @@ router
   .route("/:id")
   .put(updateBranchAddressValidator, passingDataToReqBody, UpdatestoreAddress);
 
-router
-  .route("/:id")
-  .delete(deleteBranchAddressValidator, deletestoreAddress);
+router.route("/:id").delete(deleteBranchAddressValidator, deletestoreAddress);
 
 module.exports = router;
