@@ -104,5 +104,18 @@
 	"couponNameIsRequired": "اسم الكوبون مطلوب",
 	"couponIsInvalidOrHasExpired": "القسيمة غير صالحة أو انتهت صلاحيتها",
 	"couponAppliedSuccessfully": "تم تطبيق الكوبون بنجاح",
-	"store Address": "عنوان الاستور"
+	"store Address": "عنوان الاستور",
+    "branchAreaRequired": "منطقة الفرع مطلوبة",
+	"branchAreaTooShort": "اسم منطقة الفرع قصير جدًا",
+	"branchAreaTooLong": "اسم منطقة الفرع طويل جدًا",	
+	"regionNameTooShort": "اسم المنطقة قصير جدًا",
+	"briefnessRequired": "التفاصيل مطلوبة",
+	"briefnessTooShort": "التفاصيل قصيرة جدًا",
+	"briefnessTooLong": "التفاصيل طويلة جدًا",
+	"latitudeRequired": "خط العرض مطلوب",
+	"invalidLatitudeFormat": "تنسيق خط العرض غير صالح",
+	"longitudeRequired": "خط الطول مطلوب",
+	"invalidLongitudeFormat": "تنسيق خط الطول غير صالح"
+		
+	  
 }

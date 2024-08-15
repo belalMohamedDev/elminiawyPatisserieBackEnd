@@ -104,5 +104,17 @@
 	"couponNameIsRequired": "Coupon name is required",
 	"couponIsInvalidOrHasExpired": "Coupon is invalid or has expired",
 	"couponAppliedSuccessfully": "Coupon applied successfully",
-	"store Address": "store Address"
+	"store Address": "store Address",
+	"branchAreaRequired": "Branch Area is required",
+	"branchAreaTooShort": "Too short Branch Area",
+	"branchAreaTooLong": "Too long Branch Area",
+	"regionNameTooShort": "Too short region name",
+	"briefnessRequired": "Briefness is required",
+	"briefnessTooShort": "Too short briefness",
+	"briefnessTooLong": "Too long briefness",
+	"latitudeRequired": "Latitude is required",
+	"invalidLatitudeFormat": "Invalid latitude format",
+	"longitudeRequired": "Longitude is required",
+	"invalidLongitudeFormat": "Invalid longitude format"
+	
 }

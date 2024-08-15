@@ -3,6 +3,7 @@ const asyncHandler = require("express-async-handler");
 const validatorMiddleware = require("../../middleware/validatorMiddleware");
 const categoryModel = require("../../modules/categoryModel");
 const subCategoryModel = require("../../modules/subCategoryModel");
+const i18n = require("i18n");
 
 exports.getProductValidator = [
   check("id")
