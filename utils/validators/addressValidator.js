@@ -19,7 +19,7 @@ exports.createAddressValidator = [
         locale: req.headers["lang"] || "en",
       })
     )
-    .isLength({ max: 50 })
+    .isLength({ max: 1000 })
     .withMessage((value, { req }) =>
       i18n.__({
         phrase: "tooLongBuildingName",
@@ -42,7 +42,7 @@ exports.createAddressValidator = [
         locale: req.headers["lang"] || "en",
       })
     )
-    .isLength({ max: 50 })
+    .isLength({ max: 1000 })
     .withMessage((value, { req }) =>
       i18n.__({
         phrase: "tooLongRegionName",

@@ -15,7 +15,7 @@ const UserAddressSchema = mongoose.Schema(
       trim: true,
       required: [true, "Address Building Name required"],
       minlength: [3, "too short Address Building Name"],
-      maxlength: [50, "too long Address Building Name"],
+      maxlength: [1000, "too long Address Building Name"],
     },
 
     apartmentNumber: String,
@@ -25,7 +25,7 @@ const UserAddressSchema = mongoose.Schema(
       trim: true,
       required: [true, "Address region required"],
       minlength: [3, "too short Address region"],
-      maxlength: [50, "too long Address region"],
+      maxlength: [1000, "too long Address region"],
     },
     additionalDirections: String,
     streetName:String,
