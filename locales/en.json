@@ -116,5 +116,7 @@
 	"invalidLatitudeFormat": "Invalid latitude format",
 	"longitudeRequired": "Longitude is required",
 	"invalidLongitudeFormat": "Invalid longitude format"
+
+
 	
 }

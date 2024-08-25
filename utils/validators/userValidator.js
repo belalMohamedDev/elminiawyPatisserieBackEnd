@@ -3,6 +3,7 @@ const asyncHandler = require("express-async-handler");
 const bcrypt = require("bcrypt");
 const validatorMiddleware = require("../../middleware/validatorMiddleware");
 const UserModel = require("../../modules/userModel");
+const i18n = require("i18n");
 
 exports.getUserValidator = [
   check("id").isMongoId().withMessage("Invalid User id format"),
@@ -58,7 +59,6 @@ exports.createUserValidator = [
     .isIn(["user", "admin"])
     .withMessage("This role is not found"),
 
-
   check("branchAddress")
     .optional()
     .isMongoId()
@@ -70,7 +70,7 @@ exports.createUserValidator = [
 
 exports.updateUserValidator = [
   check("id").isMongoId().withMessage("Invalid User id format"),
- 
+
   check("email")
     .optional()
     .isEmail()
@@ -84,11 +84,11 @@ exports.updateUserValidator = [
       })
     ),
 
-    check("role")
+  check("role")
     .optional()
     .isIn(["user", "admin"])
     .withMessage("This role is not found"),
-    
+
   check("branchAddress")
     .optional()
     .isMongoId()
@@ -98,8 +98,8 @@ exports.updateUserValidator = [
     .optional()
     .isMobilePhone(["ar-EG", "ar-SA"])
     .withMessage("Invalid phone number only accepted Egy and SA phone numbers"),
-    
-    check("name")
+
+  check("name")
     .optional()
     .isLength({ min: 3 })
     .withMessage("too short User name"),
@@ -190,17 +190,30 @@ exports.updateLoggedUserValidator = [
   body("name")
     .optional()
     .isLength({ min: 3 })
-    .withMessage("Too short user name"),
-
+    .withMessage((value, { req }) =>
+      i18n.__({
+        phrase: "tooShortUserName",
+        locale: req.headers["lang"] || "en",
+      })
+    ),
+    
   check("email")
     .optional()
     .isEmail()
-    .withMessage("Invalid email address format")
+    .withMessage((value, { req }) =>
+      i18n.__({
+        phrase: "invalidEmailAddressFormat",
+        locale: req.headers["lang"] || "en",
+      })
+    )
     .custom(
-      asyncHandler(async (val) => {
+      asyncHandler(async (val, { req }) => {
         const emailUser = await UserModel.findOne({ email: val });
         if (emailUser) {
-          throw new Error("E-mail already in use");
+          throw new Error(i18n.__({
+            phrase: "emailAlreadyUse",
+            locale: req.headers["lang"] || "en",
+          }));
         }
       })
     ),
@@ -208,7 +221,12 @@ exports.updateLoggedUserValidator = [
   body("phone")
     .optional()
     .isMobilePhone(["ar-EG", "ar-SA"])
-    .withMessage("Invalid phone number, only Egyptian and Saudi Arabian numbers are accepted"),
+    .withMessage((value, { req }) =>
+      i18n.__({
+        phrase: "invalidPhoneNumber",
+        locale: req.headers["lang"] || "en",
+      })
+    ),
 
   validatorMiddleware,
 ];

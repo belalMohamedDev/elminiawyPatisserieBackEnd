@@ -1,6 +1,7 @@
 
 const asyncHandler = require("express-async-handler");
 const userModel = require("../../../modules/userModel");
+const i18n = require("i18n");
 
 
 // @ dec update logged user data
@@ -21,7 +22,7 @@ exports.updateLoggedUserData = asyncHandler(async (req, res, next) => {
   
     res.status(200).json({
       status: true,
-      message: `Sucess To Update User data from this id`,
+      message: i18n.__("SucessToUpdateDataFromThisId"),
       data: document,
     });
   });
