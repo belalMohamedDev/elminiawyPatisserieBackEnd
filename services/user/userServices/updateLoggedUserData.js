@@ -1,6 +1,8 @@
 
 const asyncHandler = require("express-async-handler");
 const userModel = require("../../../modules/userModel");
+const { sanitizeUser } = require("../../../utils/apiFeatures/sanitizeData");
+
 const i18n = require("i18n");
 
 
@@ -23,7 +25,7 @@ exports.updateLoggedUserData = asyncHandler(async (req, res, next) => {
     res.status(200).json({
       status: true,
       message: i18n.__("SucessToUpdateDataFromThisId"),
-      data: document,
+      data: sanitizeUser(document,document.refreshToken),
     });
   });
   
