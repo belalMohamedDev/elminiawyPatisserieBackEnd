@@ -115,7 +115,14 @@
 	"latitudeRequired": "خط العرض مطلوب",
 	"invalidLatitudeFormat": "تنسيق خط العرض غير صالح",
 	"longitudeRequired": "خط الطول مطلوب",
-	"invalidLongitudeFormat": "تنسيق خط الطول غير صالح"
+	"invalidLongitudeFormat": "تنسيق خط الطول غير صالح",
+
+	"sucessToUpdateUserPassword":"نجح تحديث كلمة مرور المستخدم",
+	"sucessToUpdateUserEmail":"نجح تحديث عنوان البريد الإلكتروني للمستخدم",
+	"newEmailRequired":"مطلوب عنوان بريد إلكتروني جديد",
+	"thereIsNoUserWithId":"لا يوجد مستخدم له معرف",
+	"incorrectCurrentPassword":"كلمة المرور الحالية غير صحيحة",
+	"currentPasswordRequired":"مطلوب كلمة المرور الحالية"
 		
 	  
 }

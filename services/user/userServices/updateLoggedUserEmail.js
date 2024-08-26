@@ -3,7 +3,6 @@ const userModel = require("../../../modules/userModel");
 const i18n = require("i18n");
 const { sanitizeUser } = require("../../../utils/apiFeatures/sanitizeData");
 const { getDeviceInfo } = require("../../../utils/getDeviceInfo/getDeviceInfo");
-const { addSessionToDB } = require("../../authServices/addSessionToDB");
 
 const creatToken = require("../../../utils/generate token/createToken");
 
@@ -36,25 +35,18 @@ exports.updateLoggedUserEmail = asyncHandler(async (req, res, next) => {
     process.env.JWT_EXPIER_REFRESH_TIME_TOKEN
   );
 
-  await addSessionToDB(document._id, refreshToken, deviceInfo);
-
-  // Remove old sessions if needed
-  await removeOldSessions(document);
+  (document.sessions = {
+    refreshToken,
+    deviceInfo,
+    createdAt: new Date(),
+    lastUsedAt: new Date(),
+  }),
+  document.save();
 
   res.status(200).json({
     status: true,
-    message:i18n.__("sucessToUpdateUserEmail") ,
+    message: i18n.__("sucessToUpdateUserEmail"),
     accessToken: accessToken,
     data: sanitizeUser(document, refreshToken),
   });
 });
-
-const removeOldSessions = async (user) => {
-  const maxSessions = 5;
-
-  if (user.sessions.length > maxSessions) {
-    user.sessions.sort((a, b) => a.createdAt - b.createdAt);
-    user.sessions = user.sessions.slice(-maxSessions);
-    await user.save();
-  }
-};

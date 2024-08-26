@@ -151,22 +151,43 @@ exports.changeUserPasswordValidator = [
 ];
 
 exports.changeLoggedUserPasswordValidator = [
-  check("currentPassword").notEmpty().withMessage("current Password required"),
+  check("currentPassword").notEmpty().withMessage((value, { req }) =>
+    i18n.__({
+      phrase: "currentPasswordRequired",
+      locale: req.headers["lang"] || "en",
+    })
+  ),
+
 
   check("passwordConfirm")
     .notEmpty()
-    .withMessage("password confirmation required"),
+    .withMessage((value, { req }) =>
+      i18n.__({
+        phrase: "passwordConfirmationRequired",
+        locale: req.headers["lang"] || "en",
+      })
+    ),
+
+
 
   check("password")
     .notEmpty()
-    .withMessage("password required")
+    .withMessage((value, { req }) =>
+      i18n.__({
+        phrase: "passwordRequired",
+        locale: req.headers["lang"] || "en",
+      })
+    )
     .isLength({ min: 6 })
     .withMessage("password must be at least 6 characters long")
     .custom(async (val, { req }) => {
       //1) verify current password
       const user = await UserModel.findById(req.userModel._id);
       if (!user) {
-        throw new Error("there is no user with id");
+        throw new Error(  i18n.__({
+            phrase: "thereIsNoUserWithId",
+            locale: req.headers["lang"] || "en",
+          }));
       }
 
       const isCorrectPassword = await bcrypt.compare(
@@ -175,16 +196,25 @@ exports.changeLoggedUserPasswordValidator = [
       );
 
       if (!isCorrectPassword) {
-        throw new Error("Incorrect current password");
+        throw new Error( i18n.__({
+          phrase: "incorrectCurrentPassword",
+          locale: req.headers["lang"] || "en",
+        }));
       }
 
       if (val !== req.body.passwordConfirm) {
-        throw new Error("password confirmation incorrect");
+        throw new Error(i18n.__({
+          phrase: "passwordConfirmationIncorrect",
+          locale: req.headers["lang"] || "en",
+        }));
       }
       return true;
     }),
   validatorMiddleware,
 ];
+
+
+
 
 exports.updateLoggedUserValidator = [
   body("name")

@@ -1,9 +1,11 @@
 const bcrypt = require("bcrypt");
 const asyncHandler = require("express-async-handler");
 const userModel = require("../../../modules/userModel");
+const i18n = require("i18n");
+const { sanitizeUser } = require("../../../utils/apiFeatures/sanitizeData");
+const { getDeviceInfo } = require("../../../utils/getDeviceInfo/getDeviceInfo");
 
 const creatToken = require("../../../utils/generate token/createToken");
-
 
 // @ dec update logged user password
 // @ route Update  /api/vi/user/updateMyPassword
@@ -21,6 +23,8 @@ exports.updateLoggedUserPassword = asyncHandler(async (req, res, next) => {
     }
   );
 
+  const deviceInfo = JSON.stringify(getDeviceInfo(req));
+
   //generate token
   const accessToken = creatToken(
     document._id,
@@ -33,14 +37,18 @@ exports.updateLoggedUserPassword = asyncHandler(async (req, res, next) => {
     process.env.JWT_EXPIER_REFRESH_TIME_TOKEN
   );
 
-  document.refreshToken = refreshToken;
-  await document.save();
-
+  (document.sessions = {
+    refreshToken,
+    deviceInfo,
+    createdAt: new Date(),
+    lastUsedAt: new Date(),
+  }),
+    document.save();
 
   res.status(200).json({
     status: true,
-    message: `Sucess To Update User password from this id`,
+    message: i18n.__("sucessToUpdateUserPassword"),
     accessToken: accessToken,
-    data: document,
+    data: sanitizeUser(document, refreshToken),
   });
 });
