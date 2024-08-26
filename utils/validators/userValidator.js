@@ -196,27 +196,6 @@ exports.updateLoggedUserValidator = [
         locale: req.headers["lang"] || "en",
       })
     ),
-    
-  check("email")
-    .optional()
-    .isEmail()
-    .withMessage((value, { req }) =>
-      i18n.__({
-        phrase: "invalidEmailAddressFormat",
-        locale: req.headers["lang"] || "en",
-      })
-    )
-    .custom(
-      asyncHandler(async (val, { req }) => {
-        const emailUser = await UserModel.findOne({ email: val });
-        if (emailUser) {
-          throw new Error(i18n.__({
-            phrase: "emailAlreadyUse",
-            locale: req.headers["lang"] || "en",
-          }));
-        }
-      })
-    ),
 
   body("phone")
     .optional()
@@ -228,5 +207,70 @@ exports.updateLoggedUserValidator = [
       })
     ),
 
+  validatorMiddleware,
+];
+
+exports.changeLoggedUserEmailAddressValidator = [
+  check("currentPassword").notEmpty().withMessage((value, { req }) =>
+    i18n.__({
+      phrase: "currentPasswordRequired",
+      locale: req.headers["lang"] || "en",
+    })
+  ),
+
+  check("newEmail")
+    .notEmpty()
+    .withMessage((value, { req }) =>
+      i18n.__({
+        phrase: "newEmailRequired",
+        locale: req.headers["lang"] || "en",
+      })
+    )
+    .isEmail()
+    .withMessage((value, { req }) =>
+      i18n.__({
+        phrase: "invalidEmailAddressFormat",
+        locale: req.headers["lang"] || "en",
+      })
+    )
+    .custom(async (val, { req }) => {
+      //1) verify new email
+      const emailUser = await UserModel.findOne({ email: val });
+      if (emailUser) {
+        throw new Error(
+          i18n.__({
+            phrase: "emailAlreadyUse",
+            locale: req.headers["lang"] || "en",
+          })
+        );
+      }
+
+      //2) verify current password
+      const user = await UserModel.findById(req.userModel._id);
+      if (!user) {
+        throw new Error(
+          i18n.__({
+            phrase: "thereIsNoUserWithId",
+            locale: req.headers["lang"] || "en",
+          })
+        );
+      }
+
+      const isCorrectPassword = await bcrypt.compare(
+        req.body.currentPassword,
+        user.password
+      );
+
+      if (!isCorrectPassword) {
+        throw new Error(
+          i18n.__({
+            phrase: "incorrectCurrentPassword",
+            locale: req.headers["lang"] || "en",
+          })
+        );
+      }
+
+      return true;
+    }),
   validatorMiddleware,
 ];

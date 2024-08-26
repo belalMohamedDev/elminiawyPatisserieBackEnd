@@ -9,9 +9,9 @@
 	"InvalidSubCategoryIdFormat": "Invalid subCatogry id format",
 	"ThereIsNoDataEntryForThis": "There is no data entry for this ",
 	"SuccessToGetAllDataFor": "Success to get all data for ",
-	"SucessToGetDataFromThisId": "Sucess To get data from this id",
-	"SucessToUpdateDataFromThisId": "Sucess To Update data from this id",
-	"SucessToDeleteDataFromThisId": "Sucess To Delete data from this id",
+	"SucessToGetDataFromThisId": "Sucess To get data",
+	"SucessToUpdateDataFromThisId": "Sucess To Update data",
+	"SucessToDeleteDataFromThisId": "Sucess To Delete data",
 	"successfulCreation": "Successful %s creation",
 	"categories": "categories",
 	"CategoryMustBeUnique": "Category must be unique",
@@ -115,7 +115,14 @@
 	"latitudeRequired": "Latitude is required",
 	"invalidLatitudeFormat": "Invalid latitude format",
 	"longitudeRequired": "Longitude is required",
-	"invalidLongitudeFormat": "Invalid longitude format"
+	"invalidLongitudeFormat": "Invalid longitude format",
+
+	"sucessToUpdateUserPassword":"Sucess To Update User password",
+	"sucessToUpdateUserEmail":"Sucess To Update User Email Address",
+	"newEmailRequired":"new Email Address required",
+	"thereIsNoUserWithId":"there is no user with id",
+	"incorrectCurrentPassword":"Incorrect current password",
+	"currentPasswordRequired":"current Password required"
 
 
 	

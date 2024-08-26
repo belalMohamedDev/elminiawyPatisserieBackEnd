@@ -37,6 +37,10 @@ const {
 } = require("../services/user/userServices/deleteLoggedUser");
 
 const {
+  updateLoggedUserEmail
+} = require("../services/user/userServices/updateLoggedUserEmail");
+
+const {
   createUserValidator,
   updateUserValidator,
   deleteUserValidator,
@@ -44,6 +48,7 @@ const {
   changeUserPasswordValidator,
   changeLoggedUserPasswordValidator,
   updateLoggedUserValidator,
+  changeLoggedUserEmailAddressValidator
 } = require("../utils/validators/userValidator");
 
 const router = express.Router();
@@ -63,6 +68,9 @@ router
   .put(updateLoggedUserValidator, updateLoggedUserData);
 
 
+  router
+  .route("/updateMyEmailAddress")
+  .put(changeLoggedUserEmailAddressValidator, updateLoggedUserEmail);
 
 router
   .route("/updateMyImage")

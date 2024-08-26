@@ -16,7 +16,6 @@ exports.updateLoggedUserData = asyncHandler(async (req, res, next) => {
       req.userModel._id,
       {
         name: req.body.name,
-        email: req.body.email,
         phone: req.body.phone,
       },
       { new: true }
