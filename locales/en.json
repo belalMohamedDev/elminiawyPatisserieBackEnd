@@ -122,8 +122,7 @@
 	"newEmailRequired":"new Email Address required",
 	"thereIsNoUserWithId":"there is no user with id",
 	"incorrectCurrentPassword":"Incorrect current password",
-	"currentPasswordRequired":"current Password required"
-
-
+	"currentPasswordRequired":"current Password required",
+    "sucessToDeleteUser":"Sucess To delete User"
 	
 }

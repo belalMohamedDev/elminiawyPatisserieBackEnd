@@ -122,7 +122,8 @@
 	"newEmailRequired":"مطلوب عنوان بريد إلكتروني جديد",
 	"thereIsNoUserWithId":"لا يوجد مستخدم له معرف",
 	"incorrectCurrentPassword":"كلمة المرور الحالية غير صحيحة",
-	"currentPasswordRequired":"مطلوب كلمة المرور الحالية"
+	"currentPasswordRequired":"مطلوب كلمة المرور الحالية",
+	"sucessToDeleteUser":"نجاح حذف المستخدم"
 		
 	  
 }

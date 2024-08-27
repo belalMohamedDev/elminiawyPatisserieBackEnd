@@ -1,5 +1,6 @@
 const asyncHandler = require("express-async-handler");
 const userModel = require("../../../modules/userModel");
+const i18n = require("i18n");
 
 // @ dec delete logged user
 // @ route Update  /api/vi/user/deleteMe
@@ -19,6 +20,6 @@ exports.deleteLoggedUser = asyncHandler(async (req, res, next) => {
 
   res.status(200).json({
     status: true,
-    message: `Sucess To delete User`,
+    message: i18n.__("sucessToDeleteUser"),
   });
 });
