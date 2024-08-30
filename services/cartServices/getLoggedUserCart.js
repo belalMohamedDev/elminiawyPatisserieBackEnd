@@ -3,7 +3,6 @@ const i18n = require("i18n");
 
 const ProductModel = require("../../modules/productModel");
 const CartModel = require("../../modules/cartModel");
-const ApiError = require("../../utils/apiError/apiError");
 
 // @ dec get logged user cart
 // @ route Get  /api/vi/cart
@@ -18,7 +17,7 @@ exports.getLoggedUserCart = asyncHandler(async (req, res, next) => {
     return res.status(200).json({
       status: true,
       message: i18n.__("thereIsNoCartForThisUser"),
-      data: cart,
+      data: [],
     });
   }
 
