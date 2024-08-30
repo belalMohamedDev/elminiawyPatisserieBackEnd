@@ -57,8 +57,11 @@ exports.addProductToCart = asyncHandler(async (req, res, next) => {
   }
 
   // Save the cart
+
   await cart.save();
 
+  cart = await CartModel.findById(cart._id)
+  
 
   // Helper function to localize product data
   var localizedDocument = ProductModel.schema.methods.toJSONLocalizedOnly(

@@ -57,18 +57,6 @@ CartSchema.pre("save", async function (next) {
   next();
 });
 
-cartItemSchema.pre("save", function (next) {
-  this.populate({
-    path: "user",
-    select: "name email phone",
-  }).populate({
-    path: "cartItems.product",
-    select: "title image ratingsAverage",
-  });
-
-  next();
-});
-
 CartSchema.pre(/^find/, function (next) {
   this.populate({
     path: "user",
@@ -80,6 +68,9 @@ CartSchema.pre(/^find/, function (next) {
 
   next();
 });
+
+// If you need to populate after saving as well
+
 
 const CartModel = mongoose.model("Cart", CartSchema);
 
