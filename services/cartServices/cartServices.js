@@ -61,10 +61,9 @@ exports.addProductToCart = asyncHandler(async (req, res, next) => {
 
   // Explicitly populate after saving
   await cart.populate({
-      path: "cartItems.product",
-      select: "title image ratingsAverage",
-    })
-    .execPopulate();
+    path: "cartItems.product",
+    select: "title image ratingsAverage",
+  });
 
   // Helper function to localize product data
   var localizedDocument = ProductModel.schema.methods.toJSONLocalizedOnly(
