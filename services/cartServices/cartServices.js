@@ -8,6 +8,7 @@ const ApiError = require("../../utils/apiError/apiError");
 // @desc Add product to cart
 // @route POST /api/v1/cart
 // @access Private/User
+
 exports.addProductToCart = asyncHandler(async (req, res, next) => {
   const { product, quantity } = req.body;
 
@@ -58,7 +59,18 @@ exports.addProductToCart = asyncHandler(async (req, res, next) => {
   // Save the cart
   await cart.save();
 
-  
+  // Explicitly populate after saving
+  await cart
+    .populate({
+      path: "user",
+      select: "name email phone",
+    })
+    .populate({
+      path: "cartItems.product",
+      select: "title image ratingsAverage",
+    })
+    .execPopulate();
+    
   // Helper function to localize product data
   var localizedDocument = ProductModel.schema.methods.toJSONLocalizedOnly(
     cart,

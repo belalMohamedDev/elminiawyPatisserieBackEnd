@@ -57,6 +57,7 @@ CartSchema.pre("save", async function (next) {
   next();
 });
 
+
 CartSchema.pre(/^find/, function (next) {
   this.populate({
     path: "user",
@@ -72,3 +73,7 @@ CartSchema.pre(/^find/, function (next) {
 const CartModel = mongoose.model("Cart", CartSchema);
 
 module.exports = CartModel;
+
+
+
+
