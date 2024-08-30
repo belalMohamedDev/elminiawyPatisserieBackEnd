@@ -15,11 +15,13 @@ exports.getLoggedUserCart = asyncHandler(async (req, res, next) => {
 
   //check found data or no
   if (!cart) {
-    //send faild response
-    return next(new ApiError(i18n.__("thereIsNoCartForThisUser"), 404));
+    return res.status(200).json({
+      status: true,
+      message: i18n.__("thereIsNoCartForThisUser"),
+      data: cart,
+    });
   }
 
-    
   // Helper function to localize product data
   var localizedDocument = ProductModel.schema.methods.toJSONLocalizedOnly(
     cart,
