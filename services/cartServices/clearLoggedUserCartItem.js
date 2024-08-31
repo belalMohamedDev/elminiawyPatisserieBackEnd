@@ -9,7 +9,7 @@ exports.clearLoggedUserCartItem = asyncHandler(async (req, res, next) => {
   const cart = await CartModel.findOneAndDelete(
     { user: req.userModel._id },
     {
-      $pull: { cartItems: { _id: req.params.itemId } },
+      $pull: { _id: req.params.itemId },
     },
     {
       new: true,
