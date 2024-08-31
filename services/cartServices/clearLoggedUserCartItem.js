@@ -1,24 +1,26 @@
 const asyncHandler = require("express-async-handler");
 const CartModel = require("../../modules/cartModel");
-const ProductModel = require("../../modules/productModel");
 
 const i18n = require("i18n");
 
-//  @dec    clear logged Cart item
-//  @route  Delete  /api/v1/cart/clearItem/:itemId
+//  @dec    Clear all items from the logged user's cart
+//  @route  DELETE /api/v1/cart/clearAllItems
 //  @access Private/user
 exports.clearLoggedUserCartItem = asyncHandler(async (req, res, next) => {
   // Find the cart of the logged-in user
   const cart = await CartModel.findOne({ user: req.userModel._id });
 
   // If the cart doesn't exist, return an error
-  if (!cart) {
+  if (!cart ) {
     return res.status(200).json({
       status: true,
       message: i18n.__("cartNotFound"),
       data: cart,
     });
   }
+
+   // Remove the item from the cart
+   cart.cartItems.splice(itemIndex, 1);
 
   // Clear the cart items
   cart.cartItems = [];

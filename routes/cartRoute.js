@@ -23,6 +23,8 @@ const { cardSetting } = require("../services/cartServices/cartSetting");
 const router = express.Router();
 
 router.use(authServices.protect, authServices.allowedTo("user"));
+router.route("/clearAllItems").delete(clearLoggedUserCartItem);
+
 router.route("/").post(addProductToCart).get(getLoggedUserCart);
 router.route("/applyCoupon").put(applyCouponOnLoggedUserCart);
 
@@ -31,10 +33,8 @@ router
   .delete(removeSpecificCartItem)
   .put(updateSpecificCartItemQuantity);
 
-router.route("/clearItem").delete(clearLoggedUserCartItem);
-
 router
   .route("/updateTaxAndShipping")
   .put(authServices.protect, authServices.allowedTo("admin"), cardSetting);
-  
+
 module.exports = router;
