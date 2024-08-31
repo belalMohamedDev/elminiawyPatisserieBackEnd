@@ -19,8 +19,7 @@ exports.clearLoggedUserCartItem = asyncHandler(async (req, res, next) => {
     });
   }
 
-   // Remove the item from the cart
-   cart.cartItems.splice(itemIndex, 1);
+
 
   // Clear the cart items
   cart.cartItems = [];
