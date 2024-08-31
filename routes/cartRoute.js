@@ -31,7 +31,7 @@ router
   .delete(removeSpecificCartItem)
   .put(updateSpecificCartItemQuantity);
 
-router.route("/clearItem/:itemId").delete(clearLoggedUserCartItem);
+router.route("/clearItem").delete(clearLoggedUserCartItem);
 
 router
   .route("/updateTaxAndShipping")
