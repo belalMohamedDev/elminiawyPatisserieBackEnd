@@ -1,5 +1,6 @@
 const asyncHandler = require('express-async-handler')
 const CartModel = require('../../modules/cartModel')
+const i18n = require("i18n");
 
 
 //  @dec    clear logged Cart item
@@ -19,6 +20,7 @@ exports.clearLoggedUserCartItem = asyncHandler(async (req, res, next) => {
     res.status(200).json({
     
       status: true,
-      message: 'Successfully cleared item from cart',
+      message: i18n.__("theCartIsNowEmpty"),
+      data: [],
     });
   });
