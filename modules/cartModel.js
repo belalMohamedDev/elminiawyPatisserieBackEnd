@@ -69,7 +69,6 @@ CartSchema.pre(/^find/, function (next) {
   next();
 });
 
-// If you need to populate after saving as well
 
 
 const CartModel = mongoose.model("Cart", CartSchema);

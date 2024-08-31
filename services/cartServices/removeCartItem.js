@@ -23,34 +23,33 @@ exports.removeSpecificCartItem = asyncHandler(async (req, res, next) => {
   );
 
   if (itemIndex === -1) {
-    return next(
-      new ApiError(
-        i18n.__("itemNotFoundInTheCart"),
-        404
-      )
-    );
+    return next(new ApiError(i18n.__("itemNotFoundInTheCart"), 404));
   }
 
   // Remove the item from the cart
   cart.cartItems.splice(itemIndex, 1);
 
+  // If the cart is now empty or had only one item, reset coupon discount
+  if (cart.cartItems.length === 0) {
+    cart.couponDiscount = 0.0;
+  }
+
   // Save the updated cart
   await cart.save();
 
-    // Helper function to localize product data
-    var localizedDocument = ProductModel.schema.methods.toJSONLocalizedOnly(
-      cart,
-      req.headers["lang"] || "en"
-    );
-  
+  // Helper function to localize product data
+  var localizedDocument = ProductModel.schema.methods.toJSONLocalizedOnly(
+    cart,
+    req.headers["lang"] || "en"
+  );
 
   // Return the response with the updated cart information
   res.status(200).json({
     status: true,
     message:
       cart.cartItems.length === 0
-        ?   i18n.__("theCartIsNowEmpty")
-        :   i18n.__("SuccessfullyDeletedLoggedUserItemFromCart"),
+        ? i18n.__("theCartIsNowEmpty")
+        : i18n.__("SuccessfullyDeletedLoggedUserItemFromCart"),
     numOfCartItems: cart.cartItems.length === 0 ? 0 : cart.cartItems.length,
     data: localizedDocument,
   });
