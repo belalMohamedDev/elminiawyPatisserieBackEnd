@@ -116,13 +116,12 @@
 	"invalidLatitudeFormat": "Invalid latitude format",
 	"longitudeRequired": "Longitude is required",
 	"invalidLongitudeFormat": "Invalid longitude format",
-
-	"sucessToUpdateUserPassword":"Sucess To Update User password",
-	"sucessToUpdateUserEmail":"Sucess To Update User Email Address",
-	"newEmailRequired":"new Email Address required",
-	"thereIsNoUserWithId":"there is no user with id",
-	"incorrectCurrentPassword":"Incorrect current password",
-	"currentPasswordRequired":"current Password required",
-    "sucessToDeleteUser":"Sucess To delete User"
-	
+	"sucessToUpdateUserPassword": "Sucess To Update User password",
+	"sucessToUpdateUserEmail": "Sucess To Update User Email Address",
+	"newEmailRequired": "new Email Address required",
+	"thereIsNoUserWithId": "there is no user with id",
+	"incorrectCurrentPassword": "Incorrect current password",
+	"currentPasswordRequired": "current Password required",
+	"sucessToDeleteUser": "Sucess To delete User",
+	"theCartIsNowEmpty": "theCartIsNowEmpty"
 }

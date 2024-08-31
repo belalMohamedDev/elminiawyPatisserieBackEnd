@@ -105,9 +105,9 @@
 	"couponIsInvalidOrHasExpired": "القسيمة غير صالحة أو انتهت صلاحيتها",
 	"couponAppliedSuccessfully": "تم تطبيق الكوبون بنجاح",
 	"store Address": "عنوان الاستور",
-    "branchAreaRequired": "منطقة الفرع مطلوبة",
+	"branchAreaRequired": "منطقة الفرع مطلوبة",
 	"branchAreaTooShort": "اسم منطقة الفرع قصير جدًا",
-	"branchAreaTooLong": "اسم منطقة الفرع طويل جدًا",	
+	"branchAreaTooLong": "اسم منطقة الفرع طويل جدًا",
 	"regionNameTooShort": "اسم المنطقة قصير جدًا",
 	"briefnessRequired": "التفاصيل مطلوبة",
 	"briefnessTooShort": "التفاصيل قصيرة جدًا",
@@ -116,14 +116,12 @@
 	"invalidLatitudeFormat": "تنسيق خط العرض غير صالح",
 	"longitudeRequired": "خط الطول مطلوب",
 	"invalidLongitudeFormat": "تنسيق خط الطول غير صالح",
-
-	"sucessToUpdateUserPassword":"نجح تحديث كلمة مرور المستخدم",
-	"sucessToUpdateUserEmail":"نجح تحديث عنوان البريد الإلكتروني للمستخدم",
-	"newEmailRequired":"مطلوب عنوان بريد إلكتروني جديد",
-	"thereIsNoUserWithId":"لا يوجد مستخدم له معرف",
-	"incorrectCurrentPassword":"كلمة المرور الحالية غير صحيحة",
-	"currentPasswordRequired":"مطلوب كلمة المرور الحالية",
-	"sucessToDeleteUser":"نجاح حذف المستخدم"
-		
-	  
+	"sucessToUpdateUserPassword": "نجح تحديث كلمة مرور المستخدم",
+	"sucessToUpdateUserEmail": "نجح تحديث عنوان البريد الإلكتروني للمستخدم",
+	"newEmailRequired": "مطلوب عنوان بريد إلكتروني جديد",
+	"thereIsNoUserWithId": "لا يوجد مستخدم له معرف",
+	"incorrectCurrentPassword": "كلمة المرور الحالية غير صحيحة",
+	"currentPasswordRequired": "مطلوب كلمة المرور الحالية",
+	"sucessToDeleteUser": "نجاح حذف المستخدم",
+	"theCartIsNowEmpty": "theCartIsNowEmpty"
 }
