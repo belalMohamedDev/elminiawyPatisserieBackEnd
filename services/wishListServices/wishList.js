@@ -34,10 +34,19 @@ exports.addOrRemoveProductInWishList = asyncHandler(async (req, res, next) => {
   // Save the updated user
   await user.save();
 
+  const userPopulate = await req.userModel.populate("wishList");
+
+  // // Localize the products
+  const localizedDocument = productModel.schema.methods.toJSONLocalizedOnly(
+    userPopulate.wishList,
+    req.headers["lang"] || "en"
+  );
+
   // Send success response
   res.status(200).json({
     status: true,
     message,
+    data: localizedDocument,
   });
 });
 
@@ -95,16 +104,12 @@ exports.getAllProductFromWishList = asyncHandler(async (req, res) => {
     req.headers["lang"] || "en"
   );
 
-
-
   const wishlistProducts = localizedDocument.map((product) => {
     return {
       ...product,
       in_wishlist: true,
     };
   });
-
-
 
   // send success response with data
   res.status(200).json({
@@ -113,4 +118,3 @@ exports.getAllProductFromWishList = asyncHandler(async (req, res) => {
     data: wishlistProducts,
   });
 });
-
