@@ -42,11 +42,19 @@ exports.addOrRemoveProductInWishList = asyncHandler(async (req, res, next) => {
     req.headers["lang"] || "en"
   );
 
+  const wishlistProducts = localizedDocument.map((product) => {
+    return {
+      ...product,
+      in_wishlist: true,
+    };
+  });
+
+
   // Send success response
   res.status(200).json({
     status: true,
     message,
-    data: localizedDocument,
+    data: wishlistProducts,
   });
 });
 
