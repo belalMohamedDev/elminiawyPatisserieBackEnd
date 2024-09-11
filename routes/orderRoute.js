@@ -62,7 +62,7 @@ router
 
 //user
 router.use(authServices.allowedTo("user"));
-router.route("/:cartId").post(createCashOrderValidator,createCashOrder);
+router.route("/").post(createCashOrderValidator,createCashOrder);
 router.route("/checkOut-session/:cartId").get(checkOutSession);
 router
   .route("/user")

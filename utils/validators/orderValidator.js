@@ -8,22 +8,7 @@ const i18n = require("i18n");
 
 
 exports.createCashOrderValidator = [
-    check("cartId")
-    .notEmpty()
-    .withMessage((value, { req }) =>
-      i18n.__({
-        phrase: "cartIdRequired",
-        locale: req.headers["lang"] || "en",
-      })
-    )
-    .isMongoId()
-    .withMessage((value, { req }) =>
-      i18n.__({
-        phrase: "InvalidCartIdFormat",
-        locale: req.headers["lang"] || "en",
-      })
-    ),
-
+  
   check("notes").optional(),
 
   check("shippingAddress")

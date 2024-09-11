@@ -1,25 +1,10 @@
 const mongoose = require("mongoose");
 
 // Define the CartItem schema
+
 const cartItemSchema = mongoose.Schema({
   product: { type: mongoose.Schema.ObjectId, ref: "Product", required: true },
   quantity: { type: Number, default: 1 },
-  options: [
-    {
-      optionName: { type: String, required: true },
-      additionalPrice: { type: Number, default: 0 },
-    },
-  ],
-  customizations: [
-    {
-      name: { type: String },
-      choice: {
-        name: { type: String },
-        additionalPrice: { type: Number },
-      },
-    },
-  ],
-
   price: { type: Number, required: true },
   totalItemPrice: { type: Number },
 });
