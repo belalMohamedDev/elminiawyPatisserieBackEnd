@@ -123,5 +123,13 @@
 	"incorrectCurrentPassword": "Incorrect current password",
 	"currentPasswordRequired": "current Password required",
 	"sucessToDeleteUser": "Sucess To delete User",
-	"theCartIsNowEmpty": "theCartIsNowEmpty"
+	"theCartIsNowEmpty": "the Cart Is Now Empty",
+	"orderCreatedSuccessfully":"order Created Successfully",
+
+
+	"cartIdRequired":"cart Id Required",
+	"InvalidCartIdFormat":"Invalid Cart Id Format",
+	"InvalidshippingAddressIdFormat":"Invalid shipping Address Id Format",
+	"shippingAddressRequired":"shipping Address Required",
+	"shippingAddressIdNotFound":"shipping Address Id Not Found"
 }

@@ -84,10 +84,14 @@ OrderSchema.pre(/^find/, function (next) {
   this.populate({
     path: "user",
     select: "name image email phone",
-  }).populate({
-    path: "cartItems.product",
-    select: "title image ",
-  });
+  })
+    .populate({
+      path: "cartItems.product",
+      select: "title image ",
+    })
+    .populate({
+      path: "shippingAddress",
+    });
 
   next();
 });

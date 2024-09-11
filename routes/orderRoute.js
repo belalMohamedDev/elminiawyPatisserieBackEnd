@@ -25,27 +25,44 @@ const {
   getAllPendingAdminOrder,
 } = require("../services/orderServices/adminOrder/getAdminOrder");
 
+
+const {
+createCashOrderValidator
+} = require("../utils/validators/orderValidator");
+
 const router = express.Router();
 
 router.use(authServices.protect);
 
 //admin
-router.use(authServices.allowedTo("admin"));
+
 router
   .route("/:id/approveByAdmin")
-  .put(passingOrderApprovedToReqBody, orderUpdate);
-router.route("/:id/delivered").put(passingOrderDeliveredToReqBody, orderUpdate);
+  .put(
+    authServices.allowedTo("admin"),
+    passingOrderApprovedToReqBody,
+    orderUpdate
+  );
+router
+  .route("/:id/delivered")
+  .put(
+    authServices.allowedTo("admin"),
+    passingOrderDeliveredToReqBody,
+    orderUpdate
+  );
 router.route("/:id/transit").put(passingOrderTransitToReqBody, orderUpdate);
 
-router.route("/admin/pending").get(getAllPendingAdminOrder);
-router.route("/admin").get(getAllAdminCompleteOrder);
-
-
+router
+  .route("/admin/pending")
+  .get(authServices.allowedTo("admin"), getAllPendingAdminOrder);
+router
+  .route("/admin")
+  .get(authServices.allowedTo("admin"), getAllAdminCompleteOrder);
 
 
 //user
 router.use(authServices.allowedTo("user"));
-router.route("/:cartId").post(createCashOrder);
+router.route("/:cartId").post(createCashOrderValidator,createCashOrder);
 router.route("/checkOut-session/:cartId").get(checkOutSession);
 router
   .route("/user")

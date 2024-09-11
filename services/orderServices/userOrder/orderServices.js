@@ -1,5 +1,6 @@
 const asyncHandler = require("express-async-handler");
 const stripe = require("stripe")(process.env.STRIPE_SECRET);
+const i18n = require("i18n");
 
 const OrderModel = require("../../../modules/orderModel");
 const CartModel = require("../../../modules/cartModel");
@@ -9,30 +10,22 @@ const ApiError = require("../../../utils/apiError/apiError");
 //  @route  Post  /api/v1/orders/cardId
 //  @access Protect/user
 exports.createCashOrder = asyncHandler(async (req, res, next) => {
-  const taxPrice = 0;
-  const shippingPrice = 0;
-
+  
   //1) get Cart depend on cartId
   const cart = await CartModel.findById(req.params.cartId);
   if (!cart) {
-    return next(
-      new ApiError(`there is no cart for this  id : ${req.params.cartId}`, 404)
-    );
+    return next(new ApiError(i18n.__("cartNotFound"), 404));
+
   }
-
-  //2) get order price depend on cart price "check coupon apply"
-  const cartPrice = cart.totalPriceAfterDiscount
-    ? cart.totalPriceAfterDiscount
-    : cart.totalCartPrice;
-
-  const totalOrderPrice = cartPrice + taxPrice + shippingPrice;
 
   //3) create order with default payment method type cash
   const order = await OrderModel.create({
     user: req.userModel._id,
-    notes: cart.notes,
+    notes: req.body.notes,
     cartItems: cart.cartItems,
-    totalOrderPrice: totalOrderPrice,
+    taxPrice: cart.taxPrice,
+    shippingPrice: cart.shippingPrice,
+    totalOrderPrice: cart.totalOrderPrice,
     shippingAddress: req.body.shippingAddress,
   });
 
@@ -42,7 +35,7 @@ exports.createCashOrder = asyncHandler(async (req, res, next) => {
   }
   res
     .status(200)
-    .send({ status: true, message: "Order created successfully", data: order });
+    .send({ status: true, message:i18n.__("orderCreatedSuccessfully") , data: order });
 });
 
 //  @dec    Get checkOut session from strip and send it as response
@@ -77,15 +70,13 @@ exports.checkOutSession = asyncHandler(async (req, res, next) => {
       },
     ],
     mode: "payment",
-    success_url: `${req.protocol}://${req.get('host')}/order`,
-    cancel_url: `${req.protocol}://${req.get('host')}/cart`,
+    success_url: `${req.protocol}://${req.get("host")}/order`,
+    cancel_url: `${req.protocol}://${req.get("host")}/cart`,
     customer_email: req.userModel.email,
     client_reference_id: req.params.cartId,
     metadata: req.body.shippingAddress,
-
-
   });
 
   //4) send session to response
-  res.status(200).send({ status: "success", session});
+  res.status(200).send({ status: "success", session });
 });
