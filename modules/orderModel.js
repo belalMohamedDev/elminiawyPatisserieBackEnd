@@ -72,7 +72,7 @@ OrderSchema.pre(/^find/, function (next) {
   })
     .populate({
       path: "cartItems.product",
-      select: "title image ",
+      select: "title image ratingsAverage ",
     })
     .populate({
       path: "shippingAddress",
