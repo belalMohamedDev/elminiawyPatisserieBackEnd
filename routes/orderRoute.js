@@ -69,8 +69,7 @@ router
   .get(createFilterObjectToGetAllCompleteUserOrder, getAllUserOrder);
 router
   .route("/user/pending")
-  .get(createFilterObjectToGetAllPendingUserOrder, getAllUserOrder);
-
+  .get( createFilterObjectToGetAllPendingUserOrder,getAllUserOrder);
 router
   .route("/:id/cancelled")
   .put(passingOrderCancelledToReqBody, orderCancelled);

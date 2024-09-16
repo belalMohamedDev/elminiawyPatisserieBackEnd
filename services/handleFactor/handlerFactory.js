@@ -165,7 +165,7 @@ const deletePhotoFromCloud = (model) =>
   });
 
 //@dec this function used to  update  data from mongo db
-const updateOne = (model, modelName) =>
+const updateOne = (model, modelName,localizedModel) =>
   asyncHandler(async (req, res, next) => {
     const { id } = req.params;
 
@@ -183,8 +183,8 @@ const updateOne = (model, modelName) =>
       );
     }
 
-    if (model.schema.methods.toJSONLocalizedOnly != undefined) {
-      var localizedDocument = model.schema.methods.toJSONLocalizedOnly(
+    if (localizedModel.schema.methods.toJSONLocalizedOnly != undefined) {
+      var localizedDocument = localizedModel.schema.methods.toJSONLocalizedOnly(
         document,
         req.headers["lang"] || "en"
       );

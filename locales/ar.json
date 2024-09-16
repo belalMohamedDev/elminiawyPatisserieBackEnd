@@ -124,11 +124,12 @@
 	"currentPasswordRequired": "مطلوب كلمة المرور الحالية",
 	"sucessToDeleteUser": "نجاح حذف المستخدم",
 	"theCartIsNowEmpty": "عربة التسوق فارغة الآن",
-    "orderCreatedSuccessfully":"تم إنشاء الطلب بنجاح",
-	"cartIdRequired":"مطلوب معرف عربة التسوق",
-    "InvalidCartIdFormat":"تنسيق معرف عربة التسوق غير صالح",
-    "InvalidshippingAddressIdFormat":"تنسيق معرف عنوان الشحن غير صالح",
-    "shippingAddressRequired":"مطلوب عنوان الشحن",
-    "shippingAddressIdNotFound":"لم يتم العثور على معرف عنوان الشحن",
-	"orderCreationFailed":"فشل إنشاء الطلب"
+	"orderCreatedSuccessfully": "تم إنشاء الطلب بنجاح",
+	"cartIdRequired": "مطلوب معرف عربة التسوق",
+	"InvalidCartIdFormat": "تنسيق معرف عربة التسوق غير صالح",
+	"InvalidshippingAddressIdFormat": "تنسيق معرف عنوان الشحن غير صالح",
+	"shippingAddressRequired": "مطلوب عنوان الشحن",
+	"shippingAddressIdNotFound": "لم يتم العثور على معرف عنوان الشحن",
+	"orderCreationFailed": "فشل إنشاء الطلب",
+	"user order": "user order"
 }
