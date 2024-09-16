@@ -48,7 +48,7 @@ const creatOne = (model, modelName) =>
 /////////////////////////////////////////////////////////////////
 
 //@dec this function used to  get all data from mongo db
-const getAllData = (model, modelName,localizedModel) =>
+const getAllData = (model, modelName, localizedModel) =>
   asyncHandler(async (req, res) => {
     //this code get all data
     let filter = {};
@@ -77,18 +77,23 @@ const getAllData = (model, modelName,localizedModel) =>
     const { mongooseQuery, paginationRuslt } = apiFeatures;
     const document = await mongooseQuery;
 
-    if (model.schema.methods.toJSONLocalizedOnly != undefined) {
-      var localizedDocument = model.schema.methods.toJSONLocalizedOnly(
+    let localizedDocument;
+    if (model.schema.methods.toJSONLocalizedOnly) {
+      localizedDocument = model.schema.methods.toJSONLocalizedOnly(
         document,
         req.headers["lang"] || "en"
       );
-    }
-
-    if (localizedModel.schema.methods.toJSONLocalizedOnly != undefined) {
-      var localizedDocument = localizedModel.schema.methods.toJSONLocalizedOnly(
+    } else if (
+      localizedModel &&
+      localizedModel.schema.methods.toJSONLocalizedOnly
+    ) {
+      localizedDocument = localizedModel.schema.methods.toJSONLocalizedOnly(
         document,
         req.headers["lang"] || "en"
       );
+    } else {
+      // Handle case where method is missing
+      localizedDocument = document;
     }
 
     // Cache the response for one day (86400 seconds)
@@ -98,7 +103,7 @@ const getAllData = (model, modelName,localizedModel) =>
         status: true,
         message: i18n.__("SuccessToGetAllDataFor") + i18n.__(modelName),
         paginationRuslt,
-        data: localizedDocument ? localizedDocument : document,
+        data: localizedDocument,
       }),
       { EX: 60 }
     );
@@ -172,7 +177,7 @@ const deletePhotoFromCloud = (model) =>
   });
 
 //@dec this function used to  update  data from mongo db
-const updateOne = (model, modelName,localizedModel) =>
+const updateOne = (model, modelName, localizedModel) =>
   asyncHandler(async (req, res, next) => {
     const { id } = req.params;
 
@@ -190,25 +195,26 @@ const updateOne = (model, modelName,localizedModel) =>
       );
     }
 
-    if (model.schema.methods.toJSONLocalizedOnly != undefined) {
-      var localizedDocument = model.schema.methods.toJSONLocalizedOnly(
+    let localizedDocument;
+    if (model.schema.methods.toJSONLocalizedOnly) {
+      localizedDocument = model.schema.methods.toJSONLocalizedOnly(
         document,
         req.headers["lang"] || "en"
       );
-    }
-
-    if (localizedModel.schema.methods.toJSONLocalizedOnly != undefined) {
-      var localizedDocument = localizedModel.schema.methods.toJSONLocalizedOnly(
+    } else if (localizedModel && localizedModel.schema.methods.toJSONLocalizedOnly) {
+      localizedDocument = localizedModel.schema.methods.toJSONLocalizedOnly(
         document,
         req.headers["lang"] || "en"
       );
+    } else {
+      // Handle case where method is missing
+      localizedDocument = document;
     }
-
     //send success respons
     res.status(200).json({
       status: true,
       message: i18n.__("SucessToUpdateDataFromThisId"),
-      data: localizedDocument ? localizedDocument : document,
+      data: localizedDocument ,
     });
   });
 
