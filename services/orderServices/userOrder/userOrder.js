@@ -26,7 +26,7 @@ exports.createFilterObjectToGetAllPendingUserOrder = (req, res, next) => {
 
 
 // //  @dec  get all  order to user
-exports.getAllUserOrder = factory.getAllData(OrderModel, "user order");
+exports.getAllUserOrder = factory.getAllData(OrderModel, "user order",productModel);
 
 
 

@@ -48,7 +48,7 @@ const creatOne = (model, modelName) =>
 /////////////////////////////////////////////////////////////////
 
 //@dec this function used to  get all data from mongo db
-const getAllData = (model, modelName) =>
+const getAllData = (model, modelName,localizedModel) =>
   asyncHandler(async (req, res) => {
     //this code get all data
     let filter = {};
@@ -79,6 +79,13 @@ const getAllData = (model, modelName) =>
 
     if (model.schema.methods.toJSONLocalizedOnly != undefined) {
       var localizedDocument = model.schema.methods.toJSONLocalizedOnly(
+        document,
+        req.headers["lang"] || "en"
+      );
+    }
+
+    if (localizedModel.schema.methods.toJSONLocalizedOnly != undefined) {
+      var localizedDocument = localizedModel.schema.methods.toJSONLocalizedOnly(
         document,
         req.headers["lang"] || "en"
       );
@@ -180,6 +187,13 @@ const updateOne = (model, modelName,localizedModel) =>
       //send faild response
       return next(
         new ApiError(i18n.__("failedToUpdateDataById", i18n.__(modelName)), 404)
+      );
+    }
+
+    if (model.schema.methods.toJSONLocalizedOnly != undefined) {
+      var localizedDocument = model.schema.methods.toJSONLocalizedOnly(
+        document,
+        req.headers["lang"] || "en"
       );
     }
 
