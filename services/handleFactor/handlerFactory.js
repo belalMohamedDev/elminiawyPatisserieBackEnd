@@ -59,9 +59,11 @@ const getAllData = (model, modelName, localizedModel) =>
     // Check Redis cache first
     const cacheKey = `${modelName}-${JSON.stringify(req.headers["lang"] || "en")}`;
 
-    const cachedData = await redis.get(cacheKey);
-    if (cachedData) {
-      return res.status(200).json(JSON.parse(cachedData));
+    if (!localizedModel) {
+      const cachedData = await redis.get(cacheKey);
+      if (cachedData) {
+        return res.status(200).json(JSON.parse(cachedData));
+      }
     }
 
     //build query
@@ -201,7 +203,10 @@ const updateOne = (model, modelName, localizedModel) =>
         document,
         req.headers["lang"] || "en"
       );
-    } else if (localizedModel && localizedModel.schema.methods.toJSONLocalizedOnly) {
+    } else if (
+      localizedModel &&
+      localizedModel.schema.methods.toJSONLocalizedOnly
+    ) {
       localizedDocument = localizedModel.schema.methods.toJSONLocalizedOnly(
         document,
         req.headers["lang"] || "en"
@@ -214,7 +219,7 @@ const updateOne = (model, modelName, localizedModel) =>
     res.status(200).json({
       status: true,
       message: i18n.__("SucessToUpdateDataFromThisId"),
-      data: localizedDocument ,
+      data: localizedDocument,
     });
   });
 
