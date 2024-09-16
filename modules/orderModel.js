@@ -19,15 +19,9 @@ const OrderSchema = mongoose.Schema(
     notes: { type: String },
 
     status: {
-      type: String,
-      enum: [
-        "Pending",
-        "Admin Approved",
-        "In Transit",
-        "Delivered",
-        "Cancelled",
-      ],
-      default: "Pending",
+      type: Number,
+      enum: [0, 1, 2, 3, 4],
+      default: 0,
     },
 
     cartItems: [cartItemSchema],
