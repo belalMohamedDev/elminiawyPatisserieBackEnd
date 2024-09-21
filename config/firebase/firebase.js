@@ -17,7 +17,7 @@ function PushNotification(message) {
       product: message.product,
       category: message.category,
     },
-    topic: "/topics/finder",
+    topic: "/topics/elminiawy.patisserie",
   };
 
   admin
