@@ -55,6 +55,12 @@ const userSchema = new mongoose.Schema(
       type: Boolean,
       default: true,
     },
+    notifications: [
+      {
+        type: mongoose.Schema.ObjectId,
+        ref: 'notification'
+      }
+    ],
 
     verifyAccount: Boolean,
 
