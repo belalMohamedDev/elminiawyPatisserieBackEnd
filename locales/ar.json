@@ -131,5 +131,6 @@
 	"shippingAddressRequired": "مطلوب عنوان الشحن",
 	"shippingAddressIdNotFound": "لم يتم العثور على معرف عنوان الشحن",
 	"orderCreationFailed": "فشل إنشاء الطلب",
-	"user order": "user order"
+	"user order": "user order",
+	"Notification": "Notification"
 }

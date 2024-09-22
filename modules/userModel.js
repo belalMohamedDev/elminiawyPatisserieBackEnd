@@ -57,9 +57,12 @@ const userSchema = new mongoose.Schema(
     },
     notifications: [
       {
-        type: mongoose.Schema.ObjectId,
-        ref: 'notification'
-      }
+        notificationId: { type: mongoose.Schema.ObjectId, ref: "notification" },
+        isSeen: {
+          type: Boolean,
+          default: false,
+        },
+      },
     ],
 
     verifyAccount: Boolean,

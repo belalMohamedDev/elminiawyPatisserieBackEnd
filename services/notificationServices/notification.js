@@ -9,7 +9,6 @@ const PushNotification = require("../../config/firebase/firebase");
 // @route POST /api/v1/notification
 // @access Private
 
-
 exports.createNotification = asyncHandler(async (req, res, next) => {
   const { title, description, product, category } = req.body;
 
@@ -24,7 +23,7 @@ exports.createNotification = asyncHandler(async (req, res, next) => {
 
   await userModel.updateMany(
     { role: "user" },
-    { $push: { notifications: notification._id } }
+    { $push: { notifications: { notificationId: notification._id } } }
   );
 
   const pushNotifications = users.map((user) => {
@@ -42,22 +41,63 @@ exports.createNotification = asyncHandler(async (req, res, next) => {
   res.status(200).json({
     status: true,
     message: "Notification sent successfully to all users",
-    data: notification,
+  });
+});
+
+
+// @desc repeat notification
+// @route POST /api/v1/notification/repeat
+// @access Private
+
+exports.repeatNotification = asyncHandler(async (req, res, next) => {
+  const { title, description, product, category,notificationId } = req.body;
+
+
+  const users = await userModel.find({ role: "user" });
+
+  await userModel.updateMany(
+    { role: "user" },
+    { $push: { notifications: { notificationId: notificationId } } }
+  );
+
+  const pushNotifications = users.map((user) => {
+    return PushNotification({
+      title,
+      description,
+      product,
+      category,
+      userId: user._id,
+    });
+  });
+
+  await Promise.all(pushNotifications);
+
+  res.status(200).json({
+    status: true,
+    message: "Notification sent successfully to all users",
+
   });
 });
 
 // @desc get all notification to user
-exports.createFilterObject = (req, res, next) => {
-  let filterObject = {};
-  filterObject = { createdAt: { $gt: req.userModel.createdAt } };
-  req.filterObject = filterObject;
-  next();
-};
-
-// @desc get all notification
-// @route POST /api/v1/notification
+// @route POST /api/v1/notification/user
 // @access Private
-exports.getAllNotification = factory.getAllData(
-  notificationModel,
-  "notification"
-);
+exports.getAllNotification = asyncHandler(async (req, res, next) => {
+  const user = await req.userModel.populate({
+    path: "notifications.notificationId",
+    model: "notification",
+  });
+
+  res.status(200).json({
+    status: true,
+    message: "User notifications retrieved successfully",
+    data: user.notifications,
+  });
+});
+
+
+
+// @desc get all notification to admin
+// @route POST /api/v1/notification/admin
+// @access Private
+exports.getAllNotificationToAdmin = factory.getAllData(notificationModel,"Notification")

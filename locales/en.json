@@ -131,5 +131,6 @@
 	"shippingAddressRequired": "shipping Address Required",
 	"shippingAddressIdNotFound": "shipping Address Id Not Found",
 	"orderCreationFailed": "order Creation Failed",
-	"user order": "user order"
+	"user order": "user order",
+	"Notification": "Notification"
 }
