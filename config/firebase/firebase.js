@@ -33,7 +33,13 @@ var admin = require("firebase-admin");
 //     });
 // }
 
+function sanitizeTopic(userId) {
+  return userId.toLowerCase().replace(/[^a-z0-9_]/g, "");
+}
+
 function PushNotification(message) {
+  const sanitizedUserId = sanitizeTopic(message.userId);
+
   const messageContent = {
     notification: {
       title: message.title || "No Title",
@@ -49,7 +55,7 @@ function PushNotification(message) {
       category: message.category ? message.category.toString() : "",
     },
 
-    topic: `/topics/${message.userId}`,
+    topic: `/topics/${sanitizedUserId}`,
   };
 
   admin
