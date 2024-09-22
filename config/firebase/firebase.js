@@ -1,12 +1,11 @@
-
-
+var admin = require("firebase-admin");
 
 
 function PushNotification(message) {
   const messageContent = {
     notification: {
-      title: message.title,
-      body: message.body,
+      title: message.title || "No Title",      
+      body: message.description || "No description",     
     },
     android: {
       notification: {
@@ -14,8 +13,8 @@ function PushNotification(message) {
       },
     },
     data: {
-      product: message.product,
-      category: message.category,
+      product: message.product ? message.product.toString() : "",  
+      category: message.category ? message.category.toString() : "",  
     },
     topic: "/topics/elminiawy.patisserie",
   };
@@ -35,5 +34,5 @@ function PushNotification(message) {
     });
 }
 
-
 module.exports = PushNotification;
+

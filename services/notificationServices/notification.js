@@ -19,7 +19,7 @@ exports.createNotification = asyncHandler(async (req, res, next) => {
 
   PushNotification({
     title,
-    body: description,
+    description,
     product,
     category,
   });
