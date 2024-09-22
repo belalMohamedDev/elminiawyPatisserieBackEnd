@@ -8,39 +8,7 @@ const PushNotification = require("../../config/firebase/firebase");
 // @desc create notification
 // @route POST /api/v1/notification
 // @access Private
-// exports.createNotification = asyncHandler(async (req, res, next) => {
-//   const { title, description, product, category } = req.body;
 
-//   const users = await userModel.find({ role: "user" });
-
-//   const notification = await notificationModel.create({
-//     title,
-//     description,
-//     product,
-//     category,
-//   });
-
-//   await Promise.all(
-//     users.map(async (user) => {
-//       user.notifications.push(notification._id);
-//       await user.save();
-
-//       PushNotification({
-//         title,
-//         description,
-//         product,
-//         category,
-//         userId: user._id,
-//       });
-//     })
-//   );
-
-//   res.status(200).json({
-//     status: true,
-//     message: "Notification sent successfully to all users",
-//     data: notification,
-//   });
-// });
 
 exports.createNotification = asyncHandler(async (req, res, next) => {
   const { title, description, product, category } = req.body;
