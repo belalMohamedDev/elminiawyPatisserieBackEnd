@@ -93,7 +93,7 @@ exports.getAllNotification = asyncHandler(async (req, res, next) => {
 });
 
 // @desc update all notifications with isSeen: false to seen
-// @route PUT /api/v1/notification/user/seen
+// @route POST /api/v1/notification/user/seen
 // @access Private
 exports.updateUnseenNotificationsToSeen = asyncHandler(async (req, res, next) => {
   const user = await req.userModel.populate({
@@ -111,8 +111,7 @@ exports.updateUnseenNotificationsToSeen = asyncHandler(async (req, res, next) =>
 
   res.status(200).json({
     status: true,
-    message: "Unseen notifications updated to seen",
-       
+    message:  "All unseen notifications have been updated to seen." , 
   });
 });
 
