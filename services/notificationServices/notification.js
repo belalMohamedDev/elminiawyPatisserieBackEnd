@@ -44,14 +44,12 @@ exports.createNotification = asyncHandler(async (req, res, next) => {
   });
 });
 
-
 // @desc repeat notification
 // @route POST /api/v1/notification/repeat
 // @access Private
 
 exports.repeatNotification = asyncHandler(async (req, res, next) => {
-  const { title, description, product, category,notificationId } = req.body;
-
+  const { title, description, product, category, notificationId } = req.body;
 
   const users = await userModel.find({ role: "user" });
 
@@ -75,7 +73,6 @@ exports.repeatNotification = asyncHandler(async (req, res, next) => {
   res.status(200).json({
     status: true,
     message: "Notification sent successfully to all users",
-
   });
 });
 
@@ -95,9 +92,34 @@ exports.getAllNotification = asyncHandler(async (req, res, next) => {
   });
 });
 
+// @desc update all notifications with isSeen: false to seen
+// @route PUT /api/v1/notification/user/seen
+// @access Private
+exports.updateUnseenNotificationsToSeen = asyncHandler(async (req, res, next) => {
+  const user = await req.userModel.populate({
+    path: "notifications.notificationId",
+    model: "notification",
+  });
 
+  const unseenNotifications = user.notifications.filter(notification => !notification.isSeen);
+
+  unseenNotifications.forEach(notification => {
+    notification.isSeen = true;
+  });
+
+  await user.save();
+
+  res.status(200).json({
+    status: true,
+    message: "Unseen notifications updated to seen",
+       
+  });
+});
 
 // @desc get all notification to admin
 // @route POST /api/v1/notification/admin
 // @access Private
-exports.getAllNotificationToAdmin = factory.getAllData(notificationModel,"Notification")
+exports.getAllNotificationToAdmin = factory.getAllData(
+  notificationModel,
+  "Notification"
+);

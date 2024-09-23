@@ -4,6 +4,7 @@ const {
   repeatNotification,
   createNotification,
   getAllNotification,
+  updateUnseenNotificationsToSeen
 } = require("../services/notificationServices/notification");
 const authServices = require("../services/authServices/protect");
 
@@ -17,6 +18,10 @@ router.use(authServices.protect);
 
 router.route("/user").get(getAllNotification);
 
+router
+.route("/user/seen")
+.put(updateUnseenNotificationsToSeen);
+
 router.use(authServices.allowedTo("admin"));
 
 router
@@ -28,5 +33,8 @@ router
 router
 .route("/repeat")
 .post(repeatNotification);
+
+
+
 
 module.exports = router;
