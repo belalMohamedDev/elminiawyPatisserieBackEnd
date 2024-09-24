@@ -17,7 +17,10 @@ exports.getLoggedUserCart = asyncHandler(async (req, res, next) => {
     return res.status(200).json({
       status: true,
       message: i18n.__("thereIsNoCartForThisUser"),
-      data: cart,
+      numOfCartItems: 0,
+      data: {
+        cartItems: [], 
+      },
     });
   }
 
