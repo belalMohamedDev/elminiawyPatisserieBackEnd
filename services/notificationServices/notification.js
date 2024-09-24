@@ -95,25 +95,30 @@ exports.getAllNotification = asyncHandler(async (req, res, next) => {
 // @desc update all notifications with isSeen: false to seen
 // @route POST /api/v1/notification/user/seen
 // @access Private
-exports.updateUnseenNotificationsToSeen = asyncHandler(async (req, res, next) => {
-  const user = await req.userModel.populate({
-    path: "notifications.notificationId",
-    model: "notification",
-  });
+exports.updateUnseenNotificationsToSeen = asyncHandler(
+  async (req, res, next) => {
+    const user = await req.userModel.populate({
+      path: "notifications.notificationId",
+      model: "notification",
+    });
 
-  const unseenNotifications = user.notifications.filter(notification => !notification.isSeen);
+    const unseenNotifications = user.notifications.filter(
+      (notification) => !notification.isSeen
+    );
 
-  unseenNotifications.forEach(notification => {
-    notification.isSeen = true;
-  });
+    unseenNotifications.forEach((notification) => {
+      notification.isSeen = true;
+    });
 
-  await user.save();
+    await user.save();
 
-  res.status(200).json({
-    status: true,
-    message:  "All unseen notifications have been updated to seen." , 
-  });
-});
+    res.status(200).json({
+      status: true,
+      message: "All unseen notifications have been updated to seen.",
+      data: user.notifications,
+    });
+  }
+);
 
 // @desc get all notification to admin
 // @route POST /api/v1/notification/admin
