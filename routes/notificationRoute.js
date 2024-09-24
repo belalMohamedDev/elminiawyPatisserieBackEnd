@@ -4,7 +4,7 @@ const {
   repeatNotification,
   createNotification,
   getAllNotification,
-  updateUnseenNotificationsToSeen
+  updateUnseenNotificationsToSeen,deleteNotificationToUser
 } = require("../services/notificationServices/notification");
 const authServices = require("../services/authServices/protect");
 
@@ -17,6 +17,8 @@ const router = express.Router();
 router.use(authServices.protect);
 
 router.route("/user").get(getAllNotification);
+
+router.route("/user/:id").delete(deleteNotificationToUser);
 
 router
 .route("/user/seen")

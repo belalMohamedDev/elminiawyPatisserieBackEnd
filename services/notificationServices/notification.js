@@ -49,21 +49,30 @@ exports.createNotification = asyncHandler(async (req, res, next) => {
 // @access Private
 
 exports.repeatNotification = asyncHandler(async (req, res, next) => {
-  const { title, description, product, category, notificationId } = req.body;
+  const { notificationId } = req.body;
 
-  const users = await userModel.find({ role: "user" });
+  const notification = await notificationModel.findById(notificationId);
+
+  if (!notification) {
+    return res.status(404).json({
+      status: false,
+      message: "Notification not found",
+    });
+  }
 
   await userModel.updateMany(
     { role: "user" },
-    { $push: { notifications: { notificationId: notificationId } } }
+    { $push: { notifications: { notificationId } } }
   );
+
+  const users = await userModel.find({ role: "user" });
 
   const pushNotifications = users.map((user) => {
     return PushNotification({
-      title,
-      description,
-      product,
-      category,
+      title: notification.title,
+      description: notification.description,
+      product: notification.product,
+      category: notification.category,
       userId: user._id,
     });
   });
@@ -88,6 +97,37 @@ exports.getAllNotification = asyncHandler(async (req, res, next) => {
   res.status(200).json({
     status: true,
     message: "User notifications retrieved successfully",
+    data: user.notifications,
+  });
+});
+
+// @desc delete notification to user
+// @route DELETE /api/v1/notification/user/id
+// @access protect
+exports.deleteNotificationToUser = asyncHandler(async (req, res, next) => {
+  const user = await req.userModel.populate({
+    path: "notifications.notificationId",
+    model: "notification",
+  });
+
+  const notificationIndex = user.notifications.findIndex(
+    (notification) => notification._id.toString() === req.params.id
+  );
+
+  if (notificationIndex === -1) {
+    return res.status(404).json({
+      status: false,
+      message: "Notification not found",
+    });
+  }
+
+  user.notifications.splice(notificationIndex, 1);
+
+  await user.save();
+
+  res.status(200).json({
+    status: true,
+    message: "Notification deleted successfully",
     data: user.notifications,
   });
 });
