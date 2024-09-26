@@ -50,6 +50,8 @@ exports.checkLocationAvailable = asyncHandler(async (req, res, next) => {
 
   // Extract the formatted address from Google API response
   const address = googleApiResponse.data.results[0]?.formatted_address || "Address not found";
+  const isAddressAvailable = address !== "Address not found"; // true if address is found, false if not
+
 
   // Check if any stores are available within the delivery range
   if (!stores.length) {
@@ -58,6 +60,7 @@ exports.checkLocationAvailable = asyncHandler(async (req, res, next) => {
       message: "No stores available within the specified distance.",
       address: address,
       StoreAddressAvailable: false,
+      isAddressAvailable:isAddressAvailable
     });
   }
 
@@ -66,5 +69,7 @@ exports.checkLocationAvailable = asyncHandler(async (req, res, next) => {
     message: "Store found within the specified distance.",
     address: address,
     StoreAddressAvailable: true,
+    isAddressAvailable:isAddressAvailable
+
   });
 });
