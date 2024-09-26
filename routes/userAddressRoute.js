@@ -12,12 +12,20 @@ const {
 } = require("../services/user/userAddress/addressService");
 
 const {
+ checkLocationAvailable
+} = require("../services/user/userAddress/checkLocationAvaliable");
+
+const {
   createAddressValidator,
   deleteAddressValidator,
   updateAddressValidator,
 } = require("../utils/validators/addressValidator");
 
 const router = express.Router();
+
+router
+  .route("/isAvailable")
+  .post(checkLocationAvailable);
 
 router.use(authServices.protect);
 

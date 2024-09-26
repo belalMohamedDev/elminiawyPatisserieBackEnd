@@ -20,6 +20,8 @@ const StoreAddressSchema = new mongoose.Schema(
       minlength: [3, "too short briefness"],
       maxlength: [500, "too long briefness"],
     },
+    
+    deliveryRange: { type: Number, required: true },
 
     region: {
       type: String,
