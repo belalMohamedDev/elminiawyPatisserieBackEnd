@@ -22,6 +22,11 @@ exports.login = asyncHandler(async (req, res, next) => {
     return next(new ApiError(i18n.__("incorrectEmailOrPassword"), 400));
   }
 
+
+  if(document.active==false){
+    return next(new ApiError(i18n.__("thisAccountNotActive"), 400));
+  }
+
   const deviceInfo = JSON.stringify(getDeviceInfo(req));
 
   //generate token
@@ -41,6 +46,8 @@ exports.login = asyncHandler(async (req, res, next) => {
 
   // Remove old sessions if needed
   await removeOldSessions(document);
+
+
 
   //send success response to client side
   res.status(201).json({
