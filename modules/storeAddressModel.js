@@ -21,7 +21,7 @@ const StoreAddressSchema = new mongoose.Schema(
       maxlength: [500, "too long briefness"],
     },
     
-    deliveryRange: { type: Number, required: true },
+    // deliveryRange: { type: Number, required: true },
 
     region: {
       type: String,
@@ -36,12 +36,26 @@ const StoreAddressSchema = new mongoose.Schema(
       coordinates: { type: [Number], default: [0, 0] },
     },
 
+    deliveryZone: {
+      type: {
+        type: String, 
+        enum: ["Polygon"], 
+        required: true,
+      },
+      coordinates: {
+        type: [[[Number]]], // 2D array for polygon coordinates
+        required: true,
+      },
+    },
+
 
   },
   { timestamps: true }
 );
 
 StoreAddressSchema.index({ location: "2dsphere" });
+
+StoreAddressSchema.index({ deliveryZone: "2dsphere" });
 
 StoreAddressSchema.plugin(mongooseI18n, {
   locales: ["en", "ar"],

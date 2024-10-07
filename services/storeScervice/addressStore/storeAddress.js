@@ -3,7 +3,14 @@ const factory = require("../../handleFactor/handlerFactory");
 
 //passing data to body in create and update
 exports.passingDataToReqBody = (req, res, next) => {
-  const { latitude, longitude, BranchArea, briefness, region } = req.body;
+  const {
+    latitude,
+    longitude,
+    BranchArea,
+    briefness,
+    region,
+    deliveryZoneCoordinates,
+  } = req.body;
 
   const newBody = {
     BranchArea,
@@ -15,6 +22,13 @@ exports.passingDataToReqBody = (req, res, next) => {
     newBody.location = {
       type: "Point",
       coordinates: [longitude, latitude],
+    };
+  }
+
+  if (deliveryZoneCoordinates !== undefined) {
+    newBody.deliveryZone = {
+      type: "Polygon",
+      coordinates: [deliveryZoneCoordinates], // Array of coordinates [[longitude, latitude], ...]
     };
   }
 
@@ -38,7 +52,6 @@ exports.getAllstoreAddresss = factory.getAllData(
   storeAddressModel,
   "store Address"
 );
-
 
 //  @dec    update  store Address by id
 //  @route  Put  /api/v1/storeAddress/:id
