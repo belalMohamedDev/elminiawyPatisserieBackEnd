@@ -46,7 +46,10 @@ const UserAddressSchema = mongoose.Schema(
       },
     },
 
-  
+    active: {
+      type: Boolean,
+      default: true,
+    },
 
     user: {
       type: mongoose.Schema.ObjectId,

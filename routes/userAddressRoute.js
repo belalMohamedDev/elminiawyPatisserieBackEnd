@@ -1,7 +1,6 @@
 const express = require("express");
 const authServices = require("../services/authServices/protect");
 
-
 const {
   creatAddress,
   passingDataToReqBody,
@@ -12,7 +11,7 @@ const {
 } = require("../services/user/userAddress/addressService");
 
 const {
- checkLocationAvailable
+  checkLocationAvailable,
 } = require("../services/user/userAddress/checkLocationAvaliable");
 
 const {
@@ -23,9 +22,7 @@ const {
 
 const router = express.Router();
 
-router
-  .route("/isAvailable")
-  .post(checkLocationAvailable);
+router.route("/isAvailable").post(checkLocationAvailable);
 
 router.use(authServices.protect);
 
@@ -37,10 +34,6 @@ router
 router
   .route("/:id")
   .delete(deleteAddressValidator, deleteAddress)
-  .put(
-    passingDataToReqBody,
-    updateAddressValidator,
-    updateAddress
-  );
+  .put(passingDataToReqBody, updateAddressValidator, updateAddress);
 
 module.exports = router;
