@@ -6,40 +6,42 @@ class ApiFeatures {
 
   filter() {
     const queryObj = { ...this.queryString };
-    const excludesFields = ['page', 'sort', 'limit', 'fields', 'keyword'];
+    const excludesFields = ["page", "sort", "limit", "fields", "keyword"];
     excludesFields.forEach((field) => delete queryObj[field]);
 
     // Apply filtering for price range
     if (this.queryString.price) {
-      const priceRange = this.queryString.price.split('-');
+      const priceRange = this.queryString.price.split("-").map(Number);
       queryObj.price = { $gte: priceRange[0], $lte: priceRange[1] };
     }
 
     // Apply filtration using [gte, gt, lte, lt]
-    let queryStr = JSON.stringify(queryObj);
-    queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, (match) => `$${match}`);
-    this.mongooseQuery = this.mongooseQuery.find(JSON.parse(queryStr));
+    // No need to stringify and replace. You can directly use the query object
+    const queryStr = queryObj;
+
+    // Directly pass the query object to Mongoose without string manipulation
+    this.mongooseQuery = this.mongooseQuery.find(queryStr);
 
     return this;
   }
 
   sort() {
     if (this.queryString.sort) {
-      const sortBy = this.queryString.sort.split(',').join(' ');
+      const sortBy = this.queryString.sort.split(",").join(" ");
       this.mongooseQuery = this.mongooseQuery.sort(sortBy);
     } else {
       // Default sort by created date
-      this.mongooseQuery = this.mongooseQuery.sort('-createdAt');
+      this.mongooseQuery = this.mongooseQuery.sort("-createdAt");
     }
     return this;
   }
 
   limitfields() {
     if (this.queryString.fields) {
-      const fields = this.queryString.fields.split(',').join(' ');
+      const fields = this.queryString.fields.split(",").join(" ");
       this.mongooseQuery = this.mongooseQuery.select(fields);
     } else {
-      this.mongooseQuery = this.mongooseQuery.select('-__v');
+      this.mongooseQuery = this.mongooseQuery.select("-__v");
     }
     return this;
   }
@@ -47,15 +49,27 @@ class ApiFeatures {
   search(modelName) {
     if (this.queryString.keyword) {
       const queryKeyword = {};
-      if (modelName === 'product') {
+      if (modelName === "product") {
         queryKeyword.$or = [
-          { 'title.en': { $regex: this.queryString.keyword, $options: 'i' } },
-          { 'title.ar': { $regex: this.queryString.keyword, $options: 'i' } },
-          { 'description.en': { $regex: this.queryString.keyword, $options: 'i' } },
-          { 'description.ar': { $regex: this.queryString.keyword, $options: 'i' } },
+          { "title.en": { $regex: this.queryString.keyword, $options: "i" } },
+          { "title.ar": { $regex: this.queryString.keyword, $options: "i" } },
+          {
+            "description.en": {
+              $regex: this.queryString.keyword,
+              $options: "i",
+            },
+          },
+          {
+            "description.ar": {
+              $regex: this.queryString.keyword,
+              $options: "i",
+            },
+          },
         ];
       } else {
-        queryKeyword.$or = [{ name: { $regex: this.queryString.keyword, $options: 'i' } }];
+        queryKeyword.$or = [
+          { name: { $regex: this.queryString.keyword, $options: "i" } },
+        ];
       }
       this.mongooseQuery = this.mongooseQuery.find(queryKeyword);
     }
