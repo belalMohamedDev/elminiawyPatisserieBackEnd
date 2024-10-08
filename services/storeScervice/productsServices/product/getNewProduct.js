@@ -25,7 +25,11 @@ const cacheData = async (cacheKey, data) => {
 
 // Helper function to get product data
 const getProductData = async (query) => {
-  const apiFeatures = new ApiFeatures(productModel.find(), query).sort();
+  const apiFeatures = new ApiFeatures(productModel.find(), query)
+    .sort()
+    .search("product")
+    .filter()
+    .limitfields();
 
   const { mongooseQuery } = apiFeatures;
   const products = await mongooseQuery;
@@ -57,10 +61,14 @@ const addWishlistStatus = (products, wishlist) => {
   });
 };
 
+
+
 // Main handler function
 exports.getAllNewProduct = asyncHandler(async (req, res) => {
   const lang = req.headers["lang"] || "en";
-  const cacheKey = `${req.userModel ? true : false}-${JSON.stringify(lang)}-${req.query.limit}-${req.query.keyword}-`;
+  const cacheKey = `${req.userModel ? true : false}-${JSON.stringify(lang)}-${req.query.limit}-${req.query.keyword}-${req.query.price}-`;
+
+
 
   // Parallel operations: get user wishlist, check Redis cache, and get product data
   const [userWishList, cachedData] = await Promise.all([
@@ -70,11 +78,13 @@ exports.getAllNewProduct = asyncHandler(async (req, res) => {
 
   let localizedProducts;
 
-  if (cachedData) {
-    // Get product data and localize it
+  // Check if there are any query parameters (if req.query is not empty) or cached data
+  if (Object.keys(req.query).length === 0 && cachedData) {
+    // If cached data exists, use it
     localizedProducts = JSON.parse(cachedData);
-    //return res.status(200).json(JSON.parse(cachedData));
+    
   } else {
+    // If query exists or cache is empty, fetch new data
     const { products } = await getProductData(req.query);
 
     localizedProducts = localizeProducts(products, lang);
@@ -83,15 +93,11 @@ exports.getAllNewProduct = asyncHandler(async (req, res) => {
     await cacheData(cacheKey, localizedProducts);
   }
 
-
-
   // Add wishlist status
   const productsWithWishlistStatus = addWishlistStatus(
     localizedProducts,
     userWishList ? userWishList.wishList : []
   );
-
-
 
   // Create response data
   const responseData = {

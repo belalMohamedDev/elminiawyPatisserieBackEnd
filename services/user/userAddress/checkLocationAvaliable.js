@@ -6,7 +6,6 @@ const storeAddressModel = require("../../../modules/storeAddressModel");
 // @route POST /api/v1/address/isAvailable
 // @access Protected
 
-
 exports.checkLocationAvailable = asyncHandler(async (req, res, next) => {
   const { latitude, longitude } = req.body;
 
