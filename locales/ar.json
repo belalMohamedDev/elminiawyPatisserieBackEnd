@@ -133,5 +133,8 @@
 	"orderCreationFailed": "فشل إنشاء الطلب",
 	"user order": "طلبات اليوزر",
 	"Notification": "اشعارات",
-    "thisAccountNotActive": "هذا الحساب غير نشط، يرجى إنشاء بريد إلكتروني جديد"
+    "thisAccountNotActive": "هذا الحساب غير نشط، يرجى إنشاء بريد إلكتروني جديد",
+    "addressNotFound":"لم يتم العثور على العنوان",
+    "noStoresAvailableWithinTheSpecifiedDistance":"لا توجد متاجر متاحة ضمن المسافة المحددة.",
+    "storeFoundWithinTheSpecifiedDistance":"تم العثور على المتجر ضمن المسافة المحددة"
 }

@@ -131,8 +131,13 @@
 	"shippingAddressRequired": "shipping Address Required",
 	"shippingAddressIdNotFound": "shipping Address Id Not Found",
 	"orderCreationFailed": "order Creation Failed",
-
 	"user order": "user order",
 	"Notification": "Notification",
-	"thisAccountNotActive": "this Account not active ,please create new email"
+	"thisAccountNotActive": "this Account not active ,please create new email",
+
+
+
+	"addressNotFound":"Address not found",
+	"noStoresAvailableWithinTheSpecifiedDistance":"No stores available within the specified distance.",
+	"storeFoundWithinTheSpecifiedDistance":"Store found within the specified distance."
 }
