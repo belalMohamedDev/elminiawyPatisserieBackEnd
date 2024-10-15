@@ -52,7 +52,7 @@ exports.checkLocationAvailable = asyncHandler(async (req, res, next) => {
       status: true,
       message: i18n.__("noStoresAvailableWithinTheSpecifiedDistance"),
       englishAddress: addressEn,
-      arabicAddress: addressAr,  
+      arabicAddress: addressAr,
       StoreAddressAvailable: false,
       isAddressAvailable: isAddressAvailable,
     });
@@ -62,8 +62,9 @@ exports.checkLocationAvailable = asyncHandler(async (req, res, next) => {
     status: true,
     message: i18n.__("storeFoundWithinTheSpecifiedDistance"),
     englishAddress: addressEn,
-    arabicAddress: addressAr,  
+    arabicAddress: addressAr,
     StoreAddressAvailable: true,
     isAddressAvailable: isAddressAvailable,
+    nearbyStoreAddressId: stores._id,
   });
 });
