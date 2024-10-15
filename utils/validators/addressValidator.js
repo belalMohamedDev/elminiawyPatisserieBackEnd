@@ -157,6 +157,30 @@ exports.updateAddressValidator = [
       })
     ),
 
+  check("nearbyStoreAddress")
+    .optional()
+    .isMongoId()
+    .withMessage((value, { req }) =>
+      i18n.__({
+        phrase: "invalidStoreAddressIdFormat",
+        locale: req.headers["lang"] || "en",
+      })
+    )
+    .custom(
+      asyncHandler(async (val, { req }) => {
+        const store = await storeAddressModel.find({ _id: val });
+
+        if (!store) {
+          throw new Error(
+            i18n.__({
+              phrase: "storeNotFound",
+              locale: req.headers["lang"] || "en",
+            })
+          );
+        }
+      })
+    ),
+
   validatorMiddleware,
 ];
 
