@@ -2,7 +2,6 @@ const mongoose = require("mongoose");
 
 const UserAddressSchema = mongoose.Schema(
   {
-   
   
     alias: {
       type: String,
@@ -54,6 +53,11 @@ const UserAddressSchema = mongoose.Schema(
     user: {
       type: mongoose.Schema.ObjectId,
       ref: "User",
+    },
+
+    nearbyStoreAddress: {
+      type: mongoose.Schema.ObjectId,
+      ref: "StoreAddress",
     },
   },
   { timestamps: true }

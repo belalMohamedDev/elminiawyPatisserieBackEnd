@@ -88,6 +88,7 @@
 	"tooLongBuildingName": "too long Building Name",
 	"aliasMatchData": "alias data not match data",
 	"invalidAddressIdFormat": "Invalid address id format",
+	"invalidStoreAddressIdFormat": "Invalid store address id format",
 	"address": "address",
 	"faildToGetProductData": "Faild To get product data from this id",
 	"protuctAddedCartSuccessfully": "protuct added to cart successfully",
@@ -133,10 +134,8 @@
 	"orderCreationFailed": "order Creation Failed",
 	"user order": "user order",
 	"Notification": "Notification",
+	"storeNotFound": "store Not Found",
 	"thisAccountNotActive": "this Account not active ,please create new email",
-
-
-
 	"addressNotFound":"Address not found",
 	"noStoresAvailableWithinTheSpecifiedDistance":"No stores available within the specified distance.",
 	"storeFoundWithinTheSpecifiedDistance":"Store found within the specified distance."

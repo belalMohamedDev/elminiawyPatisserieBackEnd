@@ -1,7 +1,8 @@
 const { check } = require("express-validator");
 const i18n = require("i18n");
-
 const validatorMiddleware = require("../../middleware/validatorMiddleware");
+const storeAddressModel = require("../../modules/storeAddressModel");
+const asyncHandler = require("express-async-handler");
 
 exports.createAddressValidator = [
   check("buildingName")
@@ -75,6 +76,29 @@ exports.createAddressValidator = [
       })
     ),
 
+  check("nearbyStoreAddress")
+    .isMongoId()
+    .withMessage((value, { req }) =>
+      i18n.__({
+        phrase: "invalidStoreAddressIdFormat",
+        locale: req.headers["lang"] || "en",
+      })
+    )
+    .custom(
+      asyncHandler(async (val, { req }) => {
+        const store = await storeAddressModel.find({ _id: val });
+
+        if (!store) {
+          throw new Error(
+            i18n.__({
+              phrase: "storeNotFound",
+              locale: req.headers["lang"] || "en",
+            })
+          );
+        }
+      })
+    ),
+
   validatorMiddleware,
 ];
 
@@ -87,7 +111,7 @@ exports.updateAddressValidator = [
         locale: req.headers["lang"] || "en",
       })
     ),
-  
+
   check("buildingName")
     .optional()
     .isLength({ min: 3 })
@@ -137,11 +161,13 @@ exports.updateAddressValidator = [
 ];
 
 exports.deleteAddressValidator = [
-  check("id").isMongoId().withMessage((value, { req }) =>
-    i18n.__({
-      phrase: "invalidAddressIdFormat",
-      locale: req.headers["lang"] || "en",
-    })
-  ),
+  check("id")
+    .isMongoId()
+    .withMessage((value, { req }) =>
+      i18n.__({
+        phrase: "invalidAddressIdFormat",
+        locale: req.headers["lang"] || "en",
+      })
+    ),
   validatorMiddleware,
 ];

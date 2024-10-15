@@ -133,6 +133,9 @@
 	"orderCreationFailed": "فشل إنشاء الطلب",
 	"user order": "طلبات اليوزر",
 	"Notification": "اشعارات",
+	"invalidStoreAddressIdFormat": "تنسيق معرف عنوان الاستور غير صالح",
+
+	"storeNotFound": "لا يوجد استور",
     "thisAccountNotActive": "هذا الحساب غير نشط، يرجى إنشاء بريد إلكتروني جديد",
     "addressNotFound":"لم يتم العثور على العنوان",
     "noStoresAvailableWithinTheSpecifiedDistance":"لا توجد متاجر متاحة ضمن المسافة المحددة.",
