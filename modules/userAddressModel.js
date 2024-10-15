@@ -1,4 +1,6 @@
 const mongoose = require("mongoose");
+var mongooseI18n = require("mongoose-i18n-localize");
+
 
 const UserAddressSchema = mongoose.Schema(
   {
@@ -22,6 +24,7 @@ const UserAddressSchema = mongoose.Schema(
     region: {
       type: String,
       trim: true,
+      i18n: true,
       required: [true, "Address region required"],
       minlength: [3, "too short Address region"],
       maxlength: [1000, "too long Address region"],
@@ -64,6 +67,10 @@ const UserAddressSchema = mongoose.Schema(
 );
 
 UserAddressSchema.index({ location: '2dsphere' });
+
+UserAddressSchema.plugin(mongooseI18n, {
+  locales: ["en", "ar"],
+});
 
 const AddressModel = mongoose.model("UserAddress", UserAddressSchema);
 

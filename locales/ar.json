@@ -139,5 +139,15 @@
     "thisAccountNotActive": "هذا الحساب غير نشط، يرجى إنشاء بريد إلكتروني جديد",
     "addressNotFound":"لم يتم العثور على العنوان",
     "noStoresAvailableWithinTheSpecifiedDistance":"لا توجد متاجر متاحة ضمن المسافة المحددة.",
-    "storeFoundWithinTheSpecifiedDistance":"تم العثور على المتجر ضمن المسافة المحددة"
+    "storeFoundWithinTheSpecifiedDistance":"تم العثور على المتجر ضمن المسافة المحددة",
+
+
+	"tooShortEnglishRegionName": "اسم منطقة بالغة الانجليزى قصير جدًا",
+	"tooShortArabicRegionName": "اسم منطقة بالغة العربية قصير جدًا",
+
+	"tooLongEnglishRegionName":  "اسم منطقة بالغة الانجليزية طويل جدًا",
+	"tooLongArabicRegionName":  "اسم منطقة بالغة العربية طويل جدًا",
+
+	"englishRegionNameRequired": "اسم منطقة بالغة الانجليزية مطلوب",
+	"arabicRegionNameRequired": "اسم منطقة بالغة العربية مطلوب"
 }

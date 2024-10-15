@@ -28,25 +28,48 @@ exports.createAddressValidator = [
       })
     ),
 
-  check("region")
+  check("region.en")
     .notEmpty()
     .withMessage((value, { req }) =>
       i18n.__({
-        phrase: "regionNameRequired",
+        phrase: "englishRegionNameRequired",
         locale: req.headers["lang"] || "en",
       })
     )
     .isLength({ min: 3 })
     .withMessage((value, { req }) =>
       i18n.__({
-        phrase: "tooShortRegionName",
+        phrase: "tooShortEnglishRegionName",
         locale: req.headers["lang"] || "en",
       })
     )
     .isLength({ max: 1000 })
     .withMessage((value, { req }) =>
       i18n.__({
-        phrase: "tooLongRegionName",
+        phrase: "tooLongEnglishRegionName",
+        locale: req.headers["lang"] || "en",
+      })
+    ),
+
+    check("region.ar")
+    .notEmpty()
+    .withMessage((value, { req }) =>
+      i18n.__({
+        phrase: "arabicRegionNameRequired",
+        locale: req.headers["lang"] || "en",
+      })
+    )
+    .isLength({ min: 3 })
+    .withMessage((value, { req }) =>
+      i18n.__({
+        phrase: "tooShortArabicRegionName",
+        locale: req.headers["lang"] || "en",
+      })
+    )
+    .isLength({ max: 1000 })
+    .withMessage((value, { req }) =>
+      i18n.__({
+        phrase: "tooLongArabicRegionName",
         locale: req.headers["lang"] || "en",
       })
     ),
