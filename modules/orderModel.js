@@ -40,6 +40,11 @@ const OrderSchema = mongoose.Schema(
       ref: "UserAddress",
     },
 
+    nearbyStoreAddress: {
+      type: mongoose.Schema.ObjectId,
+      ref: "StoreAddress",
+    },
+
     totalOrderPrice: {
       type: Number,
     },
