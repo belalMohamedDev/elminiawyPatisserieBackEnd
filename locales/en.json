@@ -144,5 +144,8 @@
 	"thisAccountNotActive": "this Account not active ,please create new email",
 	"addressNotFound":"Address not found",
 	"noStoresAvailableWithinTheSpecifiedDistance":"No stores available within the specified distance.",
-	"storeFoundWithinTheSpecifiedDistance":"Store found within the specified distance."
+	"storeFoundWithinTheSpecifiedDistance":"Store found within the specified distance.",
+	"invalidGoogleTokenOrEmailNotVerified":"Invalid Google token or email not verified",
+	"signInWithGoogleSuccess":"Sign In With google success"
+
 }

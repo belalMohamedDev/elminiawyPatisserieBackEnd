@@ -141,6 +141,7 @@
     "noStoresAvailableWithinTheSpecifiedDistance":"لا توجد متاجر متاحة ضمن المسافة المحددة.",
     "storeFoundWithinTheSpecifiedDistance":"تم العثور على المتجر ضمن المسافة المحددة",
 
+	"signInWithGoogleSuccess":"تسجيل الدخول بنجاح",
 
 	"tooShortEnglishRegionName": "اسم منطقة بالغة الانجليزى قصير جدًا",
 	"tooShortArabicRegionName": "اسم منطقة بالغة العربية قصير جدًا",
@@ -149,5 +150,6 @@
 	"tooLongArabicRegionName":  "اسم منطقة بالغة العربية طويل جدًا",
 
 	"englishRegionNameRequired": "اسم منطقة بالغة الانجليزية مطلوب",
-	"arabicRegionNameRequired": "اسم منطقة بالغة العربية مطلوب"
+	"arabicRegionNameRequired": "اسم منطقة بالغة العربية مطلوب",
+	"invalidGoogleTokenOrEmailNotVerified":"رمز Google غير صالح أو بريد إلكتروني غير محقق"
 }

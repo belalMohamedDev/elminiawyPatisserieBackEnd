@@ -4,6 +4,7 @@ const { login } = require("../services/authServices/loginServices");
 const { signUp } = require("../services/authServices/signUpServices");
 const { logOut } = require("../services/authServices/logOut");
 const { newAccessToken } = require("../services/authServices/newAccessToken");
+const { signInWithGoogle } = require("../services/authServices/signInWithGoogle");
 const {
   forgetPassword,
   resetPassword,
@@ -23,6 +24,8 @@ const router = express.Router();
 router.route("/signUp").post(signUpValidator, signUp);
 
 router.route("/login").post(loginValidator, login);
+
+router.route("/google").post(signInWithGoogle);
 
 router.route("/logout").post(logOutValidator, logOut);
 router.route("/token").post(tokenRefreshValidator, newAccessToken);
