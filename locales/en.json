@@ -146,6 +146,7 @@
 	"noStoresAvailableWithinTheSpecifiedDistance":"No stores available within the specified distance.",
 	"storeFoundWithinTheSpecifiedDistance":"Store found within the specified distance.",
 	"invalidGoogleTokenOrEmailNotVerified":"Invalid Google token or email not verified",
+	"invalidGoogleToken":"Invalid Google token",
 	"signInWithGoogleSuccess":"Sign In With google success"
 
 }

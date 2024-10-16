@@ -151,5 +151,7 @@
 
 	"englishRegionNameRequired": "اسم منطقة بالغة الانجليزية مطلوب",
 	"arabicRegionNameRequired": "اسم منطقة بالغة العربية مطلوب",
-	"invalidGoogleTokenOrEmailNotVerified":"رمز Google غير صالح أو بريد إلكتروني غير محقق"
+	"invalidGoogleTokenOrEmailNotVerified":"رمز Google غير صالح أو بريد إلكتروني غير محقق",
+	"invalidGoogleToken":"رمز جوجل غير صالح"
+
 }
