@@ -70,6 +70,7 @@ app.use((req, res, next) => {
   next();
 });
 
+
 //Enable other domains to access your application
 app.use(cors());
 
