@@ -31,7 +31,6 @@ const userSchema = new mongoose.Schema(
     password: {
       type: String,
       trim: true,
-      required: [true, "password is required"],
       minlength: [6, "Too shory user password"],
     },
 
