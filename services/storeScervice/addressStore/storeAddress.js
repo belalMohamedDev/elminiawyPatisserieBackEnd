@@ -43,14 +43,20 @@ exports.passingDataToReqBody = (req, res, next) => {
 //  @route  Get  /api/v1/storeAddress/region
 //  @access Public
 exports.getRegions = asyncHandler(async (req, res) => {
-  const regions = await storeAddressModel.find().select("region -_id");
-
+  const regions = await storeAddressModel.find().select("BranchArea -_id");
+  var localizedRegions = storeAddressModel.schema.methods.toJSONLocalizedOnly(
+    regions,
+    req.headers["lang"] || "en"
+  );
   res.status(200).json({
     status: true,
-    message: "success to get all regions",
-    data: regions,
+    message: i18n.__("successToGetAllRegions"),
+    data: localizedRegions,
   });
 });
+
+
+
 
 //  @dec    create new branch address
 //  @route  Post  /api/v1/storeAddress
