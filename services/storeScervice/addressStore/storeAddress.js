@@ -2,6 +2,7 @@ const storeAddressModel = require("../../../modules/storeAddressModel");
 const factory = require("../../handleFactor/handlerFactory");
 const asyncHandler = require("express-async-handler");
 const i18n = require("i18n");
+const redis = require("../../config/redisConnection");
 
 //passing data to body in create and update
 exports.passingDataToReqBody = (req, res, next) => {
@@ -39,25 +40,41 @@ exports.passingDataToReqBody = (req, res, next) => {
   next();
 };
 
-
 //  @dec    get all regin from stores address
 //  @route  Get  /api/v1/storeAddress/region
 //  @access Public
 exports.getRegions = asyncHandler(async (req, res) => {
+  // Check Redis cache first
+  const cacheKey = `getRegions-${JSON.stringify(req.headers["lang"] || "en")}`;
+
+  const cachedData = await redis.get(cacheKey);
+  if (cachedData) {
+    return res.status(200).json(JSON.parse(cachedData));
+  }
+
   const regions = await storeAddressModel.find().select("BranchArea -_id");
   var localizedRegions = storeAddressModel.schema.methods.toJSONLocalizedOnly(
     regions,
     req.headers["lang"] || "en"
   );
+
+  // Cache the response for one day (86400 seconds)
+  await redis.set(
+    cacheKey,
+    JSON.stringify({
+      status: true,
+      message: i18n.__("successToGetAllRegions"),
+      data: localizedRegions,
+    }),
+    { EX: 60*60 }
+  );
+
   res.status(200).json({
     status: true,
     message: i18n.__("successToGetAllRegions"),
     data: localizedRegions,
   });
 });
-
-
-
 
 //  @dec    create new branch address
 //  @route  Post  /api/v1/storeAddress
