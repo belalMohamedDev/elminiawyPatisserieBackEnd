@@ -1,5 +1,6 @@
 const storeAddressModel = require("../../../modules/storeAddressModel");
 const factory = require("../../handleFactor/handlerFactory");
+const asyncHandler = require("express-async-handler");
 
 //passing data to body in create and update
 exports.passingDataToReqBody = (req, res, next) => {
@@ -36,6 +37,20 @@ exports.passingDataToReqBody = (req, res, next) => {
 
   next();
 };
+
+
+//  @dec    get all regin from stores address
+//  @route  Get  /api/v1/storeAddress/region
+//  @access Public
+exports.getRegions = asyncHandler(async (req, res) => {
+  const regions = await storeAddressModel.find().select("region -_id");
+
+  res.status(200).json({
+    status: true,
+    message: "success to get all regions",
+    data: regions,
+  });
+});
 
 //  @dec    create new branch address
 //  @route  Post  /api/v1/storeAddress

@@ -5,7 +5,7 @@ const {
   createstoreAddress,
   deletestoreAddress,
   getAllstoreAddresss,
-  passingDataToReqBody,
+  passingDataToReqBody,getRegions
 } = require("../services/storeScervice/addressStore/storeAddress");
 
 const {
@@ -17,6 +17,7 @@ const {
 const router = express.Router();
 
 router.route("/").get(getAllstoreAddresss);
+router.route("/regions").get(getRegions);
 
 
 router.use(authServices.protect,authServices.allowedTo("admin"));
