@@ -153,7 +153,16 @@
 	"arabicRegionNameRequired": "اسم منطقة بالغة العربية مطلوب",
 	"invalidGoogleTokenOrEmailNotVerified":"رمز Google غير صالح أو بريد إلكتروني غير محقق",
 	"invalidGoogleToken":"رمز جوجل غير صالح",
-	"successToGetAllRegions":"تم بنجاج الحصول على اماكن الاستور"
+	"successToGetAllRegions":"تم بنجاج الحصول على اماكن الاستور",
+	"successfullyCompleteAllData":"تم إكمال جميع البيانات بنجاح. يرجى الانتظار حتى يتم الموافقة على الطلب."
+
+
+
+
+
+
+
+
 
 
 }

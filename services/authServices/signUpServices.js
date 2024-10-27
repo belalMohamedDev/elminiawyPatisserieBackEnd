@@ -43,7 +43,7 @@ exports.signUp = asyncHandler(async (req, res, next) => {
     createdAt: new Date(),
     lastUsedAt: new Date(),
   }),
-    document.save();
+  document.save();
 
   //send success response
   res.status(201).json({

@@ -41,12 +41,21 @@ const userSchema = new mongoose.Schema(
 
     phone: String,
 
+    deliveryActive: {
+      type: Boolean,
+      default: false,
+    },
+    completeData: {
+      type: Boolean,
+      default: false,
+    },
+
     image: String,
     publicId: String,
 
     role: {
       type: String,
-      enum: ["user", "admin","delivery"],
+      enum: ["user", "admin", "delivery"],
       default: "user",
     },
 

@@ -37,7 +37,42 @@ const uploadToCloudinary = (directorName) =>
     }
   });
 
+
+
+
+  const uploadMultipleToCloudinary = (directorName) =>
+    asyncHandler(async (req, res, next) => {
+      const directorPath = `uploads/${directorName}`;
+      req.body.images = [];
+      req.body.publicIds = [];
+  
+      if (req.files && req.files.length > 0) {
+        const uploadPromises = req.files.map((file) => {
+          return new Promise((resolve, reject) => {
+            const uploadStream = cloudinary.uploader.upload_stream(
+              {
+                folder: directorPath,
+              },
+              (error, result) => {
+                if (error) reject(`Upload to Cloudinary failed: ${error.message}`);
+                else {
+                  req.body.images.push(result.secure_url);
+                  req.body.publicIds.push(result.public_id);
+                  resolve();
+                }
+              }
+            );
+            streamifier.createReadStream(file.buffer).pipe(uploadStream);
+          });
+        });
+  
+        await Promise.all(uploadPromises);
+      }
+      next();
+    });
+
 module.exports = {
   uploadToCloudinary,
   deleteImageFromCloudinary,
+  uploadMultipleToCloudinary
 };

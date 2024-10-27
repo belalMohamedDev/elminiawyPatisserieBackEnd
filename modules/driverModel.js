@@ -10,7 +10,16 @@ const driverSchema = new mongoose.Schema(
     minlength: [3, "too short Address region"],
     maxlength: [50, "too long Address region"],
   },
+
+  
+  deliveryType: {
+    type: String,
+    enum: ["freelancer", "salaryBased"],
+    default: "salaryBased",
+  },
     
+  images: [String],
+  publicIds: [String],
 
   status: {
     type: String,

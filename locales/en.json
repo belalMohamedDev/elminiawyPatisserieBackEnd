@@ -148,6 +148,9 @@
 	"invalidGoogleTokenOrEmailNotVerified":"Invalid Google token or email not verified",
 	"invalidGoogleToken":"Invalid Google token",
 	"signInWithGoogleSuccess":"Sign In With google success",
-	"successToGetAllRegions":"success to get all regions"
+	"successToGetAllRegions":"success to get all regions",
+	"successfullyCompleteAllData":"Successfully completed all data. Please wait for the request to be approved."
+
+
 
 }
