@@ -8,6 +8,19 @@ const creatToken = require("../../utils/generate token/createToken");
 const { sanitizeUser } = require("../../utils/apiFeatures/sanitizeData");
 const { getDeviceInfo } = require("../../utils/getDeviceInfo/getDeviceInfo");
 
+const { uploadToCloudinary } = require("../../middleware/cloudinaryMiddleWare");
+const { uploadSingleImage } = require("../../middleware/imageUploadMiddleware");
+const { resizeImage } = require("../../middleware/resizeImage");
+
+//upload single image
+exports.uploadProfileImage = uploadSingleImage("image");
+
+// resize image before upload
+exports.resizeProfileImage = resizeImage();
+
+// upload image in cloud
+exports.uploadImageInCloud = uploadToCloudinary("driverProfile");
+
 // @ dec sign Up
 // @ route Post  /api/vi/auth/signUp
 // @ access Public
@@ -21,6 +34,8 @@ exports.signUp = asyncHandler(async (req, res, next) => {
     email: req.body.email,
     password: req.body.password,
     role: req.body.role,
+    image: req.body.image,
+    publicId: req.body.publicId,
   });
 
   //generate token
@@ -43,7 +58,9 @@ exports.signUp = asyncHandler(async (req, res, next) => {
     createdAt: new Date(),
     lastUsedAt: new Date(),
   }),
-  document.save();
+    document.save();
+
+
 
   //send success response
   res.status(201).json({

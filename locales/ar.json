@@ -154,10 +154,17 @@
 	"invalidGoogleTokenOrEmailNotVerified":"رمز Google غير صالح أو بريد إلكتروني غير محقق",
 	"invalidGoogleToken":"رمز جوجل غير صالح",
 	"successToGetAllRegions":"تم بنجاج الحصول على اماكن الاستور",
-	"successfullyCompleteAllData":"تم إكمال جميع البيانات بنجاح. يرجى الانتظار حتى يتم الموافقة على الطلب."
+	"successfullyCompleteAllData":"تم إكمال جميع البيانات بنجاح. يرجى الانتظار حتى يتم الموافقة على الطلب.",
 
 
 
+	"invalidDeliveryType":"نوع التوصيل غير صالح. يرجى اختيار 'مستقل' أو 'براتب ثابت'.",
+    "invalidVehicleType": "نوع المركبة غير صالح. يرجى اختيار 'سيارة'، 'بدون مركبة'، 'دراجة'، أو 'دراجة نارية'.",
+    "nationalIdRequired": "يجب إدخال الرقم القومي.",
+    "nationalIdLength": "يجب أن يكون الرقم القومي مكونًا من 14 رقمًا.",
+    "regionRequired": "يجب إدخال المنطقة.",
+    "regionLength": "يجب أن يتراوح طول اسم المنطقة بين 3 و300 حرف.",
+    "regionNotFound": "المنطقة المحددة غير موجودة."
 
 
 

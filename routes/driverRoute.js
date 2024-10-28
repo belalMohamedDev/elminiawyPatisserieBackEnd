@@ -1,30 +1,31 @@
-const express = require('express')
+const express = require("express");
 const {
-completeDriverSignUp
+  completeDriverSignUp,
+  resizeDriverIdsImages,
+  uploadDriverIdsImages,
+  uploadDriversImageIdInCloud,
+} = require("../services/delivery/auth/completeRegister");
+const authServices = require("../services/authServices/protect");
+const {
+  addLoggedUserDataInBody,
+} = require("../services/user/userServices/UserService");
+const {
+  driverCompleteSignUpValidator,
+} = require("../utils/validators/driverCompleteDataValidator");
 
-} = require('../services/delivery/auth/completeRegister')
-const authServices = require('../services/authServices/protect')
-const {addLoggedUserDataInBody} = require('../services/user/userServices/UserService')
+const router = express.Router();
 
-
-
-const router = express.Router()
-
-
-
-
-router.use(authServices.protect, authServices.allowedTo('delivery'))
+router.use(authServices.protect, authServices.allowedTo("delivery"));
 
 router
-  .route('/complete')
+  .route("/complete")
   .post(
-    uploadCategoryImage,
-    resizeCategoryImage,
-    uploadImageInCloud,
+    uploadDriverIdsImages,
+    resizeDriverIdsImages,
     addLoggedUserDataInBody,
+    driverCompleteSignUpValidator,
+    uploadDriversImageIdInCloud,
     completeDriverSignUp
-  )
+  );
 
-
-
-module.exports = router
+module.exports = router;

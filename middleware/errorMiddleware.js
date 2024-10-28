@@ -16,6 +16,12 @@ const globalError = (err, req, res, next) => {
     deleteImageFromCloudinary(req.body.publicId);
   }
 
+  if (req.body.publicIds && Array.isArray(req.body.publicIds)) {
+    req.body.publicIds.forEach((publicId) => {
+      deleteImageFromCloudinary(publicId);
+    });
+  }
+
   if (process.env.NODE_ENV === "development") {
     sendErrorForDev(err, res);
   } else {

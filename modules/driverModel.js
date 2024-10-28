@@ -8,7 +8,7 @@ const driverSchema = new mongoose.Schema(
     trim: true,
     required: [true, "Address region required"],
     minlength: [3, "too short Address region"],
-    maxlength: [50, "too long Address region"],
+    maxlength: [300, "too long Address region"],
   },
 
   

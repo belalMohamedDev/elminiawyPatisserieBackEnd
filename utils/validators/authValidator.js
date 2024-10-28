@@ -83,7 +83,7 @@ exports.signUpValidator = [
 
   check("role")
     .optional()
-    .isIn(["user", "admin"])
+    .isIn(["user", "admin", "delivery"])
     .withMessage((value, { req }) =>
       i18n.__({
         phrase: "ThisroleNotFound",

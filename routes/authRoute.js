@@ -1,10 +1,17 @@
 const express = require("express");
 const { login } = require("../services/authServices/loginServices");
 
-const { signUp } = require("../services/authServices/signUpServices");
+const {
+  signUp,
+  resizeProfileImage,
+  uploadImageInCloud,
+  uploadProfileImage,
+} = require("../services/authServices/signUpServices");
 const { logOut } = require("../services/authServices/logOut");
 const { newAccessToken } = require("../services/authServices/newAccessToken");
-const { signInWithGoogle } = require("../services/authServices/signInWithGoogle");
+const {
+  signInWithGoogle,
+} = require("../services/authServices/signInWithGoogle");
 const {
   forgetPassword,
   resetPassword,
@@ -21,7 +28,15 @@ const {
 
 const router = express.Router();
 
-router.route("/signUp").post(signUpValidator, signUp);
+router
+  .route("/signUp")
+  .post(
+    uploadProfileImage,
+    resizeProfileImage,
+    signUpValidator,
+    uploadImageInCloud,
+    signUp
+  );
 
 router.route("/login").post(loginValidator, login);
 

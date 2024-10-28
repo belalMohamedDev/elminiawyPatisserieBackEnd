@@ -6,7 +6,8 @@ exports.sanitizeUser = function (user,refreshToken) {
     phone: user.phone,
     image: user.image,
     refreshToken: refreshToken,
-    role:user.role
+    deliveryActive: user.deliveryActive,
+    completeData: user.completeData,
   };
 };
 

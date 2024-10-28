@@ -3,27 +3,31 @@ const asyncHandler = require("express-async-handler");
 const i18n = require("i18n");
 
 const {
- uploadMultipleToCloudinary
+  uploadMultipleToCloudinary,
 } = require("../../../middleware/cloudinaryMiddleWare");
 
 const {
-uploadListOfImage
+  uploadListOfImage,
 } = require("../../../middleware/imageUploadMiddleware");
-const { resizeImage } = require("../../../middleware/resizeImage");
-
+const { resizeImages } = require("../../../middleware/resizeImage");
 
 //upload muilt image
-exports.uploadProductImage = uploadListOfImage("images");
+exports.uploadDriverIdsImages = uploadListOfImage([
+  {
+    name: "images",
+    maxCount: 5,
+  },
+]);
 
 // resize image before upload
-exports.resizeProductImage = resizeImage();
+exports.resizeDriverIdsImages = resizeImages();
 
 // upload image in cloud
-exports.uploadImageInCloud = uploadMultipleToCloudinary("driver");
+exports.uploadDriversImageIdInCloud = uploadMultipleToCloudinary("driverId");
 
 //  @dec    complete Driver SignUp
 //  @route  Get  /api/v1/driver/complete
-//  @access Public
+//  @access Protected to driver
 exports.completeDriverSignUp = asyncHandler(async (req, res) => {
   //this code to create
   const document = await driverModel.create(req.body);
