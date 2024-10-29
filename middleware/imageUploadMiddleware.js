@@ -1,5 +1,6 @@
 const multer = require("multer");
 const ApiError = require("../utils/apiError/apiError");
+const path = require("node:path"); 
 
 const multerOption = () => {
   const multerStorage = multer.memoryStorage();
