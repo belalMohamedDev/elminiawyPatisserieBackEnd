@@ -8,12 +8,18 @@ const multerOption = () => {
   const multerFilter = function (req, file, cb) {
     const ext = path.extname(file.originalname);
 
-    if (ext !== ".png" && ext !== ".jpg" && ext !== ".jpeg") {
+    if (
+      ext !== ".png" &&
+      ext !== ".jpg" &&
+      ext !== ".jpeg" &&
+      ext !== ".heic"
+    ) {
       cb(new ApiError("only images are allowed", 400), false);
     } else {
       cb(null, true);
     }
   };
+
 
   const upload = multer({ storage: multerStorage, fileFilter: multerFilter });
 
