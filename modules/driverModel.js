@@ -38,7 +38,7 @@ const driverSchema = new mongoose.Schema(
     coordinates: { type: [Number], default: [0, 0] },
   },
 
-  NationalId: {
+  nationalId: {
     type: String,
     trim: true,
     required: [true, "National Id required"],
