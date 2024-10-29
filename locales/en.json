@@ -142,23 +142,20 @@
 	"Notification": "Notification",
 	"storeNotFound": "store Not Found",
 	"thisAccountNotActive": "this Account not active ,please create new email",
-	"addressNotFound":"Address not found",
-	"noStoresAvailableWithinTheSpecifiedDistance":"No stores available within the specified distance.",
-	"storeFoundWithinTheSpecifiedDistance":"Store found within the specified distance.",
-	"invalidGoogleTokenOrEmailNotVerified":"Invalid Google token or email not verified",
-	"invalidGoogleToken":"Invalid Google token",
-	"signInWithGoogleSuccess":"Sign In With google success",
-	"successToGetAllRegions":"success to get all regions",
-	"successfullyCompleteAllData":"Successfully completed all data. Please wait for the request to be approved.",
-    
+	"addressNotFound": "Address not found",
+	"noStoresAvailableWithinTheSpecifiedDistance": "No stores available within the specified distance.",
+	"storeFoundWithinTheSpecifiedDistance": "Store found within the specified distance.",
+	"invalidGoogleTokenOrEmailNotVerified": "Invalid Google token or email not verified",
+	"invalidGoogleToken": "Invalid Google token",
+	"signInWithGoogleSuccess": "Sign In With google success",
+	"successToGetAllRegions": "success to get all regions",
+	"successfullyCompleteAllData": "Successfully completed all data. Please wait for the request to be approved.",
 	"invalidDeliveryType": "Invalid delivery type. Please select either 'freelancer' or 'salary-based'.",
-    "invalidVehicleType": "Invalid vehicle type. Please select 'car', 'without a vehicle', 'bicycle', or 'motorcycle'.",
-    "nationalIdRequired": "National ID is required.",
-    "nationalIdLength": "National ID must be 14 characters long.",
-    "regionRequired": "Region is required.",
-    "regionLength": "Region name must be between 3 and 300 characters.",
-    "regionNotFound": "The specified region does not exist."
-
-
-
+	"invalidVehicleType": "Invalid vehicle type. Please select 'car', 'without a vehicle', 'bicycle', or 'motorcycle'.",
+	"nationalIdRequired": "National ID is required.",
+	"nationalIdLength": "National ID must be 14 characters long.",
+	"regionRequired": "Region is required.",
+	"regionLength": "Region name must be between 3 and 300 characters.",
+	"regionNotFound": "The specified region does not exist.",
+	"driver": "driver"
 }

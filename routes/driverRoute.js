@@ -5,6 +5,12 @@ const {
   uploadDriverIdsImages,
   uploadDriversImageIdInCloud,
 } = require("../services/delivery/auth/completeRegister");
+
+const {
+  activeDriverAccount,
+  getAllNotActiveUserDriver,
+} = require("../services/delivery/auth/adminApprove");
+
 const authServices = require("../services/authServices/protect");
 const {
   addLoggedUserDataInBody,
@@ -14,6 +20,23 @@ const {
 } = require("../utils/validators/driverCompleteDataValidator");
 
 const router = express.Router();
+
+router
+  .route("/allDriverNotActive")
+  .get(
+    authServices.protect,
+    authServices.allowedTo("admin"),
+    getAllNotActiveUserDriver
+  );
+
+
+  router
+    .route("/:id/active")
+    .put(
+      authServices.protect,
+      authServices.allowedTo("admin"),
+      activeDriverAccount
+    );
 
 router.use(authServices.protect, authServices.allowedTo("delivery"));
 

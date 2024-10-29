@@ -15,6 +15,7 @@ const globalError = (err, req, res, next) => {
   if (req.body.publicId) {
     deleteImageFromCloudinary(req.body.publicId);
   }
+  
 
   if (req.body.publicIds && Array.isArray(req.body.publicIds)) {
     req.body.publicIds.forEach((publicId) => {

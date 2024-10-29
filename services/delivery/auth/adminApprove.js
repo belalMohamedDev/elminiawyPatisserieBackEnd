@@ -1,35 +1,51 @@
 const userModel = require("../../../modules/userModel");
 const asyncHandler = require("express-async-handler");
 const i18n = require("i18n");
-const factory = require("../handleFactor/handlerFactory");
+const { sanitizeUser } = require("../../../utils/apiFeatures/sanitizeData");
 
-exports.createFilterObjectToGetAllActiveDriver = (req, res, next) => {
-  req.filterObject = {
+// @desc Get all inactive user drivers
+// @route GET /api/v1/driver/allDriverNotActive
+// @access Private to admin
+exports.getAllNotActiveUserDriver = asyncHandler(async (req, res) => {
+  const document = await userModel.find({
     deliveryActive: false,
     completeData: true,
-  };
-  next();
-};
+  });
 
-// @ dec get all not active user driver
-// @ route Get  /api/vi/driver/allDriverNotActive
+  //send success response
+  res.status(201).json({
+    status: true,
+    message: i18n.__("SuccessToGetAllDataFor") + i18n.__("driver"),
+    data: sanitizeUser(document),
+  });
+});
+
+// @ dec  active user driver
+// @ route Get  /api/vi/driver/:id/active
 // @ access Private to admin
-exports.getAllNotActiveUserDriver = factory.getAllData(userModel, "userDriver");
+exports.activeDriverAccount = asyncHandler(async (req, res) => {
+  const { id } = req.params;
 
-// //  @dec    complete Driver SignUp
-// //  @route  Get  /api/v1/driver/complete
-// //  @access Public
-// exports.completeDriverSignUp = asyncHandler(async (req, res) => {
-//   //this code to create
-//   const document = await driverModel.create(req.body);
+  //this code update data from db using id
+  const document = await userModel.findOneAndUpdate({ _id: id }, req.body, {
+    new: true,
+    runValidators: true,
+  });
 
-//   req.userModel.completeData = true;
-//   await req.userModel.save();
+  //check found data or no
+  if (!document) {
+    //send faild response
+    return next(
+      new ApiError(i18n.__("failedToUpdateDataById", i18n.__("driver")), 404)
+    );
+  }
 
-//   //send success response
-//   res.status(201).json({
-//     status: true,
-//     message: i18n.__("successfullyCompleteAllData"),
-//     data: document,
-//   });
-// });
+  //send success response
+  res.status(201).json({
+    status: true,
+    message: i18n.__("SucessToUpdateDataFromThisId"),
+    data: sanitizeUser(document),
+  });
+});
+
+
