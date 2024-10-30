@@ -23,7 +23,7 @@ exports.driverCompleteSignUpValidator = [
       })
     ),
 
-  check("NationalId")
+  check("nationalId")
     .notEmpty()
     .withMessage((value, { req }) =>
       i18n.__({

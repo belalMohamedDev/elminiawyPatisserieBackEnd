@@ -20,7 +20,6 @@ const multerOption = () => {
     }
   };
 
-
   const upload = multer({ storage: multerStorage, fileFilter: multerFilter });
 
   return upload;
