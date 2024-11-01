@@ -37,7 +37,7 @@ const {
 } = require("../services/user/userServices/deleteLoggedUser");
 
 const {
-  updateLoggedUserEmail
+  updateLoggedUserEmail,
 } = require("../services/user/userServices/updateLoggedUserEmail");
 
 const {
@@ -48,7 +48,7 @@ const {
   changeUserPasswordValidator,
   changeLoggedUserPasswordValidator,
   updateLoggedUserValidator,
-  changeLoggedUserEmailAddressValidator
+  changeLoggedUserEmailAddressValidator,
 } = require("../utils/validators/userValidator");
 
 const router = express.Router();
@@ -61,28 +61,20 @@ router.use(authServices.protect);
 
 router.route("/getMe").get(getLoggedUserData, getOneUser);
 
-
-
 router
   .route("/updateMyData")
   .put(updateLoggedUserValidator, updateLoggedUserData);
 
-
-  router
+router
   .route("/updateMyEmailAddress")
   .put(changeLoggedUserEmailAddressValidator, updateLoggedUserEmail);
 
-router
-  .route("/updateMyImage")
-  .put(
-    uploadUserImage,
-    resizeUserImage,
-    uploadImageInCloud,
-    getLoggedUserData,
-    deleteImageBeforeUpdate,
-    updateLoggedUserImage
-  );
-
+router.route("/updateMyImage").put(
+  uploadUserImage,
+  resizeUserImage,
+  uploadImageInCloud,
+  updateLoggedUserImage
+);
 
 router
   .route("/updateMyPassword")
