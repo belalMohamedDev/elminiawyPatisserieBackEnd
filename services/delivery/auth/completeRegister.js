@@ -1,5 +1,7 @@
 const driverModel = require("../../../modules/driverModel");
 const asyncHandler = require("express-async-handler");
+const ApiError = require("../../../utils/apiError/apiError");
+
 const i18n = require("i18n");
 
 const {
@@ -28,11 +30,14 @@ exports.uploadDriversImageIdInCloud = uploadMultipleToCloudinary("driverId");
 //  @dec    complete Driver SignUp
 //  @route  Get  /api/v1/driver/complete
 //  @access Protected to driver
-exports.completeDriverSignUp = asyncHandler(async (req, res) => {
+exports.completeDriverSignUp = asyncHandler(async (req, res, next) => {
   //this code to create
   const document = await driverModel.create(req.body);
 
   req.userModel.completeData = true;
+
+  req.userModel.sessions.splice(0, 1);
+
   await req.userModel.save();
 
   //send success response
