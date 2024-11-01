@@ -1,5 +1,6 @@
 const asyncHandler = require("express-async-handler");
 const userModel = require("../../../modules/userModel");
+const { sanitizeUser } = require("../../../utils/apiFeatures/sanitizeData");
 
 
 
@@ -21,6 +22,6 @@ exports.updateLoggedUserImage = asyncHandler(async (req, res, next) => {
   res.status(200).json({
     status: true,
     message: `Sucess To Update User image from this id.....`,
-    data: document,
+    data: sanitizeUser(document),
   });
 });
