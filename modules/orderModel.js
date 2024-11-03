@@ -24,6 +24,11 @@ const OrderSchema = mongoose.Schema(
       default: 0,
     },
 
+    driverId: {
+      type: mongoose.Schema.ObjectId,
+      ref: "User",
+    },
+
     cartItems: [cartItemSchema],
 
     taxPrice: {

@@ -12,6 +12,8 @@
 	"SuccessToGetAllOrders": "تم النجاح في الحصول على كافة الطلبات",
 	"SuccessToCancelOrders": "تم النجاح في الغاء الطلب",
 	"orderNotFound": "طلب غير متاح",
+	"orderAccepted": "الموافقة على الطلب",
+"orderNotFoundOrAlreadyAccepted": "الطلب غير موجود أو تم قبوله بالفعل",
 
 	"CategoryMustBeUnique": "الفئة يجب أن تكون فريدة",
 	"categories": "الفئات",

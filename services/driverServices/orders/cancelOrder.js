@@ -5,22 +5,15 @@ const i18n = require("i18n");
 // @desc Cancel order by driver
 // @route POST /api/v1/driver/canceledOrder
 // @access Private to drivers
-exports.canceledorderByDrivers = asyncHandler(async (req, res) => {
-  const { _id } = req.body;
-
-  if (!_id) {
-    return res.status(400).json({
-      status: false,
-      message: i18n.__("OrderIdRequired"),
-    });
-  }
+exports.canceledOrderByDrivers = asyncHandler(async (req, res) => {
+   const orderId = req.params.orderId;
 
   const canceledOrder = await orderModel.findByIdAndUpdate(
-    _id,
+    orderId,
     {
       $addToSet: { canceledByDrivers: req.userModel._id },
     },
-    { new: true }        
+    { new: true }
   );
 
   if (!canceledOrder) {

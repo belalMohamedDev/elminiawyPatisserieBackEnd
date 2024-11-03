@@ -17,6 +17,8 @@
 	"successfulCreation": "Successful %s creation",
 	"categories": "categories",
 	"orderNotFound": "Order Not Found",
+	"orderAccepted": "Order accepted",
+	"orderNotFoundOrAlreadyAccepted": "order Not Found Or Already Accepted",
 	"CategoryMustBeUnique": "Category must be unique",
 	"Successful %s creation": "Successful %s creation",
 	"failedToGetDataById": "Failed to get %s data from this id",
