@@ -61,6 +61,12 @@ const OrderSchema = mongoose.Schema(
       enum: ["card", "cash"],
       default: "cash",
     },
+    canceledByDrivers: [
+      {
+        type: mongoose.Schema.ObjectId,
+        ref: "User",
+      },
+    ],
 
     isPaid: {
       type: Boolean,

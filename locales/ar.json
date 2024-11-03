@@ -9,6 +9,8 @@
 	"subCatogryTitleArabicRequired": "يجب أن تكون عناوين الفئات الفرعية باللغة العربية",
 	"ThereIsNoDataEntryForThis": "لا يوجد إدخال بيانات لهذا",
 	"SuccessToGetAllDataFor": "تم النجاح في الحصول على كافة البيانات الخاصة ب",
+	"SuccessToGetAllOrders": "تم النجاح في الحصول على كافة الاوردارات",
+
 	"CategoryMustBeUnique": "الفئة يجب أن تكون فريدة",
 	"categories": "الفئات",
 	"subCategory": "تصنيف فرعي",

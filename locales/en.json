@@ -9,6 +9,7 @@
 	"InvalidSubCategoryIdFormat": "Invalid subCatogry id format",
 	"ThereIsNoDataEntryForThis": "There is no data entry for this ",
 	"SuccessToGetAllDataFor": "Success to get all data for ",
+	"SuccessToGetAllOrders": "Success to get all orders ",
 	"SucessToGetDataFromThisId": "Sucess To get data",
 	"SucessToUpdateDataFromThisId": "Sucess To Update data",
 	"SucessToDeleteDataFromThisId": "Sucess To Delete data",

@@ -4,12 +4,12 @@ const {
   resizeDriverIdsImages,
   uploadDriverIdsImages,
   uploadDriversImageIdInCloud,
-} = require("../services/delivery/auth/completeRegister");
+} = require("../services/driverServices/auth/completeRegister");
 
 const {
   activeDriverAccount,
   getAllNotActiveUserDriver,
-} = require("../services/delivery/auth/adminApprove");
+} = require("../services/driverServices/auth/adminApprove");
 
 const authServices = require("../services/authServices/protect");
 const {
