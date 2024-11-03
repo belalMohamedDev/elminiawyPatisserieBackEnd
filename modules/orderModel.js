@@ -20,7 +20,7 @@ const OrderSchema = mongoose.Schema(
 
     status: {
       type: Number,
-      enum: [0, 1, 2, 3, 4],
+      enum: [0, 1, 2, 3, 4, 5],
       default: 0,
     },
 
@@ -43,6 +43,13 @@ const OrderSchema = mongoose.Schema(
     nearbyStoreAddress: {
       type: mongoose.Schema.ObjectId,
       ref: "StoreAddress",
+    },
+
+    orderRegion: {
+      type: String,
+      trim: true,
+      minlength: [3, "too short Address region"],
+      maxlength: [300, "too long Address region"],
     },
 
     totalOrderPrice: {

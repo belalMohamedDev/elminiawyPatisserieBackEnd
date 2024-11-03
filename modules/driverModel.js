@@ -12,6 +12,8 @@ const driverSchema = new mongoose.Schema(
   },
 
   
+
+  
   deliveryType: {
     type: String,
     enum: ["freelancer", "salaryBased"],

@@ -29,6 +29,7 @@ exports.createCashOrder = asyncHandler(async (req, res, next) => {
     totalOrderPrice: cart.totalOrderPrice,
     shippingAddress: req.body.shippingAddress,
     nearbyStoreAddress: req.body.nearbyStoreAddress,
+    orderRegion: req.body.orderRegion,
   });
 
   // 3) Localize order if created successfully
