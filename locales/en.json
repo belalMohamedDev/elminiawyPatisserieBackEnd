@@ -163,5 +163,7 @@
 	"regionLength": "Region name must be between 3 and 300 characters.",
 	"regionNotFound": "The specified region does not exist.",
 	"driver": "driver",
-	"refreshTokenRequired": "refresh Token is Required"
+	"refreshTokenRequired": "refresh Token is Required",
+	"thisAccountIsNotYetActive": "This account is not yet active. Please wait for the admin to activate your account."
+
 }

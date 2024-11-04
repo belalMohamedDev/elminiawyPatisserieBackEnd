@@ -3,17 +3,6 @@ const mongoose = require("mongoose");
 const driverSchema = new mongoose.Schema(
   {
 
-   region: {
-    type: String,
-    trim: true,
-    required: [true, "Address region required"],
-    minlength: [3, "too short Address region"],
-    maxlength: [300, "too long Address region"],
-  },
-
-  
-
-  
   deliveryType: {
     type: String,
     enum: ["freelancer", "salaryBased"],

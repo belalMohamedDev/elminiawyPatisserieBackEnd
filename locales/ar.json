@@ -164,5 +164,7 @@
 	"regionLength": "يجب أن يتراوح طول اسم المنطقة بين 3 و300 حرف.",
 	"regionNotFound": "المنطقة المحددة غير موجودة.",
 	"driver": "سائق",
-	"refreshTokenRequired": "رفريش توكن مطلوب"
+	"refreshTokenRequired": "رفريش توكن مطلوب",
+	  "thisAccountIsNotYetActive": "هذا الحساب غير مفعل بعد. يرجى الانتظار حتى يقوم المسؤول بتفعيل حسابك."
+
 }

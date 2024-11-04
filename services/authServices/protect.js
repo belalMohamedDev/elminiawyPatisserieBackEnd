@@ -37,6 +37,13 @@ exports.protect = asyncHandler(async (req, res, next) => {
   if (currentUser.active === false) {
     return next(new ApiError(i18n.__("accountInactive"), 422));
   }
+
+  //check user active or no
+  if (currentUser.role === "delivery") {
+    if (currentUser.driverActive) {
+      return next(new ApiError(i18n.__("thisAccountIsNotYetActive"), 422));
+    }
+  }
   // check if user change his password after token created
   if (currentUser.passwordChangedAt) {
     const passwordChangedTimeStamp = parseInt(

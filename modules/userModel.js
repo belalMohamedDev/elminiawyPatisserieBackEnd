@@ -41,10 +41,17 @@ const userSchema = new mongoose.Schema(
 
     phone: String,
 
-    deliveryActive: {
+    driverActive: {
       type: Boolean,
       default: false,
     },
+    driverRegion: {
+      type: String,
+      trim: true,
+      minlength: [3, "too short Address region"],
+      maxlength: [300, "too long Address region"],
+    },
+
     completeData: {
       type: Boolean,
       default: false,
