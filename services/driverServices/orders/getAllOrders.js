@@ -8,10 +8,9 @@ const redis = require("../../../config/redisConnection");
 // @route GET /api/v1/driver/getNewOrders
 // @access Private to drivers
 exports.getAllDriverOrders = asyncHandler(async (req, res) => {
- 
   // 1. Attempt to retrieve branches data from Redis cache
   let branchesInRegion = await redis.get(
-    `branches:${req.userModel.driverRegion}`
+    `branches:${req.userModel.driverRegion}-${JSON.stringify(req.headers["lang"] || "en")}`
   );
 
   // 2. If branches data is not in Redis, fetch from MongoDB
@@ -23,7 +22,7 @@ exports.getAllDriverOrders = asyncHandler(async (req, res) => {
 
     // 3. Store branches data in Redis cache for 1 hour
     await redis.set(
-      `branches:${req.userModel.driverRegion}`,
+      `branches:${req.userModel.driverRegion}-${JSON.stringify(req.headers["lang"] || "en")}`,
       JSON.stringify(branchesInRegion),
       "EX",
       60 * 60 // 1 hour
@@ -44,10 +43,15 @@ exports.getAllDriverOrders = asyncHandler(async (req, res) => {
     .limit(5) // Limit results to 5
     .lean();
 
+  localizedDocument = orderModel.schema.methods.toJSONLocalizedOnly(
+    getAllOrders,
+    req.headers["lang"] || "en"
+  );
+
   // 5. Send the response with retrieved orders data
   res.status(200).json({
     status: true,
     message: i18n.__("SuccessToGetAllOrders"),
-    data: getAllOrders,
+    data: localizedDocument,
   });
 });
