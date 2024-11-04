@@ -1,5 +1,6 @@
 const orderModel = require("../../../modules/orderModel");
 const driverModel = require("../../../modules/driverModel");
+const storeAddressModel = require("../../../modules/storeAddressModel");
 const asyncHandler = require("express-async-handler");
 const i18n = require("i18n");
 
@@ -12,9 +13,10 @@ exports.getAllDriverOrders = asyncHandler(async (req, res) => {
     user: req.userModel._id,
   });
 
-  const branchesInRegion = await StoreAddressModel.find({
-    region: driverData.region,
-  }).lean();
+  const branchesInRegion = await storeAddressModel.find({
+      region: driverData.region,
+    })
+    .lean();
 
   const getAllOrders = await orderModel
     .find({
