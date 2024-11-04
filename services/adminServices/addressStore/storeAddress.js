@@ -45,7 +45,7 @@ exports.passingDataToReqBody = (req, res, next) => {
 //  @access Public
 exports.getRegions = asyncHandler(async (req, res) => {
   // Check Redis cache first
-  const cacheKey = `getRegions-${JSON.stringify(req.headers["lang"] || "en")}`;
+  const cacheKey = `getRegions}`;
 
   const cachedData = await redis.get(cacheKey);
   if (cachedData) {
