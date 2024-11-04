@@ -45,7 +45,7 @@ exports.passingDataToReqBody = (req, res, next) => {
 //  @access Public
 exports.getRegions = asyncHandler(async (req, res) => {
   // Check Redis cache first
-  const cacheKey = `getRegions-${JSON.stringify(req.headers["lang"] || "en")}`;
+  const cacheKey = `getRegions`;
 
   const cachedData = await redis.get(cacheKey);
   if (cachedData) {
@@ -53,10 +53,7 @@ exports.getRegions = asyncHandler(async (req, res) => {
   }
 
   const regions = await storeAddressModel.find().select("BranchArea _id");
-  var localizedRegions = storeAddressModel.schema.methods.toJSONLocalizedOnly(
-    regions,
-    req.headers["lang"] || "en"
-  );
+  
 
   // Cache the response for one day (86400 seconds)
   await redis.set(
@@ -64,15 +61,15 @@ exports.getRegions = asyncHandler(async (req, res) => {
     JSON.stringify({
       status: true,
       message: i18n.__("successToGetAllRegions"),
-      data: localizedRegions,
+      data: regions,
     }),
-    { EX: 60*60 }
+    { EX: 60 * 60 }
   );
 
   res.status(200).json({
     status: true,
     message: i18n.__("successToGetAllRegions"),
-    data: localizedRegions,
+    data: regions,
   });
 });
 
