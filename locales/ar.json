@@ -165,6 +165,5 @@
 	"regionNotFound": "المنطقة المحددة غير موجودة.",
 	"driver": "سائق",
 	"refreshTokenRequired": "رفريش توكن مطلوب",
-	  "thisAccountIsNotYetActive": "هذا الحساب غير مفعل بعد. يرجى الانتظار حتى يقوم المسؤول بتفعيل حسابك."
-
+	"thisAccountIsNotYetActive": "هذا الحساب غير مفعل بعد. يرجى الانتظار حتى يقوم المسؤول بتفعيل حسابك."
 }

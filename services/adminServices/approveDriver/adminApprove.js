@@ -27,10 +27,16 @@ exports.activeDriverAccount = asyncHandler(async (req, res) => {
   const { id } = req.params;
 
   //this code update data from db using id
-  const document = await userModel.findOneAndUpdate({ _id: id }, req.body, {
-    new: true,
-    runValidators: true,
-  });
+  const document = await userModel.findOneAndUpdate(
+    { _id: id },
+    {
+      driverActive: true,
+    },
+    {
+      new: true,
+      runValidators: true,
+    }
+  );
 
   //check found data or no
   if (!document) {
@@ -40,6 +46,8 @@ exports.activeDriverAccount = asyncHandler(async (req, res) => {
     );
   }
 
+
+
   //send success response
   res.status(201).json({
     status: true,
@@ -47,5 +55,3 @@ exports.activeDriverAccount = asyncHandler(async (req, res) => {
     data: sanitizeUser(document),
   });
 });
-
-
