@@ -40,7 +40,7 @@ exports.protect = asyncHandler(async (req, res, next) => {
 
   //check user active or no
   if (currentUser.role === "delivery") {
-    if (currentUser.driverActive) {
+    if (!currentUser.driverActive) {
       return next(new ApiError(i18n.__("thisAccountIsNotYetActive"), 422));
     }
   }
