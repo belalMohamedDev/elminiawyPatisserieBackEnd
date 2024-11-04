@@ -4,6 +4,22 @@ const asyncHandler = require("express-async-handler");
 const i18n = require("i18n");
 const redis = require("../../../config/redisConnection");
 
+
+
+
+function toJSONLocalizedOnly(orders, lang) {
+  return orders.map((order) => {
+    order.user.name = order.user.name[lang] || order.user.name["en"];
+    order.cartItems.forEach((item) => {
+      item.product.title = item.product.title[lang] || item.product.title["en"];
+    });
+    order.shippingAddress.region =
+      order.shippingAddress.region[lang] || order.shippingAddress.region["en"];
+    return order;
+  });
+}
+
+
 // @desc Get all orders for drivers
 // @route GET /api/v1/driver/getNewOrders
 // @access Private to drivers
@@ -43,7 +59,8 @@ exports.getAllDriverOrders = asyncHandler(async (req, res) => {
     .limit(5) // Limit results to 5
     .lean();
 
-  localizedDocument = orderModel.schema.methods.toJSONLocalizedOnly(
+  // Localize the document based on the preferred language
+  const localizedDocument = toJSONLocalizedOnly(
     getAllOrders,
     req.headers["lang"] || "en"
   );
