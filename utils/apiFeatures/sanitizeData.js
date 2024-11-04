@@ -11,6 +11,7 @@ exports.sanitizeUser = function (user, refreshToken) {
       role: u.role,
       deliveryActive: u.deliveryActive,
       completeData: u.completeData,
+      storeAddress: u.storeAddress,
     }));
   }
 
@@ -25,5 +26,6 @@ exports.sanitizeUser = function (user, refreshToken) {
     role: user.role,
     deliveryActive: user.deliveryActive,
     completeData: user.completeData,
+    storeAddress: user.storeAddress,
   };
 };

@@ -3,7 +3,7 @@ const authServices = require("../services/authServices/protect");
 const {
   checkOutSession,
   createCashOrder,
-} = require("../services/orderServices/userOrder/orderServices");
+} = require("../services/user/userOrder/orderServices");
 
 const {
   createFilterObjectToGetAllCompleteUserOrder,
@@ -11,19 +11,24 @@ const {
   getAllUserOrder,
   orderCancelled,
   passingOrderCancelledToReqBody,
-} = require("../services/orderServices/userOrder/userOrder");
+} = require("../services/user/userOrder/userOrder");
 
 const {
   orderUpdate,
   passingOrderApprovedToReqBody,
-  passingOrderDeliveredToReqBody,
+
   passingOrderTransitToReqBody,
-} = require("../services/orderServices/adminOrder/adminOrderStatus");
+} = require("../services/adminServices/adminOrder/adminOrderStatus");
+
+
+const {
+passingOrderDeliveredToReqBody
+} = require("../services/driverServices/orders/deliveredOrder");
 
 const {
   getAllAdminCompleteOrder,
   getAllPendingAdminOrder,
-} = require("../services/orderServices/adminOrder/getAdminOrder");
+} = require("../services/adminServices/adminOrder/getAdminOrder");
 
 
 const {

@@ -12,7 +12,7 @@ exports.acceptedOrderByDrivers = asyncHandler(async (req, res) => {
 
   const order = await orderModel.findOneAndUpdate(
     { _id: orderId, status: 2 },
-    { status: 3, driverId, driverAcceptedAt: new Date()  },
+    { status: 3, driverId, driverAcceptedAt: Date.now() },
     { new: true }
   );
 

@@ -31,7 +31,7 @@ const {
 
 const {
   updateLoggedUserImage,
-} = require("../services/user/userServices/updateloggetUserImage");
+} = require("../services/user/userServices/updateloggedUserImage");
 const {
   deleteLoggedUser,
 } = require("../services/user/userServices/deleteLoggedUser");

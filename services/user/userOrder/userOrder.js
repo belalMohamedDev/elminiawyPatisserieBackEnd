@@ -8,7 +8,7 @@ const factory = require("../../handleFactor/handlerFactory");
 exports.createFilterObjectToGetAllCompleteUserOrder = (req, res, next) => {
   req.filterObject = {
     user: req.userModel._id,
-    status: { $in: [3, 4] },
+    status: { $in: [4, 5] },
   };
   next();
 };
@@ -19,7 +19,7 @@ exports.createFilterObjectToGetAllCompleteUserOrder = (req, res, next) => {
 exports.createFilterObjectToGetAllPendingUserOrder = (req, res, next) => {
   req.filterObject = {
     user: req.userModel._id,
-    status: { $nin: [3, 4] },
+    status: { $nin: [4, 5] },
   };
   next();
 };
@@ -31,7 +31,7 @@ exports.getAllUserOrder = factory.getAllData(OrderModel, "user order",productMod
 
 
 exports.passingOrderCancelledToReqBody = (req, res, next) => {
-  req.body = { status: 4 };
+  req.body = { status: 5, canceledAt: Date.now() };
 
   next();
 };

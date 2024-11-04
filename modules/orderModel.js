@@ -28,9 +28,13 @@ const OrderSchema = mongoose.Schema(
       type: mongoose.Schema.ObjectId,
       ref: "User",
     },
-    driverAcceptedAt: {
-      type: Date,
-    },
+
+    adminAcceptedAt: Date,
+
+    adminCompletedAt: Date,
+    canceledAt: Date,
+
+    paitAt: Date,
 
     cartItems: [cartItemSchema],
 
