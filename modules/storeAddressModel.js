@@ -21,7 +21,7 @@ const StoreAddressSchema = new mongoose.Schema(
       maxlength: [500, "too long briefness"],
     },
     
-    // deliveryRange: { type: Number, required: true },
+
 
     region: {
       type: String,
@@ -43,7 +43,7 @@ const StoreAddressSchema = new mongoose.Schema(
         required: true,
       },
       coordinates: {
-        type: [[[Number]]], // 2D array for polygon coordinates
+        type: [[[Number]]], 
         required: true,
       },
     },

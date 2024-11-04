@@ -43,7 +43,6 @@ const userSchema = new mongoose.Schema(
 
     driverActive: {
       type: Boolean,
-      default: false,
     },
     driverRegion: {
       type: String,
@@ -52,9 +51,13 @@ const userSchema = new mongoose.Schema(
       maxlength: [300, "too long Address region"],
     },
 
+    storeAddress: {
+      type: mongoose.Schema.ObjectId,
+      ref: "StoreAddress",
+    },
+
     completeData: {
       type: Boolean,
-      default: false,
     },
 
     image: String,

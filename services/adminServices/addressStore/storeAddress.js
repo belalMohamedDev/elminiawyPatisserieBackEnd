@@ -52,7 +52,7 @@ exports.getRegions = asyncHandler(async (req, res) => {
     return res.status(200).json(JSON.parse(cachedData));
   }
 
-  const regions = await storeAddressModel.find().select("BranchArea -_id");
+  const regions = await storeAddressModel.find().select("BranchArea _id");
   var localizedRegions = storeAddressModel.schema.methods.toJSONLocalizedOnly(
     regions,
     req.headers["lang"] || "en"

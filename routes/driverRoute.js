@@ -23,7 +23,7 @@ const {
 const {
   activeDriverAccount,
   getAllNotActiveUserDriver,
-} = require("../services/admin/approveDriver/adminApprove");
+} = require("../services/adminServices/approveDriver/adminApprove");
 
 const authServices = require("../services/authServices/protect");
 const {

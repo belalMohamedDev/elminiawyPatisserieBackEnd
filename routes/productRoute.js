@@ -10,29 +10,29 @@ const {
   uploadImageInCloud,
   uploadProductImage,
   passingDataToReqBody,
-} = require("../services/storeScervice/productsServices/product/productServices");
+} = require("../services/adminServices/productsServices/product/productServices");
 
 const {
   getAllProductsBelongsTosubCategory,
-} = require("../services/storeScervice/productsServices/product/getProductWithSubcategory");
+} = require("../services/adminServices/productsServices/product/getProductWithSubcategory");
 
 const {
   addProductOption,
   getAllProductOption,
   removeProductOption,
   updateProductOptions,
-} = require("../services/storeScervice/productsServices/option/optionProductServices");
+} = require("../services/adminServices/productsServices/option/optionProductServices");
 
 const {
   addProductCustomizationOptions,
   getAllProductCustomizationOptions,
   removeProductCustomizationOptions,
   updateProductCustomizationOptions,
-} = require("../services/storeScervice/productsServices/customizationOptions/productCustomizationOptionsServices");
+} = require("../services/adminServices/productsServices/customizationOptions/productCustomizationOptionsServices");
 
 const {
-getAllNewProduct
-} = require("../services/storeScervice/productsServices/product/getNewProduct");
+  getAllNewProduct,
+} = require("../services/adminServices/productsServices/product/getNewProduct");
 
 const {
   createProductValidator,

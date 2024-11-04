@@ -5,8 +5,9 @@ const {
   createstoreAddress,
   deletestoreAddress,
   getAllstoreAddresss,
-  passingDataToReqBody,getRegions
-} = require("../services/storeScervice/addressStore/storeAddress");
+  passingDataToReqBody,
+  getRegions,
+} = require("../services/adminServices/addressStore/storeAddress");
 
 const {
   createStoreAddressValidator,
