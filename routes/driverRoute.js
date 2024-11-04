@@ -7,6 +7,20 @@ const {
 } = require("../services/driverServices/auth/completeRegister");
 
 const {
+getAllDriverOrders
+} = require("../services/driverServices/orders/getAllOrders");
+
+const {
+acceptedOrderByDrivers
+} = require("../services/driverServices/orders/acceptOrder");
+
+
+const {
+  canceledOrderByDrivers
+} = require("../services/driverServices/orders/cancelOrder");
+
+
+const {
   activeDriverAccount,
   getAllNotActiveUserDriver,
 } = require("../services/driverServices/auth/adminApprove");
@@ -39,6 +53,14 @@ router
     );
 
 router.use(authServices.protect, authServices.allowedTo("delivery"));
+
+router.route("/getNewOrders").get(getAllDriverOrders);
+
+
+router.route("/:orderId/accept").put(acceptedOrderByDrivers);
+
+router.route("/:orderId/canceledOrder").delete(canceledOrderByDrivers);
+
 
 router
   .route("/complete")

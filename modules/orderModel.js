@@ -53,13 +53,6 @@ const OrderSchema = mongoose.Schema(
       ref: "StoreAddress",
     },
 
-    orderRegion: {
-      type: String,
-      trim: true,
-      minlength: [3, "too short Address region"],
-      maxlength: [300, "too long Address region"],
-    },
-
     totalOrderPrice: {
       type: Number,
     },
