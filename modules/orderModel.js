@@ -93,6 +93,9 @@ OrderSchema.pre(/^find/, function (next) {
 
   next();
 });
+
+OrderSchema.index({ nearbyStoreAddress: 1, status: 1, canceledByDrivers: 1 });
+
 const OrderModel = mongoose.model("Order", OrderSchema);
 
 module.exports = OrderModel;

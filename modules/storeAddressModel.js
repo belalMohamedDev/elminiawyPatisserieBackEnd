@@ -61,6 +61,7 @@ StoreAddressSchema.plugin(mongooseI18n, {
   locales: ["en", "ar"],
 });
 
+StoreAddressSchema.index({ region: 1 });
 
 const StoreAddressModel = mongoose.model("StoreAddress", StoreAddressSchema);
 
