@@ -13,11 +13,11 @@
 	"SuccessToCancelOrders": "تم النجاح في الغاء الطلب",
 	"orderNotFound": "طلب غير متاح",
 	"orderAccepted": "الموافقة على الطلب",
-"orderNotFoundOrAlreadyAccepted": "الطلب غير موجود أو تم قبوله بالفعل",
-
+	"orderNotFoundOrAlreadyAccepted": "الطلب غير موجود أو تم قبوله بالفعل",
 	"CategoryMustBeUnique": "الفئة يجب أن تكون فريدة",
 	"categories": "الفئات",
 	"subCategory": "تصنيف فرعي",
+	"DriverLocationRequired": "مطلوب تحديد موقع السائق",
 	"Successful %s creation": "تم إنشاء %s بنجاح",
 	"failedToGetDataById": "IDفشل فى الحصول على بيانات هذاال",
 	"failedToUpdateDataById": "IDفشل فى التعديل على بيانات هذاال",

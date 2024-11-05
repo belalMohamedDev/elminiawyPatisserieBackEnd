@@ -1,11 +1,9 @@
+const axios = require("axios");
 const orderModel = require("../../../modules/orderModel");
 const storeAddressModel = require("../../../modules/storeAddressModel");
 const asyncHandler = require("express-async-handler");
 const i18n = require("i18n");
 const redis = require("../../../config/redisConnection");
-
-
-
 
 function toJSONLocalizedOnly(orders, lang) {
   return orders.map((order) => {
@@ -19,6 +17,35 @@ function toJSONLocalizedOnly(orders, lang) {
   });
 }
 
+async function getDistanceAndTime(driverLocation, orderLocation, lang) {
+
+
+  try {
+    const response = await axios.get(
+      `https://maps.googleapis.com/maps/api/distancematrix/json?language=${lang}`,
+      {
+        params: {
+          origins: `${driverLocation.lat},${driverLocation.lng}`,
+          destinations: `${orderLocation.lat},${orderLocation.lng}`,
+          key: process.env.GOOGLE_API_KEY,
+        },
+      }
+    );
+
+    const data = response.data;
+
+    if (data.rows[0].elements[0].status === "OK") {
+      return {
+        distance: data.rows[0].elements[0].distance.text, // e.g., "5 km"
+        duration: data.rows[0].elements[0].duration.text, // e.g., "10 mins"
+      };
+    }
+    return null;
+  } catch (error) {
+    console.error("Error fetching distance and time:", error);
+    return null;
+  }
+}
 
 // @desc Get all orders for drivers
 // @route GET /api/v1/driver/getNewOrders
@@ -32,7 +59,7 @@ exports.getAllDriverOrders = asyncHandler(async (req, res) => {
   // 2. If branches data is not in Redis, fetch from MongoDB
   if (!branchesInRegion) {
     branchesInRegion = await storeAddressModel
-      .find({ "BranchArea.en": req.userModel.driverRegion }) // Fetch branches matching the driver's region
+      .find({ "BranchArea.en": req.userModel.driverRegion })
       .select("_id")
       .lean();
 
@@ -41,31 +68,64 @@ exports.getAllDriverOrders = asyncHandler(async (req, res) => {
       `branches:${req.userModel.driverRegion}-${JSON.stringify(req.headers["lang"] || "en")}`,
       JSON.stringify(branchesInRegion),
       "EX",
-      60 * 60 // 1 hour
+      60 * 60
     );
   } else {
-    // Parse the retrieved branches data from Redis
     branchesInRegion = JSON.parse(branchesInRegion);
   }
 
   // 4. Retrieve all orders based on the nearby store addresses
   const getAllOrders = await orderModel
     .find({
-      nearbyStoreAddress: { $in: branchesInRegion.map((branch) => branch._id) }, // Filter by nearby branches
-      status: 2, // Only include orders with status 2
-      canceledByDrivers: { $nin: [req.userModel._id] }, // Exclude orders canceled by the current driver
+      nearbyStoreAddress: { $in: branchesInRegion.map((branch) => branch._id) },
+      status: 2,
+      canceledByDrivers: { $nin: [req.userModel._id] },
     })
-    .select("user shippingAddress totalOrderPrice") // Select required fields
-    .limit(5) // Limit results to 5
+    .select("user shippingAddress totalOrderPrice")
+    .limit(5)
     .lean();
+
+  // 5. Extract `driverLocation` from request body and validate
+  const driverLocation = {
+    lat: req.body.latitude,
+    lng: req.body.longitude,
+  };
+
+  // Validate the presence of `latitude` and `longitude` in the body
+  if (!driverLocation.lat || !driverLocation.lng) {
+    return res.status(400).json({
+      status: false,
+      message: i18n.__("DriverLocationRequired"),
+    });
+  }
+
+  const ordersWithDistance = await Promise.all(
+    getAllOrders.map(async (order) => {
+      const orderLocation = {
+        lat: order.shippingAddress.location.coordinates[1],
+        lng: order.shippingAddress.location.coordinates[0],
+      };
+
+      const distanceData = await getDistanceAndTime(
+        driverLocation,
+        orderLocation,
+        req.headers["lang"] || "en"
+      );
+      return {
+        ...order,
+        distance: distanceData ? distanceData.distance : null,
+        duration: distanceData ? distanceData.duration : null,
+      };
+    })
+  );
 
   // Localize the document based on the preferred language
   const localizedDocument = toJSONLocalizedOnly(
-    getAllOrders,
+    ordersWithDistance,
     req.headers["lang"] || "en"
   );
 
-  // 5. Send the response with retrieved orders data
+  // 6. Send the response with retrieved orders data
   res.status(200).json({
     status: true,
     message: i18n.__("SuccessToGetAllOrders"),
