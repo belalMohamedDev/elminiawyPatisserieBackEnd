@@ -7,19 +7,28 @@ const redis = require("../../../config/redisConnection");
 
 function toJSONLocalizedOnly(orders, lang) {
   return orders.map((order) => {
-    order.user.name = order.user.name[lang] || order.user.name["en"];
-    order.cartItems.forEach((item) => {
-      item.product.title = item.product.title[lang] || item.product.title["en"];
-    });
-    order.shippingAddress.region =
-      order.shippingAddress.region[lang] || order.shippingAddress.region["en"];
+  
+
+    if (order.cartItems && Array.isArray(order.cartItems)) {
+      order.cartItems.forEach((item) => {
+        if (item.product && item.product.title) {
+          item.product.title =
+            item.product.title[lang] || item.product.title["en"];
+        }
+      });
+    }
+
+    if (order.shippingAddress && order.shippingAddress.region) {
+      order.shippingAddress.region =
+        order.shippingAddress.region[lang] ||
+        order.shippingAddress.region["en"];
+    }
+
     return order;
   });
 }
 
 async function getDistanceAndTime(driverLocation, orderLocation, lang) {
-
-
   try {
     const response = await axios.get(
       `https://maps.googleapis.com/maps/api/distancematrix/json?language=${lang}`,
