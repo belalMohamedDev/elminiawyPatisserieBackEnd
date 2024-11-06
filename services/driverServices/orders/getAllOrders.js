@@ -7,18 +7,28 @@ const redis = require("../../../config/redisConnection");
 
 function toJSONLocalizedOnly(orders, lang) {
   return orders.map((order) => {
-  
+    if (order.user && order.user.name && typeof order.user.name === "object") {
+      order.user.name = order.user.name[lang] || order.user.name["en"];
+    }
 
     if (order.cartItems && Array.isArray(order.cartItems)) {
       order.cartItems.forEach((item) => {
-        if (item.product && item.product.title) {
+        if (
+          item.product &&
+          item.product.title &&
+          typeof item.product.title === "object"
+        ) {
           item.product.title =
             item.product.title[lang] || item.product.title["en"];
         }
       });
     }
 
-    if (order.shippingAddress && order.shippingAddress.region) {
+    if (
+      order.shippingAddress &&
+      order.shippingAddress.region &&
+      typeof order.shippingAddress.region === "object"
+    ) {
       order.shippingAddress.region =
         order.shippingAddress.region[lang] ||
         order.shippingAddress.region["en"];
@@ -138,6 +148,6 @@ exports.getAllDriverOrders = asyncHandler(async (req, res) => {
   res.status(200).json({
     status: true,
     message: i18n.__("SuccessToGetAllOrders"),
-    data: localizedDocument,
+    data: ordersWithDistance,
   });
 });

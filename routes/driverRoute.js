@@ -54,7 +54,7 @@ router
 
 router.use(authServices.protect, authServices.allowedTo("delivery"));
 
-router.route("/getNewOrders").get(getAllDriverOrders);
+router.route("/getNewOrders").post(getAllDriverOrders);
 
 
 router.route("/:orderId/accept").put(acceptedOrderByDrivers);
