@@ -148,6 +148,6 @@ exports.getAllDriverOrders = asyncHandler(async (req, res) => {
   res.status(200).json({
     status: true,
     message: i18n.__("SuccessToGetAllOrders"),
-    data: ordersWithDistance,
+    data: localizedDocument,
   });
 });
