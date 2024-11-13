@@ -19,6 +19,11 @@ const {
   canceledOrderByDrivers
 } = require("../services/driverServices/orders/cancelOrder");
 
+const {
+
+  createFilterObject,
+  getAllDeliveredOrder,createFilterObjectAcceptedOrder
+} = require("../services/driverServices/orders/deliveredOrder");
 
 const {
   activeDriverAccount,
@@ -55,6 +60,12 @@ router
 router.use(authServices.protect, authServices.allowedTo("delivery"));
 
 router.route("/getNewOrders").post(getAllDriverOrders);
+
+router.route("/deliveredOrder").get(createFilterObject, getAllDeliveredOrder);
+
+router
+  .route("/acceptedDeliveredOrder")
+  .get(createFilterObjectAcceptedOrder, getAllDeliveredOrder);
 
 
 router.route("/:orderId/accept").put(acceptedOrderByDrivers);

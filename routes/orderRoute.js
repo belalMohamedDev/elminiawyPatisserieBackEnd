@@ -22,7 +22,8 @@ const {
 
 
 const {
-passingOrderDeliveredToReqBody
+passingOrderDeliveredToReqBody,
+
 } = require("../services/driverServices/orders/deliveredOrder");
 
 const {
@@ -51,7 +52,7 @@ router
 router
   .route("/:id/delivered")
   .put(
-    authServices.allowedTo("admin"),
+    authServices.allowedTo("delivery"),
     passingOrderDeliveredToReqBody,
     orderUpdate
   );
