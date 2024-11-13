@@ -24,15 +24,21 @@ exports.getAllDeliveredOrder = factory.getAllData(
 
 exports.createFilterObject = (req, res, next) => {
   let filterObject = {};
-   filterObject = { status: 4, driverId: req.userModel._id };
+  filterObject = { status: 4, driverId: req.userModel._id };
   req.filterObject = filterObject;
   next();
 };
 
-
 exports.createFilterObjectAcceptedOrder = (req, res, next) => {
   let filterObject = {};
   filterObject = { status: 3, driverId: req.userModel._id };
+  req.filterObject = filterObject;
+  next();
+};
+
+exports.createFilterObjectCancelledOrder = (req, res, next) => {
+  let filterObject = {};
+  filterObject = { canceledByDrivers: { $in: [req.userModel._id] } };
   req.filterObject = filterObject;
   next();
 };

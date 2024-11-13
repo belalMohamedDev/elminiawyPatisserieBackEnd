@@ -22,7 +22,7 @@ const {
 const {
 
   createFilterObject,
-  getAllDeliveredOrder,createFilterObjectAcceptedOrder
+  getAllDeliveredOrder,createFilterObjectAcceptedOrder,createFilterObjectCancelledOrder
 } = require("../services/driverServices/orders/deliveredOrder");
 
 const {
@@ -62,6 +62,10 @@ router.use(authServices.protect, authServices.allowedTo("delivery"));
 router.route("/getNewOrders").post(getAllDriverOrders);
 
 router.route("/deliveredOrder").get(createFilterObject, getAllDeliveredOrder);
+
+router
+  .route("/cancelledOrder")
+  .get(createFilterObjectCancelledOrder, getAllDeliveredOrder);
 
 router
   .route("/acceptedDeliveredOrder")
