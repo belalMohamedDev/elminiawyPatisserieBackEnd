@@ -32,6 +32,7 @@ const OrderSchema = mongoose.Schema(
     adminAcceptedAt: Date,
 
     adminCompletedAt: Date,
+    driverAcceptedAt: Date,
     canceledAt: Date,
 
     paitAt: Date,
