@@ -51,10 +51,15 @@ exports.acceptedOrderByDrivers = asyncHandler(async (req, res) => {
   const { orderId } = req.params;
   const driverId = req.userModel._id; // Access driver ID directly
 
+
+  // Update order: remove driverId from canceledByDrivers and update status
   const order = await orderModel.findOneAndUpdate(
-    { _id: orderId, status: 2 },
-    { status: 3, driverId, driverAcceptedAt: Date.now() },
-    { new: true }
+    { _id: orderId, status: 2 }, // Ensure order is in correct state
+    {
+      $pull: { canceledByDrivers: driverId },
+      $set: { status: 3, driverId, driverAcceptedAt: Date.now() },
+    },
+    { new: true } // Return the updated document
   );
 
   if (!order) {

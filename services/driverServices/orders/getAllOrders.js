@@ -55,8 +55,8 @@ async function getDistanceAndTime(driverLocation, orderLocation, lang) {
 
     if (data.rows[0].elements[0].status === "OK") {
       return {
-        distance: data.rows[0].elements[0].distance.text, // e.g., "5 km"
-        duration: data.rows[0].elements[0].duration.text, // e.g., "10 mins"
+        distance: data.rows[0].elements[0].distance.text, 
+        duration: data.rows[0].elements[0].duration.text, 
       };
     }
     return null;
