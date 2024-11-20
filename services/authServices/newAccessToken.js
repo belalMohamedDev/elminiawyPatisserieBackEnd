@@ -10,7 +10,17 @@ const creatToken = require("../../utils/generate token/createToken");
 // @ route Post  /api/vi/auth/token
 // @ access Public
 exports.newAccessToken = asyncHandler(async (req, res, next) => {
-  const { refreshToken } = req.body;
+  let refreshToken;
+
+
+  if (req.body.refreshToken) {
+    refreshToken = req.body.refreshToken; 
+  } else if (req.cookies && req.cookies.refreshToken) {
+    refreshToken = req.cookies.refreshToken; 
+  } else if (req.headers.authorization) {
+    refreshToken = req.headers.authorization.split(" ")[1]; 
+  }
+
   if (!refreshToken) {
     return next(new ApiError(i18n.__("refreshTokeRequired"), 400));
   }
@@ -22,7 +32,7 @@ exports.newAccessToken = asyncHandler(async (req, res, next) => {
 
   const user = await userModel.findById(decoded.userId);
 
-  verifySession(user,refreshToken);
+  verifySession(user, refreshToken);
 
   if (!user) {
     return next(new ApiError(i18n.__("invalidRefreshToken"), 400));
@@ -41,7 +51,7 @@ exports.newAccessToken = asyncHandler(async (req, res, next) => {
   });
 });
 
-const verifySession = async (user,refreshToken) => {
+const verifySession = async (user, refreshToken) => {
   const session = user.sessions.find(
     (session) => session.refreshToken === refreshToken
   );
@@ -51,5 +61,4 @@ const verifySession = async (user,refreshToken) => {
 
   session.lastUsedAt = new Date();
   await user.save();
-
 };
