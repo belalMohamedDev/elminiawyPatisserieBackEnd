@@ -61,7 +61,16 @@ exports.signUp = asyncHandler(async (req, res, next) => {
   }),
     document.save();
 
+  //cookies to web
+  const cookieOptions = {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "Strict",
+    maxAge: 7 * 24 * 60 * 60 * 1000,
+  };
 
+  res.cookie("accessToken", accessToken, cookieOptions);
+  res.cookie("refreshToken", refreshToken, cookieOptions);
 
   //send success response
   res.status(201).json({

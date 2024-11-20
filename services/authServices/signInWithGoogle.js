@@ -27,7 +27,7 @@ exports.signInWithGoogle = asyncHandler(async (req, res, next) => {
       name,
       phone,
       email,
-      role
+      role,
     });
     await user.save();
   }
@@ -52,7 +52,18 @@ exports.signInWithGoogle = asyncHandler(async (req, res, next) => {
     createdAt: new Date(),
     lastUsedAt: new Date(),
   }),
-   await user.save();
+    await user.save();
+
+  //cookies to web
+  const cookieOptions = {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "Strict",
+    maxAge: 7 * 24 * 60 * 60 * 1000,
+  };
+
+  res.cookie("accessToken", accessToken, cookieOptions);
+  res.cookie("refreshToken", refreshToken, cookieOptions);
 
   // Send success response
   res.status(201).json({

@@ -177,6 +177,17 @@ const resetPassword = asyncHandler(async (req, res, next) => {
   }),
     await document.save();
 
+  //cookies to web
+  const cookieOptions = {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "Strict",
+    maxAge: 7 * 24 * 60 * 60 * 1000,
+  };
+
+  res.cookie("accessToken", accessToken, cookieOptions);
+  res.cookie("refreshToken", refreshToken, cookieOptions);
+
   //send success response to client side
   res.status(201).json({
     status: true,

@@ -39,7 +39,8 @@ exports.logOut = asyncHandler(async (req, res, next) => {
   user.sessions.splice(sessionIndex, 1);
   await user.save();
 
-
+  res.clearCookie("accessToken");
+  res.clearCookie("refreshToken");
 
   res.status(200).json({
     status: true,

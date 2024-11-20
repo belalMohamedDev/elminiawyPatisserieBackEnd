@@ -22,8 +22,7 @@ exports.login = asyncHandler(async (req, res, next) => {
     return next(new ApiError(i18n.__("incorrectEmailOrPassword"), 400));
   }
 
-
-  if(document.active==false){
+  if (document.active == false) {
     return next(new ApiError(i18n.__("thisAccountNotActive"), 400));
   }
 
@@ -47,7 +46,16 @@ exports.login = asyncHandler(async (req, res, next) => {
   // Remove old sessions if needed
   await removeOldSessions(document);
 
+  //cookies to web
+  const cookieOptions = {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "Strict",
+    maxAge: 7 * 24 * 60 * 60 * 1000,
+  };
 
+  res.cookie("accessToken", accessToken, cookieOptions);
+  res.cookie("refreshToken", refreshToken, cookieOptions);
 
   //send success response to client side
   res.status(201).json({

@@ -15,6 +15,8 @@ exports.protect = asyncHandler(async (req, res, next) => {
     req.headers.authorization.startsWith("Bearer")
   ) {
     accessToken = req.headers.authorization.split(" ")[1];
+  } else if (req.cookies && req.cookies.accessToken) {
+    accessToken = req.cookies.accessToken;
   }
 
   if (!accessToken) {
@@ -90,6 +92,9 @@ exports.protectOrNoProtected = asyncHandler(async (req, res, next) => {
     req.headers.authorization.startsWith("Bearer")
   ) {
     accessToken = req.headers.authorization.split(" ")[1];
+  } else if (req.cookies && req.cookies.accessToken) {
+
+    accessToken = req.cookies.accessToken;
   }
 
   if (!accessToken) {

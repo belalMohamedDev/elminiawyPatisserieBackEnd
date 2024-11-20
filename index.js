@@ -19,6 +19,7 @@ const cloudinaryConfig = require("./config/cloudinaryConfig");
 const mountRoutes = require("./routes");
 const ApiError = require("./utils/apiError/apiError");
 const globalError = require("./middleware/errorMiddleware");
+const cookieParser = require("cookie-parser");
 
 //connect with db
 dbConnection();
@@ -47,6 +48,9 @@ admin.initializeApp({
 //express app
 const app = express();
 
+//cookies
+app.use(cookieParser());
+
 //i18n configure language
 i18n.configure({
   locales: ["en", "ar"],
@@ -70,9 +74,12 @@ app.use((req, res, next) => {
   next();
 });
 
-
 //Enable other domains to access your application
-app.use(cors());
+app.use(
+  cors({
+    credentials: true,
+  })
+);
 
 app.options("*", cors());
 
