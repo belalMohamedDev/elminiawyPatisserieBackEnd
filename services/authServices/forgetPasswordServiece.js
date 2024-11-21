@@ -178,17 +178,24 @@ const resetPassword = asyncHandler(async (req, res, next) => {
     await document.save();
 
   //cookies to we
+  const accessTokenMaxAge = parseTimeToMilliseconds(
+    process.env.JWT_EXPIER_ACCESS_TIME_TOKEN
+  );
+  const refreshTokenMaxAge = parseTimeToMilliseconds(
+    process.env.JWT_EXPIER_REFRESH_TIME_TOKEN
+  );
+
   res.cookie("accessToken", accessToken, {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
     sameSite: "Strict",
-    maxAge: process.env.JWT_EXPIER_ACCESS_TIME_TOKEN,
+    maxAge: accessTokenMaxAge,
   });
   res.cookie("refreshToken", refreshToken, {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
     sameSite: "Strict",
-    maxAge: process.env.JWT_EXPIER_REFRESH_TIME_TOKEN,
+    maxAge: refreshTokenMaxAge,
   });
 
   //send success response to client side
@@ -204,4 +211,19 @@ module.exports = {
   forgetPassword,
   verifyCode,
   resetPassword,
+};
+
+const parseTimeToMilliseconds = (time) => {
+  const unit = time.slice(-1); // m, d
+  const value = parseInt(time.slice(0, -1), 10);
+  switch (unit) {
+    case "m":
+      return value * 60 * 1000;
+    case "h":
+      return value * 60 * 60 * 1000;
+    case "d":
+      return value * 24 * 60 * 60 * 1000;
+    default:
+      throw new Error("Invalid time format");
+  }
 };
