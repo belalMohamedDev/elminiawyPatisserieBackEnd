@@ -177,16 +177,19 @@ const resetPassword = asyncHandler(async (req, res, next) => {
   }),
     await document.save();
 
-  //cookies to web
-  const cookieOptions = {
+  //cookies to we
+  res.cookie("accessToken", accessToken, {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
     sameSite: "Strict",
-    maxAge: 7 * 24 * 60 * 60 * 1000,
-  };
-
-  res.cookie("accessToken", accessToken, cookieOptions);
-  res.cookie("refreshToken", refreshToken, cookieOptions);
+    maxAge: process.env.JWT_EXPIER_ACCESS_TIME_TOKEN,
+  });
+  res.cookie("refreshToken", refreshToken, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "Strict",
+    maxAge: process.env.JWT_EXPIER_REFRESH_TIME_TOKEN,
+  });
 
   //send success response to client side
   res.status(201).json({

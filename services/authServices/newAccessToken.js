@@ -12,13 +12,12 @@ const creatToken = require("../../utils/generate token/createToken");
 exports.newAccessToken = asyncHandler(async (req, res, next) => {
   let refreshToken;
 
-
   if (req.body.refreshToken) {
-    refreshToken = req.body.refreshToken; 
+    refreshToken = req.body.refreshToken;
   } else if (req.cookies && req.cookies.refreshToken) {
-    refreshToken = req.cookies.refreshToken; 
+    refreshToken = req.cookies.refreshToken;
   } else if (req.headers.authorization) {
-    refreshToken = req.headers.authorization.split(" ")[1]; 
+    refreshToken = req.headers.authorization.split(" ")[1];
   }
 
   if (!refreshToken) {
@@ -43,6 +42,15 @@ exports.newAccessToken = asyncHandler(async (req, res, next) => {
     process.env.JWT_ACCESS_TOKEN_SECRET_KEY,
     process.env.JWT_EXPIER_ACCESS_TIME_TOKEN
   );
+
+  //cookies to we
+  res.cookie("accessToken", accessToken, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "Strict",
+    maxAge: process.env.JWT_EXPIER_ACCESS_TIME_TOKEN,
+  });
+
 
   res.status(201).json({
     status: true,
