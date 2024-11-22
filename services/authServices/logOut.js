@@ -11,15 +11,26 @@ const userModel = require("../../modules/userModel");
 // @ access Public
 
 exports.logOut = asyncHandler(async (req, res, next) => {
-  const { refreshToken } = req.body;
+  let refreshToken;
+  if (req.body.refreshToken) {
+    refreshToken = req.body.refreshToken;
+  } else if (req.cookies && req.cookies.refreshToken) {
+    refreshToken = req.cookies.refreshToken;
+  }
+
   if (!refreshToken) {
     return next(new ApiError(i18n.__("refreshTokenRequired"), 400));
   }
 
-  const decoded = jwt.verify(
-    refreshToken,
-    process.env.JWT_REFRESH_TOKEN_SECRET_KEY
-  );
+  let decoded;
+  try {
+    decoded = jwt.verify(
+      refreshToken,
+      process.env.JWT_REFRESH_TOKEN_SECRET_KEY
+    );
+  } catch (err) {
+    return next(new ApiError(i18n.__("invalidRefreshToken"), 400));
+  }
 
   const user = await userModel.findOne({ _id: decoded.userId });
 
@@ -27,7 +38,6 @@ exports.logOut = asyncHandler(async (req, res, next) => {
     return next(new ApiError(i18n.__("invalidRefreshToken"), 400));
   }
 
-  // Verify and remove session
   const sessionIndex = user.sessions.findIndex(
     (session) => session.refreshToken === refreshToken
   );
@@ -39,8 +49,8 @@ exports.logOut = asyncHandler(async (req, res, next) => {
   user.sessions.splice(sessionIndex, 1);
   await user.save();
 
-  res.clearCookie("accessToken");
-  res.clearCookie("refreshToken");
+  res.clearCookie("accessToken", { httpOnly: true, secure: true });
+  res.clearCookie("refreshToken", { httpOnly: true, secure: true });
 
   res.status(200).json({
     status: true,
