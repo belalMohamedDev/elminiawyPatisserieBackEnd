@@ -58,6 +58,19 @@ productSchema.plugin(mongooseI18n, {
   locales: ["en", "ar"],
 });
 
+
+productSchema.pre(/^find/, function (next) {
+  this.populate({
+    path: "category",
+    select: "title",
+  }).populate({
+    path: "subCategory",
+    select: "title",
+  });
+
+  next();
+});
+
 const productModel = mongoose.model("Product", productSchema);
 
 module.exports = productModel;
