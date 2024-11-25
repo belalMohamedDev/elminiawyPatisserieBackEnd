@@ -77,20 +77,20 @@ exports.createProductValidator = [
         phrase: "InvalidCategoryIdFormat",
         locale: req.headers["lang"] || "en",
       })
-    )
-    .custom(
-      asyncHandler(async (val, { req }) => {
-        const document = await categoryModel.findOne({ _id: val });
-        if (!document) {
-          throw new Error(
-            i18n.__({
-              phrase: "categoryIdNotFound",
-              locale: req.headers["lang"] || "en",
-            })
-          );
-        }
-      })
     ),
+  // .custom(
+  //   asyncHandler(async (val, { req }) => {
+  //     const document = await categoryModel.findOne({ _id: val });
+  //     if (!document) {
+  //       throw new Error(
+  //         i18n.__({
+  //           phrase: "categoryIdNotFound",
+  //           locale: req.headers["lang"] || "en",
+  //         })
+  //       );
+  //     }
+  //   })
+  // ),
 
   check("subCategory")
     .notEmpty()
@@ -119,14 +119,16 @@ exports.createProductValidator = [
           );
         }
 
-        if (document.category != req.body.category) {
-          throw new Error(
-            i18n.__({
-              phrase: "categoryIdNotMatching",
-              locale: req.headers["lang"] || "en",
-            })
-          );
-        }
+        req.body.category = document.category;
+
+        // if (document.category != req.body.category) {
+        //   throw new Error(
+        //     i18n.__({
+        //       phrase: "categoryIdNotMatching",
+        //       locale: req.headers["lang"] || "en",
+        //     })
+        //   );
+        // }
       })
     ),
 
