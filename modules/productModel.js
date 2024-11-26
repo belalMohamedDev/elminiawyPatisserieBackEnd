@@ -24,7 +24,7 @@ const productSchema = mongoose.Schema({
 
   ratingsAverage: {
     type: Number,
-    min: [1, "rating must be above or equal 1.0"],
+    min: [0, "rating must be above or equal 0.0"],
     max: [5, "rating must be below or equal 5.0"],
     default: 0.0,
   },
