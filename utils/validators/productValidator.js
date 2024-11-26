@@ -63,21 +63,21 @@ exports.createProductValidator = [
       })
     ),
 
-  check("category")
-    .notEmpty()
-    .withMessage((value, { req }) =>
-      i18n.__({
-        phrase: "catogryIdRequired",
-        locale: req.headers["lang"] || "en",
-      })
-    )
-    .isMongoId()
-    .withMessage((value, { req }) =>
-      i18n.__({
-        phrase: "InvalidCategoryIdFormat",
-        locale: req.headers["lang"] || "en",
-      })
-    ),
+  // check("category")
+  //   .notEmpty()
+  //   .withMessage((value, { req }) =>
+  //     i18n.__({
+  //       phrase: "catogryIdRequired",
+  //       locale: req.headers["lang"] || "en",
+  //     })
+  //   )
+  //   .isMongoId()
+  //   .withMessage((value, { req }) =>
+  //     i18n.__({
+  //       phrase: "InvalidCategoryIdFormat",
+  //       locale: req.headers["lang"] || "en",
+  //     })
+  //   ),
   // .custom(
   //   asyncHandler(async (val, { req }) => {
   //     const document = await categoryModel.findOne({ _id: val });
