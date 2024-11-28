@@ -12,6 +12,10 @@ const categorySchema = new mongoose.Schema(
       minlength: [3, "Too short category title"],
       maxlength: [300, "Too long category title"],
     },
+    active: {
+      type: Boolean,
+      default: true,
+    },
     image: String,
     publicId: String,
   },
