@@ -32,6 +32,16 @@ subCategorySchema.plugin(mongooseI18n, {
 });
 
 
+
+subCategorySchema.pre(/^find/, function (next) {
+  this.populate({
+    path: "category",
+    select: "title",
+  });
+
+  next();
+});
+
 const subCategoryModel = mongoose.model('subCategory', subCategorySchema)
 
 module.exports = subCategoryModel
