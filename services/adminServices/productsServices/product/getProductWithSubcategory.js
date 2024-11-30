@@ -4,7 +4,7 @@ const i18n = require("i18n");
 const redis = require("../../../../config/redisConnection");
 
 const productModel = require("../../../../modules/productModel");
-const userModel = require("../../../../modules/userModel");
+
 const SubCategory = require("../../../../modules/subCategoryModel");
 
 ///////////////////////////////////////////////
@@ -98,7 +98,7 @@ exports.getAllProductsBelongsTosubCategory = asyncHandler(
         id: subCategory._id,
         title: subCategory.title,
         products: productsWithWishlistStatus.filter((product) =>
-          product.subCategory.equals(subCategory._id)
+          product.subCategory._id.equals(subCategory._id)
         ),
       };
     });
