@@ -12,6 +12,10 @@ const subCategorySchema = new mongoose.Schema(
       minlength: [3, "Too short subCategory title"],
       maxlength: [32, "Too long subCategory title"],
     },
+     active: {
+      type: Boolean,
+      default: true,
+    },
 
     category: {
       type: mongoose.Schema.ObjectId,
