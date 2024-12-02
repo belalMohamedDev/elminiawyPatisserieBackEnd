@@ -1,6 +1,5 @@
-const mongoose = require('mongoose')
+const mongoose = require("mongoose");
 var mongooseI18n = require("mongoose-i18n-localize");
-
 
 const subCategorySchema = new mongoose.Schema(
   {
@@ -12,7 +11,7 @@ const subCategorySchema = new mongoose.Schema(
       minlength: [3, "Too short subCategory title"],
       maxlength: [32, "Too long subCategory title"],
     },
-     active: {
+    active: {
       type: Boolean,
       default: true,
     },
@@ -26,16 +25,9 @@ const subCategorySchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-
-
-
-
-
 subCategorySchema.plugin(mongooseI18n, {
   locales: ["en", "ar"],
 });
-
-
 
 subCategorySchema.pre(/^find/, function (next) {
   this.populate({
@@ -46,6 +38,17 @@ subCategorySchema.pre(/^find/, function (next) {
   next();
 });
 
-const subCategoryModel = mongoose.model('subCategory', subCategorySchema)
+subCategorySchema.post("save", async function (doc, next) {
+  await doc
+    .populate({
+      path: "category",
+      select: "title",
+    })
+    .execPopulate();
 
-module.exports = subCategoryModel
+  next();
+});
+
+const subCategoryModel = mongoose.model("subCategory", subCategorySchema);
+
+module.exports = subCategoryModel;
