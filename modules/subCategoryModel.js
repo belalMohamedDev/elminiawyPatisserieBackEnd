@@ -45,7 +45,7 @@ subCategorySchema.post("save", async function (doc, next) {
       path: "category",
       select: "title",
     })
-    .populate(); 
+    ; 
 
   next();
 });
