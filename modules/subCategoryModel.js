@@ -39,15 +39,17 @@ subCategorySchema.pre(/^find/, function (next) {
 });
 
 subCategorySchema.post("save", async function (doc, next) {
+  
   await doc
     .populate({
       path: "category",
       select: "title",
     })
-    .execPopulate();
+    .populate(); 
 
   next();
 });
+
 
 const subCategoryModel = mongoose.model("subCategory", subCategorySchema);
 
