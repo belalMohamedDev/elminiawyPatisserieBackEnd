@@ -10,13 +10,7 @@ const BannerSchema = new mongoose.Schema(
       type: String,
       required: [true, "Banner publicId is required"],
     },
-    title: {
-      type: String,
-      required: [true, "Banner title is required"],
-      trim: true,
-      minlength: [3, "Banner title is too short"],
-      maxlength: [100, "Banner title is too long"],
-    },
+
     startDate: {
       type: Date,
       required: [true, "Banner start date is required"],
@@ -25,27 +19,8 @@ const BannerSchema = new mongoose.Schema(
       type: Date,
       required: [true, "Banner end date is required"],
     },
-    status: {
-      type: String,
-      enum: ["Active", "Inactive"],
-      default: "Active",
-    },
-    category: {
-      type: mongoose.Schema.ObjectId,
-      ref: "Category",
-      default: null,
-    },
-    product: [
-      {
-        type: mongoose.Schema.ObjectId,
-        ref: "Product",
-        default: null,
-      },
-    ],
-    discount: {
-      type: Number,
-     
-    },
+
+ 
   },
   { timestamps: true }
 );
