@@ -25,10 +25,14 @@ const cacheData = async (cacheKey, data) => {
 
 // Helper function to get product data
 const getProductData = async (query) => {
-  const apiFeatures = new ApiFeatures(productModel.find(), query)
+  const apiFeatures = new ApiFeatures(
+    productModel.find(),
+    query
+  )
+    .dataLimit()
+    .filter()
     .sort()
     .search("product")
-    .filter()
     .limitfields();
 
   const { mongooseQuery } = apiFeatures;
@@ -61,14 +65,10 @@ const addWishlistStatus = (products, wishlist) => {
   });
 };
 
-
-
 // Main handler function
 exports.getAllNewProduct = asyncHandler(async (req, res) => {
   const lang = req.headers["lang"] || "en";
-  const cacheKey = `${req.userModel ? true : false}-${JSON.stringify(lang)}-${req.query.limit}-${req.query.keyword}-${req.query.price}-`;
-
-
+  const cacheKey = `${req.userModel ? true : false}-${JSON.stringify(lang)}-${req.query.limit}-${req.query.keyword}-${req.query.price}-${req.query.active}-/`;
 
   // Parallel operations: get user wishlist, check Redis cache, and get product data
   const [userWishList, cachedData] = await Promise.all([
@@ -82,7 +82,6 @@ exports.getAllNewProduct = asyncHandler(async (req, res) => {
   if (Object.keys(req.query).length === 0 && cachedData) {
     // If cached data exists, use it
     localizedProducts = JSON.parse(cachedData);
-    
   } else {
     // If query exists or cache is empty, fetch new data
     const { products } = await getProductData(req.query);

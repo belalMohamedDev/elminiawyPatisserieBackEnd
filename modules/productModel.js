@@ -7,12 +7,6 @@ const productSchema = mongoose.Schema({
   description: { type: String, required: true, i18n: true },
   price: { type: Number, required: true },
 
-  category: {
-    type: mongoose.Schema.ObjectId,
-    ref: "Category",
-    required: [true, "Category id Required"],
-  },
-
   subCategory: {
     type: mongoose.Schema.ObjectId,
     ref: "subCategory",
@@ -21,6 +15,11 @@ const productSchema = mongoose.Schema({
 
   image: { type: String },
   publicId: { type: String },
+
+  active: {
+    type: Boolean,
+    default: true,
+  },
 
   ratingsAverage: {
     type: Number,
@@ -58,12 +57,8 @@ productSchema.plugin(mongooseI18n, {
   locales: ["en", "ar"],
 });
 
-
 productSchema.pre(/^find/, function (next) {
   this.populate({
-    path: "category",
-    select: "title",
-  }).populate({
     path: "subCategory",
     select: "title",
   });

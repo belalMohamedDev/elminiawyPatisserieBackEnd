@@ -15,6 +15,10 @@ class ApiFeatures {
       queryObj.price = { $gte: priceRange[0], $lte: priceRange[1] };
     }
 
+    if (this.queryString.active !== undefined) {
+      queryObj.active = this.queryString.active === "true" ? true : false;
+    }
+
     // Apply filtration using [gte, gt, lte, lt]
     // No need to stringify and replace. You can directly use the query object
     const queryStr = queryObj;
@@ -33,6 +37,14 @@ class ApiFeatures {
       // Default sort by created date
       this.mongooseQuery = this.mongooseQuery.sort("-createdAt");
     }
+    return this;
+  }
+
+  dataLimit() {
+    const limit = this.queryString.limit * 1 || null;
+
+    this.mongooseQuery = this.mongooseQuery.limit(limit);
+
     return this;
   }
 
