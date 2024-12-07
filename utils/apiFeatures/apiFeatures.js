@@ -19,6 +19,13 @@ class ApiFeatures {
       queryObj.active = this.queryString.active === "true" ? true : false;
     }
 
+    // Apply date range filtering
+
+    if (this.queryString.endDate === "true") {
+      const now = new Date();
+      queryObj.endDate = { $gte: now };
+    }
+
     // Apply filtration using [gte, gt, lte, lt]
     // No need to stringify and replace. You can directly use the query object
     const queryStr = queryObj;
