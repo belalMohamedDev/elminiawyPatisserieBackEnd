@@ -69,7 +69,7 @@ exports.getAllProductsBelongsTosubCategory = asyncHandler(
     const langHeaders = req.headers["lang"] || "en";
 
     // Check Redis cache first
-    const cacheKey = `${categoryId}-${JSON.stringify(req.headers["lang"] || "en")}`;
+    const cacheKey = `${categoryId}-${JSON.stringify(req.headers["lang"] || "en")}55`;
 
     const cachedData = await redis.get(cacheKey);
     if (cachedData) {
@@ -98,17 +98,7 @@ exports.getAllProductsBelongsTosubCategory = asyncHandler(
     );
 
     // Map products to their respective subcategories
-    // const productsBySubCategory = subCategories.map((subCategory) => {
-    //   return {
-    //     id: subCategory._id,
-    //     title: subCategory.title,
-    //     products: productsWithWishlistStatus.filter((product) =>
-    //       product.subCategory._id.equals(subCategory._id)
-    //     ),
-    //   };
-    // });
 
-    // Map products to their respective subcategories
     const productsBySubCategory = subCategories
       .map((subCategory) => {
         const subCategoryProducts = productsWithWishlistStatus.filter(
@@ -121,7 +111,7 @@ exports.getAllProductsBelongsTosubCategory = asyncHandler(
           products: subCategoryProducts,
         };
       })
-      .filter((subCategory) => subCategory.products.length > 0); 
+      .filter((subCategory) => subCategory.products.length > 0); // تجاهل subcategories بدون منتجات
 
     // Cache the response for one day (86400 seconds)
     const response = {
