@@ -34,6 +34,7 @@ async function getProductsBySubCategory(subCategoryIds, langHeaders) {
   const products = await productModel
     .find({
       subCategory: { $in: subCategoryIds },
+      active: true,
     })
     .exec();
 
@@ -48,6 +49,7 @@ async function getProductsBySubCategory(subCategoryIds, langHeaders) {
 async function getSubCategoriesByCategory(categoryId, langHeaders) {
   const subCategories = await SubCategory.find({
     category: categoryId,
+    active: true,
   }).exec();
 
   var localizedSubCategory = SubCategory.schema.methods.toJSONLocalizedOnly(
@@ -77,14 +79,17 @@ exports.getAllProductsBelongsTosubCategory = asyncHandler(
     // Get user wishlist and subcategories in parallel
     const [userWishList, subCategories] = await Promise.all([
       getUserWishlist(req.userModel),
-      getSubCategoriesByCategory(categoryId, langHeaders)
+      getSubCategoriesByCategory(categoryId, langHeaders),
     ]);
 
     // Collect all subcategory IDs
     const subCategoryIds = subCategories.map((subCategory) => subCategory._id);
 
     // Get all products for these subcategories
-    const products = await getProductsBySubCategory(subCategoryIds, langHeaders);
+    const products = await getProductsBySubCategory(
+      subCategoryIds,
+      langHeaders
+    );
 
     // Add wishlist status
     const productsWithWishlistStatus = addWishlistStatus(
@@ -93,15 +98,30 @@ exports.getAllProductsBelongsTosubCategory = asyncHandler(
     );
 
     // Map products to their respective subcategories
-    const productsBySubCategory = subCategories.map((subCategory) => {
-      return {
-        id: subCategory._id,
-        title: subCategory.title,
-        products: productsWithWishlistStatus.filter((product) =>
-          product.subCategory._id.equals(subCategory._id)
-        ),
-      };
-    });
+    // const productsBySubCategory = subCategories.map((subCategory) => {
+    //   return {
+    //     id: subCategory._id,
+    //     title: subCategory.title,
+    //     products: productsWithWishlistStatus.filter((product) =>
+    //       product.subCategory._id.equals(subCategory._id)
+    //     ),
+    //   };
+    // });
+
+    // Map products to their respective subcategories
+    const productsBySubCategory = subCategories
+      .map((subCategory) => {
+        const subCategoryProducts = productsWithWishlistStatus.filter(
+          (product) => product.subCategory._id.equals(subCategory._id)
+        );
+
+        return {
+          id: subCategory._id,
+          title: subCategory.title,
+          products: subCategoryProducts,
+        };
+      })
+      .filter((subCategory) => subCategory.products.length > 0); 
 
     // Cache the response for one day (86400 seconds)
     const response = {
