@@ -111,7 +111,7 @@ exports.getAllProductsBelongsTosubCategory = asyncHandler(
           products: subCategoryProducts,
         };
       })
-      .filter((subCategory) => subCategory.products.length > 0); // تجاهل subcategories بدون منتجات
+      .filter((subCategory) => subCategory.products.length > 0); 
 
     // Cache the response for one day (86400 seconds)
     const response = {

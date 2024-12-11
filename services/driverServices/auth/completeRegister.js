@@ -36,6 +36,8 @@ exports.completeDriverSignUp = asyncHandler(async (req, res, next) => {
 
   req.userModel.completeData = true;
 
+  req.userModel.deliveryActive = false;
+
   req.userModel.driverRegion = req.body.region;
 
   req.userModel.sessions.splice(0, 1);

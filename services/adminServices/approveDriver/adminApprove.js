@@ -8,12 +8,13 @@ const { sanitizeUser } = require("../../../utils/apiFeatures/sanitizeData");
 // @access Private to admin
 exports.getAllNotActiveUserDriver = asyncHandler(async (req, res) => {
   const document = await userModel.find({
+    role: "delivery",
     deliveryActive: false,
     completeData: true,
   });
 
   //send success response
-  res.status(201).json({
+  res.status(200).json({
     status: true,
     message: i18n.__("SuccessToGetAllDataFor") + i18n.__("driver"),
     data: sanitizeUser(document),
@@ -46,10 +47,8 @@ exports.activeDriverAccount = asyncHandler(async (req, res) => {
     );
   }
 
-
-
   //send success response
-  res.status(201).json({
+  res.status(200).json({
     status: true,
     message: i18n.__("SucessToUpdateDataFromThisId"),
     data: sanitizeUser(document),
