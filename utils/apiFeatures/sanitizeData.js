@@ -9,7 +9,7 @@ exports.sanitizeUser = function (user, refreshToken) {
       image: u.image,
       refreshToken: refreshToken,
       role: u.role,
-      deliveryActive: u.driverActive,
+      driverActive: u.driverActive,
       completeData: u.completeData,
       storeAddress: u.storeAddress,
     }));
@@ -24,7 +24,7 @@ exports.sanitizeUser = function (user, refreshToken) {
     image: user.image,
     refreshToken: refreshToken,
     role: user.role,
-    deliveryActive: user.driverActive,
+    driverActive: user.driverActive,
     completeData: user.completeData,
     storeAddress: user.storeAddress,
   };

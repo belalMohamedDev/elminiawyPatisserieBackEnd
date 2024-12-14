@@ -9,7 +9,7 @@ const { sanitizeUser } = require("../../../utils/apiFeatures/sanitizeData");
 exports.getAllNotActiveUserDriver = asyncHandler(async (req, res) => {
   const document = await userModel.find({
     role: "delivery",
-    deliveryActive: false,
+    driverActive: false,
     completeData: true,
   });
 
@@ -20,6 +20,8 @@ exports.getAllNotActiveUserDriver = asyncHandler(async (req, res) => {
     data: sanitizeUser(document),
   });
 });
+
+
 
 // @ dec  active user driver
 // @ route Get  /api/vi/driver/:id/active
