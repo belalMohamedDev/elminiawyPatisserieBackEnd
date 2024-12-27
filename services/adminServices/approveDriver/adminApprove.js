@@ -21,7 +21,23 @@ exports.getAllNotActiveUserDriver = asyncHandler(async (req, res) => {
   });
 });
 
+// @desc Get all active user drivers
+// @route GET /api/v1/driver/allDriverActive
+// @access Private to admin
+exports.getAllActiveUserDriver = asyncHandler(async (req, res) => {
+  const document = await userModel.find({
+    role: "delivery",
+    driverActive: true,
+    completeData: true,
+  });
 
+  //send success response
+  res.status(200).json({
+    status: true,
+    message: i18n.__("SuccessToGetAllDataFor") + i18n.__("driver"),
+    data: sanitizeUser(document),
+  });
+});
 
 // @ dec  active user driver
 // @ route Get  /api/vi/driver/:id/active
