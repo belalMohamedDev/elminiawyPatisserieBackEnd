@@ -12,6 +12,7 @@ exports.sanitizeUser = function (user, refreshToken) {
       driverActive: u.driverActive,
       completeData: u.completeData,
       storeAddress: u.storeAddress,
+      active: u.active,
     }));
   }
 
@@ -27,5 +28,6 @@ exports.sanitizeUser = function (user, refreshToken) {
     driverActive: user.driverActive,
     completeData: user.completeData,
     storeAddress: user.storeAddress,
+    active: user.active,
   };
 };

@@ -13,6 +13,7 @@ const cartRoute = require("./cartRoute");
 const orderRoute = require("./orderRoute");
 const notificationRoute = require("./notificationRoute");
 const driverRoute = require("./driverRoute");
+const usersAdminRoute = require("./usersAdminRoute");
 
 const mountRoute = (app) => {
   app.use("/v1/api/categories", categoryRoute);
@@ -30,6 +31,7 @@ const mountRoute = (app) => {
   app.use("/v1/api/order", orderRoute);
   app.use("/v1/api/notification", notificationRoute);
   app.use("/v1/api/driver", driverRoute);
+  app.use("/v1/api/admin", usersAdminRoute);
 };
 
 module.exports = mountRoute;
